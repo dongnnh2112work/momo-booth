@@ -1,0 +1,6 @@
+node_modules
+.next
+.toolchain
+data/live-state.json
+data/live-state.json.tmp
+.env.local
