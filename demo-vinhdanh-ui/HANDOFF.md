@@ -57,13 +57,87 @@ Committed here
 - `public/portraits/placeholder.png` (generated silhouette, not a real person)
 - `data/mock.csv` and `public/data/mock.csv` (fake names only)
 
-**Not committed** (MoMo client brand rasters / SVGs, or private). Copy from the box when running a visual demo:
+**Not committed — full local paths of everything intentionally left out of git**
 
-- Background: `/workspace/momo-vinhdanh-demo/public/bg/bg_momo_vinhdanh_1080x1920.png` (source `/workspace/momo/bi-ti/bg_momo_vinhdanh_1080x1920.png`) → `public/bg/`
-- Card chrome: `/workspace/momo-vinhdanh-demo/public/figma/` — `tag-frame@2x.png`, `tag-frame.svg`, `SecurityBand.svg`, `M16 Me.We.Impact.svg`, `icon-star@2x.png`, `icon-star.svg`, `Group 255.png`, `Bục 5.png`, `Bục 5@2x.png`, `Cube 1 3.png`, `Cube 4 3.png`, `Cube 7 3.png`, `Rectangle 240.png`
-- Icons: `/workspace/momo-vinhdanh-demo/public/icons/icon-calendar-96.png`, `icon-calendar-96@2x.png` (source `/workspace/momo/bi-ti/`)
-- Layout refs only (do not ship; contain a real face): `/workspace/momo/preview_bigcard_a.png`, `preview_bigcard_b.png`, `the-mau.png`, `/workspace/momo/figma-export/Frame 144.png`, `15 1.png`, `Group 256.png`
-- Real cut-out, local only, never commit or deploy: `/workspace/momo-vinhdanh-demo/_inputs/private-portrait/A Công 1.png`
+Copy brand files from the `public/` copies (or the sources) onto a machine running the demo. Do not commit them unless anh explicitly allows it. Never commit or deploy the real cut-out.
+
+Real portrait (local only):
+
+- `/workspace/momo-vinhdanh-demo/_inputs/private-portrait/A Công 1.png`
+- `/workspace/momo-vinhdanh-demo/_inputs/private-portrait/A Cong 1.png` (same file, ASCII name)
+- `/workspace/momo/figma-export/A Công 1.png`
+
+Layout / preview refs (some include a real face; do not ship):
+
+- `/workspace/momo/the-mau.png`
+- `/workspace/momo/preview_bigcard_a.png`
+- `/workspace/momo/preview_bigcard_b.png`
+- `/workspace/momo/bi-ti/preview_card_on_bg.png`
+- `/workspace/momo-vinhdanh-demo/_inputs/refs/the-mau.png`
+- `/workspace/momo-vinhdanh-demo/_inputs/refs/preview_bigcard_a.png`
+- `/workspace/momo-vinhdanh-demo/_inputs/refs/preview_bigcard_b.png`
+- `/workspace/momo-vinhdanh-demo/_inputs/refs/preview_card_on_bg.png`
+
+Entire Figma export folder `/workspace/momo/figma-export/`:
+
+- `/workspace/momo/figma-export/15 1.png`
+- `/workspace/momo/figma-export/15 1@2x.png`
+- `/workspace/momo/figma-export/A Công 1.png`
+- `/workspace/momo/figma-export/Bục 5.png`
+- `/workspace/momo/figma-export/Bục 5@2x.png`
+- `/workspace/momo/figma-export/Cube 1 3.png`
+- `/workspace/momo/figma-export/Cube 4 3.png`
+- `/workspace/momo/figma-export/Cube 7 3.png`
+- `/workspace/momo/figma-export/Frame 144.png`
+- `/workspace/momo/figma-export/Group 255.png`
+- `/workspace/momo/figma-export/Group 256.png`
+- `/workspace/momo/figma-export/M16 Me.We.Impact.svg`
+- `/workspace/momo/figma-export/Rectangle 239.png`
+- `/workspace/momo/figma-export/Rectangle 240.png`
+- `/workspace/momo/figma-export/SecurityBand.svg`
+- `/workspace/momo/figma-export/icon-star.svg`
+- `/workspace/momo/figma-export/icon-star@2x.png`
+- `/workspace/momo/figma-export/tag-frame.svg`
+- `/workspace/momo/figma-export/tag-frame@2x.png`
+
+Entire Bi Ti / background folder `/workspace/momo/bi-ti/`:
+
+- `/workspace/momo/bi-ti/bg_momo_vinhdanh_1080x1920.png`
+- `/workspace/momo/bi-ti/icon-calendar-96.png`
+- `/workspace/momo/bi-ti/icon-calendar-96@2x.png`
+- `/workspace/momo/bi-ti/preview_card_on_bg.png`
+- `/workspace/momo/bi-ti/raw/bg_momo.png`
+- `/workspace/momo/bi-ti/raw/icon_calendar_1000.png`
+- `/workspace/momo/bi-ti/raw/star_1000.png`
+
+Brand rasters / SVGs copied into the demo `public/` on the box but excluded from this branch (copy these into `public/` to run a visual demo):
+
+- `/workspace/momo-vinhdanh-demo/public/bg/bg_momo_vinhdanh_1080x1920.png`
+- `/workspace/momo-vinhdanh-demo/public/figma/Bục 5.png`
+- `/workspace/momo-vinhdanh-demo/public/figma/Bục 5@2x.png`
+- `/workspace/momo-vinhdanh-demo/public/figma/Cube 1 3.png`
+- `/workspace/momo-vinhdanh-demo/public/figma/Cube 4 3.png`
+- `/workspace/momo-vinhdanh-demo/public/figma/Cube 7 3.png`
+- `/workspace/momo-vinhdanh-demo/public/figma/Group 255.png`
+- `/workspace/momo-vinhdanh-demo/public/figma/M16 Me.We.Impact.svg`
+- `/workspace/momo-vinhdanh-demo/public/figma/Rectangle 240.png`
+- `/workspace/momo-vinhdanh-demo/public/figma/SecurityBand.svg`
+- `/workspace/momo-vinhdanh-demo/public/figma/icon-star.svg`
+- `/workspace/momo-vinhdanh-demo/public/figma/icon-star@2x.png`
+- `/workspace/momo-vinhdanh-demo/public/figma/tag-frame.svg`
+- `/workspace/momo-vinhdanh-demo/public/figma/tag-frame@2x.png`
+- `/workspace/momo-vinhdanh-demo/public/icons/icon-calendar-96.png`
+- `/workspace/momo-vinhdanh-demo/public/icons/icon-calendar-96@2x.png`
+
+Other local-only demo files (not source of the git folder):
+
+- `/workspace/momo-vinhdanh-demo/_briefs/` (Cursor prompts)
+- `/workspace/momo-vinhdanh-demo/_inputs/fonts/`, `_inputs/licenses/` (already committed under `public/fonts` and `public/licenses`)
+- `/workspace/momo-vinhdanh-demo/artifacts/s2-person-card.png`
+- `/workspace/momo-vinhdanh-demo/artifacts/s3-idle-tube.png`
+- `/workspace/momo-vinhdanh-demo/artifacts/s3-idle-tube-too-close.png`
+- `/workspace/momo-vinhdanh-demo/artifacts/s5-lite.png`
+- `/workspace/momo-vinhdanh-demo/node_modules/`, `dist/`, any `.env` (none should exist)
 
 ## Next steps (for the cloud / TECH-LEAD agent on this branch)
 
