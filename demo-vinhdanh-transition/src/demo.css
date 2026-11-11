@@ -1,0 +1,111 @@
+* { box-sizing: border-box; }
+
+html, body, #root {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  background: #2a0616;
+  color: white;
+  font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+}
+
+.viewport {
+  height: 100%;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  padding: 12px 12px 124px;
+  background: #2a0616;
+}
+
+.fit {
+  position: relative;
+}
+
+.stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 42%, #ffd0e6 0%, #ff5aa6 28%, #ff2f8c 62%, #c20d68 100%);
+}
+
+.holo-fit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1080px;
+  height: 1920px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.webgl {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.webgl > div {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.hud {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  z-index: 30;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  width: min(920px, calc(100vw - 24px));
+  transform: translateX(-50%);
+  padding: 8px;
+  border-radius: 18px;
+  background: rgba(32, 4, 18, 0.82);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+}
+
+.hud p {
+  flex: 1 1 100%;
+  margin: 0;
+  text-align: center;
+  font-size: 13px;
+  letter-spacing: 0.01em;
+}
+
+.hud button {
+  border: 0;
+  border-radius: 999px;
+  background: white;
+  color: #4c1232;
+  font: inherit;
+  font-weight: 700;
+  min-height: 40px;
+  padding: 0 14px;
+  cursor: pointer;
+}
+
+.hud button:focus-visible {
+  outline: 3px solid #ffe08a;
+  outline-offset: 2px;
+}
+
+.hud button[aria-pressed="true"] {
+  background: #ffe08a;
+}
+
+.phase {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  font-weight: 700;
+}
