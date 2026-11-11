@@ -1,0 +1,21 @@
+code,booth_id,name,department,join_year,years,tag,stat1_value,stat1_label,stat2_value,stat2_label,stat3_value,stat3_label
+M001,3-5,Nguyễn Minh Khoa,Công nghệ,2011,15,Huyền thoại lão làng,15,cột mốc cùng MoMo,820+,đồng nghiệp,2400+,MoMoers
+M002,5-10,Trần Thị Mai Lan,Sản phẩm,2012,14,Huyền thoại lão làng,14,cột mốc cùng MoMo,760+,đồng nghiệp,2100+,MoMoers
+M003,3-5,Phạm Quốc Bảo,Vận hành,2013,13,Huyền thoại lão làng,13,cột mốc cùng MoMo,540+,đồng nghiệp,1800+,MoMoers
+M004,5-10,Hoàng Ngọc Ánh,Thiết kế,2014,12,Huyền thoại lão làng,12,cột mốc cùng MoMo,610+,đồng nghiệp,1650+,MoMoers
+M005,3-5,Võ Thanh Tùng,Kinh doanh,2015,11,Huyền thoại lão làng,11,cột mốc cùng MoMo,480+,đồng nghiệp,1500+,MoMoers
+M006,5-10,Đặng Thu Hà,Nhân sự,2016,10,Huyền thoại lão làng,10,cột mốc cùng MoMo,430+,đồng nghiệp,1400+,MoMoers
+M007,3-5,Bùi Đức Huy,Dữ liệu,2011,15,Người giữ lửa,36,buổi chia sẻ,900+,đồng nghiệp,2600+,MoMoers
+M008,5-10,Lý Phương Thảo,Marketing,2012,14,Huyền thoại lão làng,14,cột mốc cùng MoMo,700+,đồng nghiệp,2000+,MoMoers
+M009,3-5,Ngô Nhật Nam,Tài chính,2013,13,Huyền thoại lão làng,13,cột mốc cùng MoMo,580+,đồng nghiệp,1750+,MoMoers
+M010,5-10,Đỗ Gia Hân,Chăm sóc khách hàng,2014,12,Huyền thoại lão làng,12,cột mốc cùng MoMo,660+,đồng nghiệp,1900+,MoMoers
+M011,3-5,Phan Anh Tuấn,An ninh thông tin,2015,11,Huyền thoại lão làng,11,cột mốc cùng MoMo,510+,đồng nghiệp,1550+,MoMoers
+M012,5-10,Mai Khánh Vy,Pháp chế,2016,10,Huyền thoại lão làng,10,cột mốc cùng MoMo,390+,đồng nghiệp,1300+,MoMoers
+M013,5-10,Huỳnh Đức Long,Công nghệ,2012,14,Dấu ấn thập kỷ,22,dự án dẫn dắt,840+,đồng nghiệp,2300+,MoMoers
+M014,3-5,Trịnh Bảo Ngọc,Sản phẩm,2013,13,Huyền thoại lão làng,13,cột mốc cùng MoMo,620+,đồng nghiệp,1700+,MoMoers
+M015,5-10,Cao Minh Đức,Vận hành,2011,15,Huyền thoại lão làng,15,cột mốc cùng MoMo,880+,đồng nghiệp,2500+,MoMoers
+M016,3-5,Dương Thanh Trúc,Thiết kế,2014,12,Huyền thoại lão làng,12,cột mốc cùng MoMo,570+,đồng nghiệp,1600+,MoMoers
+M017,5-10,Lâm Gia Bảo,Kinh doanh,2015,11,Huyền thoại lão làng,11,cột mốc cùng MoMo,460+,đồng nghiệp,1450+,MoMoers
+M018,3-5,Tô Quỳnh Chi,Nhân sự,2016,10,Huyền thoại lão làng,18,mentee đồng hành,410+,đồng nghiệp,1350+,MoMoers
+M019,5-10,Châu Hoàng Phúc,Dữ liệu,2013,13,Cột mốc tiên phong,13,cột mốc cùng MoMo,730+,đồng nghiệp,2050+,MoMoers
+M020,3-5,Khuất Mỹ Duyên,Marketing,2012,14,Huyền thoại lão làng,14,cột mốc cùng MoMo,690+,đồng nghiệp,1950+,MoMoers

@@ -1,0 +1,91 @@
+@font-face {
+  font-family: "Be Vietnam Pro";
+  src: url("/fonts/BeVietnamPro-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Be Vietnam Pro";
+  src: url("/fonts/BeVietnamPro-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Be Vietnam Pro";
+  src: url("/fonts/BeVietnamPro-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Paytone One";
+  src: url("/fonts/PaytoneOne-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Baloo 2";
+  src: url("/fonts/Baloo2[wght].ttf") format("truetype");
+  font-weight: 400 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #1a0810;
+}
+
+body {
+  font-family: "Be Vietnam Pro", "Noto Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+:root {
+  --pink: #f95396;
+  --footer: #d9d9d9;
+  --stage-w: 1080px;
+  --stage-h: 1920px;
+}
+
+.stage-wrap {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.stage {
+  width: 1080px;
+  height: 1920px;
+  position: relative;
+  overflow: hidden;
+  transform-origin: center center;
+  transform: translate(-0%) scale(min(100vw / 1080px, 100vh / 1920px));
+}
+
+.stage__bg {
+  position: absolute;
+  inset: 0;
+  background: url("/bg/bg_momo_vinhdanh_1080x1920.png") center / cover no-repeat;
+  pointer-events: none;
+  z-index: 0;
+}
