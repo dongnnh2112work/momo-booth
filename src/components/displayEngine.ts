@@ -1,3 +1,5 @@
+import { MOSAIC_PRELOAD_LIMIT } from "@/lib/timing";
+
 const COLS = 8;
 const ROWS = 12;
 const ENTER_MS = 1800;
@@ -320,9 +322,15 @@ export function createDisplayEngine(
 
   return {
     setRoster(photos: string[]) {
-      void Promise.all(photos.filter(Boolean).map((url) => load(url).catch(() => null))).then((images) => {
+      const limited = photos.filter(Boolean).slice(0, MOSAIC_PRELOAD_LIMIT);
+      void Promise.all(limited.map((url) => load(url).catch(() => null))).then((images) => {
         rosterImages = images.filter((image): image is HTMLImageElement => image !== null);
       });
+    },
+    preload(urls: string[]) {
+      for (const url of urls) {
+        if (url) void load(url).catch(() => null);
+      }
     },
     setSpotlight(code: string | null, photo: string | null) {
       if (!code || !photo) {

@@ -11,7 +11,7 @@ import {
   sweep,
 } from "./session";
 import { MAX_HOLD_MS, MIN_HOLD_MS } from "./timing";
-import type { BoothId } from "./booths";
+import type { BoothId } from "./booths-shared";
 import type { Employee } from "./types";
 
 const CLIENT_A = "client-a-0001";

@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 
-import { BOOTHS, type BoothId } from "@/lib/booths";
+import type { BoothId } from "@/lib/booths-shared";
 import { formatClock, formatRemain } from "@/lib/format";
 import type { CheckinResponse, CheckinResult, PublicSnapshot } from "@/lib/types";
 import { useBoothChannel } from "./useBoothChannel";
@@ -29,8 +29,7 @@ async function postCheckin(boothId: BoothId, code: string, intent: "join" | "res
   return data;
 }
 
-export function CheckinApp({ boothId }: { boothId: BoothId }) {
-  const booth = BOOTHS[boothId];
+export function CheckinApp({ boothId, label, title }: { boothId: BoothId; label: string; title: string }) {
   const passKey = `momo-pass:${boothId}`;
   const channel = useBoothChannel(boothId);
   const [extra, setExtra] = useState<PublicSnapshot | null>(null);
@@ -52,6 +51,19 @@ export function CheckinApp({ boothId }: { boothId: BoothId }) {
     }
     const queued = snapshot.queue.find((item) => item.code === session.code);
     if (queued) return { kind: "queued" as const, item: queued };
+    const state = snapshot.queueStates?.find((item) => item.code === session.code);
+    if (state) {
+      return {
+        kind: "queued" as const,
+        item: {
+          code: state.code,
+          name: session.name ?? state.code,
+          photo: "",
+          position: state.position,
+          worstCaseEndsAt: state.worstCaseEndsAt,
+        },
+      };
+    }
     return { kind: "away" as const };
   }, [snapshot, session]);
 
@@ -151,8 +163,8 @@ export function CheckinApp({ boothId }: { boothId: BoothId }) {
     <main className="phone-wrap">
       <section className="phone-card">
         <p className="brand">momo</p>
-        <p className="eyebrow">{booth.label}</p>
-        <h1>{booth.title}</h1>
+        <p className="eyebrow">{label}</p>
+        <h1>{title}</h1>
         <p className="lede">Nhập mã nhân viên để màn hình booth chiếu đúng ảnh của bạn.</p>
         <div role="status" aria-live="polite">
           {banner ? <p className="banner">{banner}</p> : null}

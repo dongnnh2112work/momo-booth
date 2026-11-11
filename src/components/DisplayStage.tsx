@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import { BOOTHS, type BoothId } from "@/lib/booths";
+import type { BoothId } from "@/lib/booths-shared";
 import type { PublicSpotlight } from "@/lib/types";
 import { createDisplayEngine, type RevealPhase } from "./displayEngine";
 import { useBoothChannel } from "./useBoothChannel";
@@ -15,8 +15,7 @@ const CUBES = [
   { src: "/cubes/cube-5.png", className: "cube c5" },
 ];
 
-export function DisplayStage({ boothId }: { boothId: BoothId }) {
-  const booth = BOOTHS[boothId];
+export function DisplayStage({ boothId, label, title }: { boothId: BoothId; label: string; title: string }) {
   const { snapshot, roster, link } = useBoothChannel(boothId);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
@@ -41,13 +40,18 @@ export function DisplayStage({ boothId }: { boothId: BoothId }) {
   }, []);
 
   useEffect(() => {
-    engineRef.current?.setRoster(roster.map((person) => person.photo));
+    engineRef.current?.setRoster(roster.map((person) => person.thumb || person.photo));
   }, [roster]);
 
   useEffect(() => {
     const spotlight = snapshot?.spotlight;
     engineRef.current?.setSpotlight(spotlight?.code ?? null, spotlight?.photo || null);
-  }, [snapshot?.spotlight?.code, snapshot?.spotlight?.photo]);
+    const upcoming = [
+      spotlight?.photo,
+      ...(snapshot?.queue ?? []).map((item) => item.photo),
+    ].filter((url): url is string => Boolean(url));
+    engineRef.current?.preload(upcoming);
+  }, [snapshot?.spotlight?.code, snapshot?.spotlight?.photo, snapshot?.queue]);
 
   useEffect(() => {
     if (phase === "reveal" && snapshot?.spotlight && snapshot.spotlight.code !== shown?.code) {
@@ -75,7 +79,7 @@ export function DisplayStage({ boothId }: { boothId: BoothId }) {
         ))}
         <canvas ref={canvasRef} />
         <div className="scrim" />
-        <p className="booth-tag">{booth.label}</p>
+        <p className="booth-tag">{label}</p>
         <div className={`reveal ${phase === "reveal" ? "show" : ""}`}>
           {shown ? (
             <>
@@ -104,7 +108,7 @@ export function DisplayStage({ boothId }: { boothId: BoothId }) {
         </div>
         <div className="loop-caption">
           <p>Những mảnh ghép của MoMo</p>
-          <h1>{booth.title}</h1>
+          <h1>{title}</h1>
         </div>
         <div className="loop-scrim" />
         <div className="wordmarks">

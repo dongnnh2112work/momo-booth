@@ -3,13 +3,14 @@ import { randomUUID } from "node:crypto";
 import { BOOTHS, BOOTH_IDS, type BoothId } from "./booths";
 import { normalizeCode } from "./codes";
 import type { RosterIndex } from "./roster";
-import { COOLDOWN_MS, MAX_HOLD_MS, MIN_HOLD_MS } from "./timing";
+import { COOLDOWN_MS, MAX_HOLD_MS, MIN_HOLD_MS, QUEUE_PREVIEW } from "./timing";
 import type {
   ActionResult,
   BoothLive,
   CheckinResult,
   LiveState,
   PublicQueueItem,
+  PublicQueueState,
   PublicSnapshot,
   QueueItem,
   Spotlight,
@@ -19,13 +20,11 @@ import type {
 const UNKNOWN = "Không tìm thấy mã này trong danh sách vinh danh.";
 
 export function emptyState(): LiveState {
-  return {
-    revision: 0,
-    booths: {
-      "5-10": { spotlight: null, queue: [], cooldowns: {} },
-      "3-5": { spotlight: null, queue: [], cooldowns: {} },
-    },
-  };
+  const booths = {} as LiveState["booths"];
+  for (const id of BOOTH_IDS) {
+    booths[id] = { spotlight: null, queue: [], cooldowns: {} };
+  }
+  return { revision: 0, booths };
 }
 
 type Slot = {
@@ -364,11 +363,23 @@ export function applyClearCooldown(
   return { ok: true, message: "Đã gỡ cooldown.", ...withEmit(true, emit) };
 }
 
-export function toSnapshot(state: LiveState, roster: RosterIndex, boothId: BoothId, now: number): PublicSnapshot {
+export function toSnapshot(
+  state: LiveState,
+  roster: RosterIndex,
+  boothId: BoothId,
+  now: number,
+  options?: { fullQueue?: boolean },
+): PublicSnapshot {
   const meta = BOOTHS[boothId];
   const booth = state.booths[boothId];
   const current = booth.spotlight ? roster.byCode.get(booth.spotlight.code) : undefined;
-  const queue: PublicQueueItem[] = booth.queue.map((item, index) => {
+  const queueStates: PublicQueueState[] = booth.queue.map((item, index) => ({
+    code: item.code,
+    position: index + 2,
+    worstCaseEndsAt: (booth.spotlight?.endsAt ?? now) + index * MAX_HOLD_MS,
+  }));
+  const visible = options?.fullQueue ? booth.queue : booth.queue.slice(0, QUEUE_PREVIEW);
+  const queue: PublicQueueItem[] = visible.map((item, index) => {
     const person = roster.byCode.get(item.code);
     return {
       code: item.code,
@@ -400,6 +411,8 @@ export function toSnapshot(state: LiveState, roster: RosterIndex, boothId: Booth
         }
       : null,
     queue,
+    queueLength: booth.queue.length,
+    queueStates,
   };
 }
 

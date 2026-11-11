@@ -1,13 +1,15 @@
 import { isBoothId } from "@/lib/booths";
-import { json } from "@/lib/http";
+import { makeEtag } from "@/lib/etag";
+import { json, withEtag } from "@/lib/http";
 import { getBooth } from "@/lib/store";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-export async function GET(_request: Request, context: { params: Promise<{ id: string }> }) {
+export async function GET(request: Request, context: { params: Promise<{ id: string }> }) {
   const { id } = await context.params;
   if (!isBoothId(id)) return json({ message: "Không có booth này." }, 404);
   const payload = await getBooth(id);
-  return json(payload);
+  const etag = makeEtag([id, payload.snapshot.revision]);
+  return withEtag(request, etag, payload);
 }
