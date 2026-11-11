@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 
-import type { BoothId } from "@/lib/booths";
+import type { BoothId } from "@/lib/booths-shared";
+import { FALLBACK_POLL_MS } from "@/lib/timing";
 import type { PublicSnapshot, RosterCard } from "@/lib/types";
 
 export function useBoothChannel(boothId: BoothId) {
@@ -12,6 +13,7 @@ export function useBoothChannel(boothId: BoothId) {
 
   useEffect(() => {
     let stopped = false;
+    let etag: string | null = null;
 
     const applySnapshot = (snap: PublicSnapshot) => {
       setSnapshot((previous) => {
@@ -24,7 +26,12 @@ export function useBoothChannel(boothId: BoothId) {
       setRoster((previous) => {
         if (
           previous.length === next.length &&
-          previous.every((item, index) => item.code === next[index]?.code && item.photo === next[index]?.photo)
+          previous.every(
+            (item, index) =>
+              item.code === next[index]?.code &&
+              item.photo === next[index]?.photo &&
+              item.thumb === next[index]?.thumb,
+          )
         ) {
           return previous;
         }
@@ -34,8 +41,16 @@ export function useBoothChannel(boothId: BoothId) {
 
     const pull = async () => {
       try {
-        const response = await fetch(`/api/booths/${boothId}`, { cache: "no-store" });
+        const headers: Record<string, string> = {};
+        if (etag) headers["If-None-Match"] = etag;
+        const response = await fetch(`/api/booths/${boothId}`, { cache: "no-store", headers });
+        if (response.status === 304) {
+          if (!stopped) setLink("up");
+          return;
+        }
         if (!response.ok) throw new Error(String(response.status));
+        const nextTag = response.headers.get("ETag");
+        if (nextTag) etag = nextTag;
         const data = (await response.json()) as { snapshot: PublicSnapshot; roster: RosterCard[] };
         if (stopped) return;
         applySnapshot(data.snapshot);
@@ -59,10 +74,11 @@ export function useBoothChannel(boothId: BoothId) {
     });
     source.onerror = () => {
       if (!stopped) setLink("down");
+      void pull();
     };
     const poll = window.setInterval(() => {
       void pull();
-    }, 1000);
+    }, FALLBACK_POLL_MS);
 
     return () => {
       stopped = true;

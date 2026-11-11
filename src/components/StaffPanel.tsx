@@ -1,20 +1,23 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
-import { BOOTH_IDS } from "@/lib/booths";
+import type { BoothId } from "@/lib/booths-shared";
+import { FALLBACK_POLL_MS } from "@/lib/timing";
 import { formatRemain } from "@/lib/format";
 import type { StaffPayload } from "@/lib/types";
 import { useServerNow } from "./useServerNow";
 
 const KEY_STORAGE = "momo-staff-key";
 
-export function StaffPanel() {
+export function StaffPanel({ boothIds }: { boothIds: BoothId[] }) {
   const [keyInput, setKeyInput] = useState("");
   const [key, setKey] = useState("");
   const [payload, setPayload] = useState<StaffPayload | null>(null);
   const [banner, setBanner] = useState("");
   const [busy, setBusy] = useState(false);
+  const [codes, setCodes] = useState<Record<string, string>>({});
+  const [manualNote, setManualNote] = useState<{ boothId: BoothId; message: string } | null>(null);
   const now = useServerNow(payload?.serverNow);
 
   useEffect(() => {
@@ -25,20 +28,31 @@ export function StaffPanel() {
     }
   }, []);
 
+  const etagRef = useRef<string | null>(null);
+
   const pull = useCallback(async (staffKey: string) => {
+    const headers: Record<string, string> = { "x-staff-key": staffKey };
+    if (etagRef.current) headers["If-None-Match"] = etagRef.current;
     const response = await fetch("/api/staff/state", {
       cache: "no-store",
-      headers: { "x-staff-key": staffKey },
+      headers,
     });
+    if (response.status === 304) {
+      setBanner("");
+      return;
+    }
     if (response.status === 401) {
       setBanner("Sai khóa.");
       setPayload(null);
+      etagRef.current = null;
       return;
     }
     if (!response.ok) {
       setBanner("Không tải được bảng điều phối.");
       return;
     }
+    const nextTag = response.headers.get("ETag");
+    if (nextTag) etagRef.current = nextTag;
     const data = (await response.json()) as StaffPayload;
     setPayload(data);
     setBanner("");
@@ -53,12 +67,42 @@ export function StaffPanel() {
       });
     };
     load();
-    const id = window.setInterval(load, 2000);
+    const id = window.setInterval(load, FALLBACK_POLL_MS);
     return () => {
       stopped = true;
       window.clearInterval(id);
     };
   }, [key, pull]);
+
+  async function downloadState() {
+    if (!key || busy) return;
+    setBusy(true);
+    try {
+      const response = await fetch("/api/staff/export", {
+        cache: "no-store",
+        headers: { "x-staff-key": key },
+      });
+      if (!response.ok) {
+        const data = (await response.json()) as { message?: string };
+        setBanner(data.message || "Không tải được trạng thái.");
+        return;
+      }
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "live-state.json";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.setTimeout(() => URL.revokeObjectURL(url), 0);
+      setBanner("Đã tải trạng thái.");
+    } catch {
+      setBanner("Không gửi được lệnh.");
+    } finally {
+      setBusy(false);
+    }
+  }
 
   async function act(path: string, body: Record<string, string>) {
     if (!key || busy) return;
@@ -83,12 +127,58 @@ export function StaffPanel() {
     }
   }
 
+  async function manualCheckIn(boothId: BoothId) {
+    const code = (codes[boothId] ?? "").trim();
+    if (!key || busy) return;
+    if (!code) {
+      const message = "Nhập mã.";
+      setManualNote({ boothId, message });
+      setBanner(message);
+      return;
+    }
+    setBusy(true);
+    try {
+      const response = await fetch("/api/staff/manual-checkin", {
+        method: "POST",
+        headers: { "content-type": "application/json", "x-staff-key": key },
+        body: JSON.stringify({ boothId, code }),
+      });
+      const data = (await response.json()) as { message?: string };
+      const message = data.message || (response.ok ? "Đã cập nhật." : "Không thực hiện được.");
+      if (response.ok) {
+        setCodes((current) => ({ ...current, [boothId]: "" }));
+        try {
+          await pull(key);
+        } catch {
+          setManualNote({ boothId, message: "Mất kết nối bảng điều phối." });
+          setBanner("Mất kết nối bảng điều phối.");
+          return;
+        }
+      }
+      setManualNote({ boothId, message });
+      setBanner(message);
+    } catch {
+      const message = "Không gửi được lệnh.";
+      setManualNote({ boothId, message });
+      setBanner(message);
+    } finally {
+      setBusy(false);
+    }
+  }
+
   return (
     <main className="staff">
       <header className="setup-head">
         <p className="brand">momo</p>
         <h1>Điều phối booth</h1>
-        <p>Skip lượt đang chiếu, xoá hàng chờ, hoặc gỡ cooldown khi cần.</p>
+        <p>Nhập mã để đưa vào hàng chờ, skip lượt đang chiếu, xoá hàng chờ, hoặc gỡ cooldown khi cần.</p>
+        {payload ? (
+          <div className="setup-actions">
+            <button type="button" className="ghost" disabled={busy} onClick={() => void downloadState()}>
+              Tải trạng thái
+            </button>
+          </div>
+        ) : null}
       </header>
       <form
         className="key-row"
@@ -118,7 +208,7 @@ export function StaffPanel() {
       ) : null}
       {payload ? (
         <div className="staff-grid">
-          {BOOTH_IDS.map((id) => {
+          {boothIds.map((id) => {
             const booth = payload.booths[id];
             const spotlight = booth.snapshot.spotlight;
             return (
@@ -140,6 +230,32 @@ export function StaffPanel() {
                     Xoá hàng chờ
                   </button>
                 </div>
+                <form
+                  className="manual-entry"
+                  onSubmit={(event) => {
+                    event.preventDefault();
+                    void manualCheckIn(id);
+                  }}
+                >
+                  <label htmlFor={`manual-code-${id}`}>Nhập mã</label>
+                  <input
+                    id={`manual-code-${id}`}
+                    value={codes[id] ?? ""}
+                    autoComplete="off"
+                    autoCapitalize="characters"
+                    spellCheck={false}
+                    disabled={busy}
+                    onChange={(event) => setCodes((current) => ({ ...current, [id]: event.target.value }))}
+                  />
+                  <button type="submit" className="primary" disabled={busy}>
+                    Nhập mã
+                  </button>
+                </form>
+                {manualNote?.boothId === id ? (
+                  <p className="banner" role="status">
+                    {manualNote.message}
+                  </p>
+                ) : null}
                 <h3>Hàng chờ</h3>
                 {booth.snapshot.queue.length === 0 ? (
                   <p className="quiet">Trống.</p>

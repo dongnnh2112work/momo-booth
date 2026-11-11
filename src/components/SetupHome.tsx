@@ -2,30 +2,34 @@
 
 import { useEffect, useState } from "react";
 
-import { BOOTH_IDS, BOOTHS } from "@/lib/booths";
+import type { Booth } from "@/lib/booths-shared";
+import { publicBaseUrl, type PublicBaseEnv } from "@/lib/publicBaseUrl";
 
-export function SetupHome() {
-  const [origin, setOrigin] = useState("");
+export function SetupHome({ booths, baseEnv = {} }: { booths: Booth[]; baseEnv?: PublicBaseEnv }) {
+  const preferred = baseEnv.PUBLIC_BASE_URL;
+  const clientVisible = baseEnv.NEXT_PUBLIC_BASE_URL;
+  const [origin, setOrigin] = useState(() => publicBaseUrl({ PUBLIC_BASE_URL: preferred, NEXT_PUBLIC_BASE_URL: clientVisible }, ""));
   const [codes, setCodes] = useState<Record<string, string>>({});
 
   useEffect(() => {
-    setOrigin(window.location.origin);
-  }, []);
+    // PUBLIC_BASE_URL, else NEXT_PUBLIC_BASE_URL, else this page's origin.
+    setOrigin(publicBaseUrl({ PUBLIC_BASE_URL: preferred, NEXT_PUBLIC_BASE_URL: clientVisible }, window.location.origin));
+  }, [preferred, clientVisible]);
 
   useEffect(() => {
     if (!origin) return;
     let cancelled = false;
     void import("qrcode").then(async (QR) => {
       const entries = await Promise.all(
-        BOOTH_IDS.map(async (id) => {
-          const url = `${origin}/c/${id}`;
+        booths.map(async (booth) => {
+          const url = `${origin}/c/${booth.id}`;
           const image = await QR.toDataURL(url, {
             margin: 1,
             width: 560,
             errorCorrectionLevel: "M",
             color: { dark: "#4c1232", light: "#ffffff" },
           });
-          return [id, image] as const;
+          return [booth.id, image] as const;
         }),
       );
       if (!cancelled) setCodes(Object.fromEntries(entries));
@@ -33,7 +37,7 @@ export function SetupHome() {
     return () => {
       cancelled = true;
     };
-  }, [origin]);
+  }, [origin, booths]);
 
   return (
     <main className="setup">
@@ -44,7 +48,7 @@ export function SetupHome() {
           Mỗi booth một màn hình và một QR. Mở đúng link trên đúng màn, rồi đưa QR cho nhân sự quét. Điện thoại và
           máy chiếu cần vào cùng địa chỉ này.
         </p>
-        <p className="quiet no-print">Chạy một process duy nhất. Khóa điều phối mặc định: momo-ptb.</p>
+        <p className="quiet no-print">Chạy một process duy nhất. Đặt STAFF_KEY riêng trước khi mở sự kiện.</p>
         <div className="setup-actions no-print">
           <a className="ghost" href="/staff">
             Bảng điều phối
@@ -55,8 +59,8 @@ export function SetupHome() {
         </div>
       </header>
       <div className="setup-grid">
-        {BOOTH_IDS.map((id) => {
-          const booth = BOOTHS[id];
+        {booths.map((booth) => {
+          const id = booth.id;
           const checkin = origin ? `${origin}/c/${id}` : `/c/${id}`;
           const display = origin ? `${origin}/d/${id}` : `/d/${id}`;
           return (

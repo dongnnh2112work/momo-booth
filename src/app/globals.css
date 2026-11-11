@@ -432,6 +432,10 @@ input {
   flex: 1;
 }
 
+.manual-entry { margin: 4px 0 8px; }
+
+.manual-entry input:disabled { opacity: 0.45; }
+
 .staff-card ol, .staff-card ul { padding-left: 18px; }
 
 .staff-card li {

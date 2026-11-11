@@ -3,10 +3,11 @@ import "server-only";
 import { EventEmitter } from "node:events";
 import fs from "node:fs";
 import path from "node:path";
-import { BlobError, BlobPreconditionFailedError, get, put } from "@vercel/blob";
 
+import { assertLocalStaffKey, usesLocalStore } from "./staffKey";
 import { BOOTH_IDS, isBoothId, type BoothId } from "./booths";
 import { indexRoster, type RosterIndex } from "./roster";
+import { PERSIST_DEBOUNCE_MS } from "./timing";
 import {
   applyCheckin,
   applyClearCooldown,
@@ -31,14 +32,31 @@ import type {
   StaffPayload,
 } from "./types";
 
-const DATA_DIR = path.join(process.cwd(), "data");
-const STATE_PATH = path.join(DATA_DIR, "live-state.json");
-const ROSTER_PATH = path.join(DATA_DIR, "roster.json");
-const STATE_BLOB = "booth/live-state.json";
+function resolveDataPath(envName: string, fallback: string) {
+  const raw = process.env[envName];
+  if (!raw) return path.join(process.cwd(), fallback);
+  return path.isAbsolute(raw) ? raw : path.join(process.cwd(), raw);
+}
+
+function stateFile() {
+  return resolveDataPath("STATE_PATH", "data/live-state.json");
+}
+
+function rosterFile() {
+  return resolveDataPath("ROSTER_PATH", "data/roster.json");
+}
 
 function useSharedState() {
-  return Boolean(process.env.BLOB_STORE_ID || process.env.BLOB_READ_WRITE_TOKEN);
+  return !usesLocalStore();
 }
+
+type PersistGlobal = {
+  timer: NodeJS.Timeout | null;
+  queued: LiveState | null;
+  hooks: boolean;
+};
+
+const persist: PersistGlobal = { timer: null, queued: null, hooks: false };
 
 function rememberTiming(read: number, write: number, attempts: number) {
   (globalThis as { __boothTiming?: { read: number; write: number; attempts: number } }).__boothTiming = {
@@ -67,7 +85,7 @@ type Ctx = {
 };
 
 function readRosterFile(): Employee[] {
-  const raw = fs.readFileSync(ROSTER_PATH, "utf8");
+  const raw = fs.readFileSync(rosterFile(), "utf8");
   const parsed = JSON.parse(raw) as { employees?: Employee[] };
   return Array.isArray(parsed.employees) ? parsed.employees : [];
 }
@@ -121,24 +139,123 @@ function sanitize(parsed: unknown): LiveState {
   return base;
 }
 
-function loadState(): LiveState {
-  try {
-    return sanitize(JSON.parse(fs.readFileSync(STATE_PATH, "utf8")));
-  } catch {
-    return emptyState();
+const BACKUP_LIMIT = 10;
+
+function backupPath(file: string, index: number) {
+  return `${file}.bak-${index}`;
+}
+
+function readStoredState(file: string): LiveState {
+  return sanitize(JSON.parse(fs.readFileSync(file, "utf8")));
+}
+
+function recoverFromBackups(file: string): LiveState | null {
+  for (let index = 1; index <= BACKUP_LIMIT; index += 1) {
+    const candidate = backupPath(file, index);
+    if (!fs.existsSync(candidate)) continue;
+    try {
+      const state = readStoredState(candidate);
+      console.error(`state backup used: ${path.basename(candidate)}`);
+      return state;
+    } catch {
+      continue;
+    }
+  }
+  return null;
+}
+
+function removeExtraBackups(file: string) {
+  const directory = path.dirname(file);
+  const prefix = `${path.basename(file)}.bak-`;
+  for (const name of fs.readdirSync(directory)) {
+    if (!name.startsWith(prefix)) continue;
+    const suffix = name.slice(prefix.length);
+    if (!/^\d+$/.test(suffix)) continue;
+    if (Number(suffix) > BACKUP_LIMIT) fs.rmSync(path.join(directory, name), { force: true });
   }
 }
 
-function saveState(state: LiveState) {
-  fs.mkdirSync(DATA_DIR, { recursive: true });
-  const temporary = `${STATE_PATH}.tmp`;
+function rotateBackups(file: string) {
+  for (let index = BACKUP_LIMIT - 1; index >= 1; index -= 1) {
+    const from = backupPath(file, index);
+    if (!fs.existsSync(from)) continue;
+    fs.renameSync(from, backupPath(file, index + 1));
+  }
+  fs.copyFileSync(file, backupPath(file, 1));
+  removeExtraBackups(file);
+}
+
+export function loadState(): LiveState {
+  const file = stateFile();
+  if (fs.existsSync(file)) {
+    try {
+      return readStoredState(file);
+    } catch {
+      const recovered = recoverFromBackups(file);
+      if (recovered) return recovered;
+      throw new Error("state file is corrupt and no valid backup exists");
+    }
+  }
+  const recovered = recoverFromBackups(file);
+  if (recovered) return recovered;
+  return emptyState();
+}
+
+export function saveState(state: LiveState) {
+  const file = stateFile();
+  fs.mkdirSync(path.dirname(file), { recursive: true });
+  const temporary = `${file}.tmp`;
   fs.writeFileSync(temporary, JSON.stringify(state));
-  fs.renameSync(temporary, STATE_PATH);
+  fs.renameSync(temporary, file);
+  rotateBackups(file);
+}
+
+function flushSave() {
+  if (persist.timer) {
+    clearTimeout(persist.timer);
+    persist.timer = null;
+  }
+  const queued = persist.queued;
+  persist.queued = null;
+  if (queued) {
+    try {
+      saveState(queued);
+    } catch (error) {
+      console.error("save state", error);
+    }
+  }
+}
+
+function scheduleSave(state: LiveState) {
+  persist.queued = state;
+  if (persist.timer) return;
+  persist.timer = setTimeout(() => {
+    persist.timer = null;
+    flushSave();
+  }, PERSIST_DEBOUNCE_MS);
+  persist.timer.unref?.();
+}
+
+function installPersistHooks() {
+  if (persist.hooks) return;
+  persist.hooks = true;
+  const onStop = () => {
+    flushSave();
+  };
+  process.on("beforeExit", onStop);
+  process.on("SIGINT", () => {
+    onStop();
+    process.exit(130);
+  });
+  process.on("SIGTERM", () => {
+    onStop();
+    process.exit(143);
+  });
 }
 
 function rosterMtime(): number {
   try {
-    return fs.statSync(ROSTER_PATH).mtimeMs;
+    return fs.statSync(rosterFile()).mtimeMs;
   } catch {
     return 0;
   }
@@ -159,6 +276,13 @@ function currentRoster(store: StoreGlobal): RosterIndex {
 
 function init(): StoreGlobal {
   if (!globalStore.__momoBooth) {
+    if (!useSharedState()) {
+      try {
+        assertLocalStaffKey();
+      } catch {
+        process.exit(1);
+      }
+    }
     const emitter = new EventEmitter();
     emitter.setMaxListeners(200);
     let roster = indexRoster([]);
@@ -177,6 +301,7 @@ function init(): StoreGlobal {
       runTick: async () => {},
     };
     if (!useSharedState()) {
+      installPersistHooks();
       const timer = setInterval(() => {
         void globalStore.__momoBooth?.runTick();
       }, 1000);
@@ -188,33 +313,12 @@ function init(): StoreGlobal {
   return globalStore.__momoBooth;
 }
 
-function isConflict(error: unknown) {
-  if (error instanceof BlobPreconditionFailedError) return true;
-  return error instanceof BlobError && /already exists|precondition/i.test(error.message);
+function readShared(): LiveState {
+  return loadState();
 }
 
-async function readShared(): Promise<{ state: LiveState; etag: string | null }> {
-  const result = await get(STATE_BLOB, { access: "private", useCache: false });
-  if (!result || result.statusCode !== 200 || !result.stream) {
-    return { state: emptyState(), etag: null };
-  }
-  const text = await new Response(result.stream).text();
-  try {
-    return { state: sanitize(JSON.parse(text)), etag: result.blob.etag };
-  } catch {
-    return { state: emptyState(), etag: result.blob.etag };
-  }
-}
-
-async function writeShared(state: LiveState, etag: string | null) {
-  const saved = await put(STATE_BLOB, JSON.stringify(state), {
-    access: "private",
-    addRandomSuffix: false,
-    contentType: "application/json",
-    cacheControlMaxAge: 0,
-    ...(etag ? { ifMatch: etag } : { allowOverwrite: false }),
-  });
-  return saved.etag;
+function writeShared(state: LiveState) {
+  saveState(state);
 }
 
 function emitSnapshots(store: StoreGlobal, roster: RosterIndex, state: LiveState, now: number, emit: BoothId[]) {
@@ -236,11 +340,7 @@ function mutateLocal<T>(store: StoreGlobal, work: (ctx: Ctx) => { changed: boole
   if (draft.changed) state.revision += 1;
   const result = draft.build();
   if (draft.changed) {
-    try {
-      saveState(state);
-    } catch (error) {
-      console.error("save state", error);
-    }
+    scheduleSave(state);
     emitSnapshots(store, roster, state, now, draft.emit);
   }
   return result;
@@ -251,33 +351,22 @@ async function mutateShared<T>(
   work: (ctx: Ctx) => { changed: boolean; emit: BoothId[]; build: () => T },
 ): Promise<T> {
   const roster = currentRoster(store);
-  let readMs = 0;
+  const readStarted = Date.now();
+  const loaded = readShared();
+  const readMs = Date.now() - readStarted;
+  const now = Date.now();
+  const draft = work({ state: loaded, now, roster });
+  if (draft.changed) loaded.revision += 1;
+  const result = draft.build();
   let writeMs = 0;
-  for (let attempt = 0; attempt < 6; attempt += 1) {
-    const readStarted = Date.now();
-    const loaded = await readShared();
-    readMs += Date.now() - readStarted;
-    const now = Date.now();
-    const draft = work({ state: loaded.state, now, roster });
-    if (draft.changed) loaded.state.revision += 1;
-    const result = draft.build();
-    if (!draft.changed) {
-      rememberTiming(readMs, writeMs, attempt + 1);
-      return result;
-    }
-    try {
-      const writeStarted = Date.now();
-      await writeShared(loaded.state, loaded.etag);
-      writeMs += Date.now() - writeStarted;
-      emitSnapshots(store, roster, loaded.state, now, draft.emit);
-      rememberTiming(readMs, writeMs, attempt + 1);
-      return result;
-    } catch (error) {
-      if (!isConflict(error) || attempt === 5) throw error;
-      await new Promise((resolve) => setTimeout(resolve, 40 * (attempt + 1)));
-    }
+  if (draft.changed) {
+    const writeStarted = Date.now();
+    writeShared(loaded);
+    writeMs = Date.now() - writeStarted;
+    emitSnapshots(store, roster, loaded, now, draft.emit);
   }
-  throw new Error("Booth state is busy");
+  rememberTiming(readMs, writeMs, 1);
+  return result;
 }
 
 function mutate<T>(work: (ctx: Ctx) => { changed: boolean; emit: BoothId[]; build: () => T }): Promise<T> {
@@ -298,7 +387,11 @@ function tick() {
 }
 
 function cards(roster: RosterIndex, boothId: BoothId): RosterCard[] {
-  return roster.byBooth[boothId].map((person) => ({ code: person.code, photo: person.photo }));
+  return roster.byBooth[boothId].map((person) => ({
+    code: person.code,
+    photo: person.photo,
+    thumb: person.thumb,
+  }));
 }
 
 export function subscribe(boothId: BoothId, listener: (snapshot: PublicSnapshot) => void) {
@@ -337,6 +430,33 @@ export function checkIn(
         snapshot: toSnapshot(ctx.state, ctx.roster, boothId, ctx.now),
       }),
     };
+  });
+}
+
+export function ingestDisplayedCheckins(
+  boothId: BoothId,
+  rows: { code: string; clientId: string; at: number }[],
+): Promise<{ accepted: number }> {
+  return mutate((ctx) => {
+    const ordered = [...rows].sort((left, right) => left.at - right.at);
+    let changed = false;
+    const emit = new Set<BoothId>();
+    let accepted = 0;
+    for (const row of ordered) {
+      const applied = applyCheckin(ctx.state, ctx.roster, {
+        boothId,
+        code: row.code,
+        clientId: row.clientId,
+        now: ctx.now,
+        intent: "join",
+      });
+      if (applied.changed) {
+        changed = true;
+        accepted += 1;
+      }
+      for (const id of applied.emit) emit.add(id);
+    }
+    return { changed, emit: [...emit], build: () => ({ accepted }) };
   });
 }
 
@@ -399,24 +519,72 @@ export function clearCooldown(boothId: BoothId, code?: string): Promise<ActionRe
   });
 }
 
+function cloneLiveState(state: LiveState): LiveState {
+  const booths = {} as LiveState["booths"];
+  for (const id of BOOTH_IDS) {
+    const booth = state.booths[id] ?? { spotlight: null, queue: [], cooldowns: {} };
+    booths[id] = {
+      spotlight: booth.spotlight ? { ...booth.spotlight } : null,
+      queue: booth.queue.map((item) => ({ ...item })),
+      cooldowns: { ...booth.cooldowns },
+    };
+  }
+  return { revision: state.revision, booths };
+}
+
+export function readLiveState(): Promise<LiveState> {
+  return mutate((ctx) => {
+    const changed = sweep(ctx.state, ctx.now);
+    return {
+      changed,
+      emit: changed ? [...BOOTH_IDS] : [],
+      build: () => cloneLiveState(ctx.state),
+    };
+  });
+}
+
 export function readStaff(): Promise<StaffPayload> {
   return mutate((ctx) => {
     const changed = sweep(ctx.state, ctx.now);
     return {
       changed,
       emit: changed ? [...BOOTH_IDS] : [],
-      build: () => ({
-        serverNow: ctx.now,
-        booths: {
-          "5-10": {
-            snapshot: toSnapshot(ctx.state, ctx.roster, "5-10", ctx.now),
-            cooldowns: cooldownList(ctx.state, ctx.roster, "5-10", ctx.now),
-          },
-          "3-5": {
-            snapshot: toSnapshot(ctx.state, ctx.roster, "3-5", ctx.now),
-            cooldowns: cooldownList(ctx.state, ctx.roster, "3-5", ctx.now),
-          },
+      build: () => {
+        const booths = {} as StaffPayload["booths"];
+        for (const id of BOOTH_IDS) {
+          booths[id] = {
+            snapshot: toSnapshot(ctx.state, ctx.roster, id, ctx.now, { fullQueue: true }),
+            cooldowns: cooldownList(ctx.state, ctx.roster, id, ctx.now),
+          };
+        }
+        return { serverNow: ctx.now, booths };
+      },
+    };
+  });
+}
+
+export function readHealth() {
+  return mutate((ctx) => {
+    const changed = sweep(ctx.state, ctx.now);
+    const sizes = Object.fromEntries(
+      BOOTH_IDS.map((id) => [
+        id,
+        {
+          spotlight: Boolean(ctx.state.booths[id].spotlight),
+          queueLength: ctx.state.booths[id].queue.length,
         },
+      ]),
+    );
+    return {
+      changed,
+      emit: changed ? [...BOOTH_IDS] : [],
+      build: () => ({
+        ok: true as const,
+        local: !useSharedState(),
+        serverNow: ctx.now,
+        revision: ctx.state.revision,
+        memory: process.memoryUsage(),
+        booths: sizes,
       }),
     };
   });

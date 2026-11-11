@@ -1,4 +1,4 @@
-import type { BoothId } from "./booths";
+import type { BoothId } from "./booths-shared";
 
 export type Employee = {
   code: string;
@@ -7,6 +7,7 @@ export type Employee = {
   department: string;
   years: number;
   photo: string;
+  thumb?: string;
 };
 
 export type Spotlight = {
@@ -55,6 +56,12 @@ export type PublicQueueItem = {
   worstCaseEndsAt: number;
 };
 
+export type PublicQueueState = {
+  code: string;
+  position: number;
+  worstCaseEndsAt: number;
+};
+
 export type PublicSnapshot = {
   boothId: BoothId;
   revision: number;
@@ -64,11 +71,14 @@ export type PublicSnapshot = {
   serverNow: number;
   spotlight: PublicSpotlight | null;
   queue: PublicQueueItem[];
+  queueLength: number;
+  queueStates: PublicQueueState[];
 };
 
 export type RosterCard = {
   code: string;
   photo: string;
+  thumb?: string;
 };
 
 export type CheckinStatus = "unknown" | "wrong_booth" | "cooldown" | "spotlight" | "queued" | "idle";
