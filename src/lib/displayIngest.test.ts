@@ -46,6 +46,7 @@ const envKeys = [
   "NEXT_RUNTIME",
   "NEXT_PHASE",
   "MOMO_LOCAL",
+  "MOMO_REMOTE",
   "BLOB_STORE_ID",
   "BLOB_READ_WRITE_TOKEN",
 ] as const;
@@ -163,6 +164,7 @@ async function main() {
 
     delete process.env.NEXT_RUNTIME;
     delete process.env.MOMO_LOCAL;
+    process.env.MOMO_REMOTE = "1";
     process.env.BLOB_STORE_ID = "store";
     process.env.BLOB_READ_WRITE_TOKEN = "token";
     assert.equal(displayIngestShouldStart(), false);
@@ -177,6 +179,7 @@ async function main() {
 
     delete process.env.BLOB_STORE_ID;
     delete process.env.BLOB_READ_WRITE_TOKEN;
+    delete process.env.MOMO_REMOTE;
     process.env.MOMO_LOCAL = "1";
     assert.equal(displayIngestShouldStart(), true);
 

@@ -75,10 +75,15 @@ function parseIpToken(raw: string | null | undefined): string | null {
   return net.isIP(token) ? token : null;
 }
 
-function firstForwardedIp(header: string): string | null {
+function trustedProxy(): boolean {
+  const value = process.env.TRUST_PROXY;
+  return value === "1" || value === "true";
+}
+
+function lastForwardedIp(header: string): string | null {
   const parts = header.split(",");
-  const scan = Math.min(parts.length, 8);
-  for (let index = 0; index < scan; index += 1) {
+  const start = Math.max(0, parts.length - 8);
+  for (let index = parts.length - 1; index >= start; index -= 1) {
     const ip = parseIpToken(parts[index]);
     if (ip) return ip;
   }
@@ -90,11 +95,17 @@ function forwardedForIp(header: string): string | null {
   return parseIpToken(match?.[1] ?? null);
 }
 
-/** Parsed client address, or one shared bucket when headers are missing or not an IP. */
+/**
+ * Address added by a trusted proxy, or "unknown".
+ * Client-supplied X-Forwarded-For is ignored unless TRUST_PROXY=1, and then
+ * only the last hop counts. The rate limit itself is per process, so a forged
+ * header cannot open a new budget.
+ */
 export function clientIp(request: Request): string {
+  if (!trustedProxy()) return "unknown";
   const forwarded = request.headers.get("x-forwarded-for");
   if (forwarded) {
-    const ip = firstForwardedIp(forwarded);
+    const ip = lastForwardedIp(forwarded);
     if (ip) return ip;
   }
   const real = parseIpToken(request.headers.get("x-real-ip"));
@@ -148,7 +159,13 @@ export function consumeRateLimit(key: string, limit: number, windowMs: number, n
 }
 
 export function rateLimited(request: Request, scope: RateScope, now = Date.now()): Response | null {
-  const allowed = consumeRateLimit(`${scope}:${clientIp(request)}`, limitFor(scope), WINDOW_MS, now);
-  if (allowed) return null;
-  return json({ message: RATE_LIMIT_MESSAGE }, 429);
+  const limit = limitFor(scope);
+  if (!consumeRateLimit(`${scope}:all`, limit, WINDOW_MS, now)) {
+    return json({ message: RATE_LIMIT_MESSAGE }, 429);
+  }
+  const ip = clientIp(request);
+  if (ip !== "unknown" && !consumeRateLimit(`${scope}:${ip}`, limit, WINDOW_MS, now)) {
+    return json({ message: RATE_LIMIT_MESSAGE }, 429);
+  }
+  return null;
 }

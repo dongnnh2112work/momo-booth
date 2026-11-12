@@ -582,15 +582,14 @@ function assertRole(health, expectLocal, name) {
 async function startCheckin(url, serviceKey) {
   const env = childEnv(
     {
+      MOMO_REMOTE: "1",
       NEXT_PUBLIC_SUPABASE_URL: url,
       SUPABASE_SERVICE_ROLE_KEY: serviceKey,
       RATE_LIMIT_CHECKIN_PER_MIN: "1000",
-      BLOB_READ_WRITE_TOKEN: "e2e-unused",
-      BLOB_STORE_ID: "e2e-unused",
       PORT: String(CHECKIN_PORT),
       STATE_PATH: path.join(tempDir, "checkin-state.json"),
     },
-    ["MOMO_LOCAL", "STAFF_KEY", "NEXT_PUBLIC_SUPABASE_ANON_KEY"],
+    ["MOMO_LOCAL", "STAFF_KEY", "NEXT_PUBLIC_SUPABASE_ANON_KEY", "BLOB_READ_WRITE_TOKEN", "BLOB_STORE_ID"],
   );
   checkinChild = startNext(CHECKIN_PORT, env);
   await delay(50);

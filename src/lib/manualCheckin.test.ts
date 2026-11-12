@@ -64,6 +64,7 @@ async function main() {
     MOMO_LOCAL: process.env.MOMO_LOCAL,
     STATE_PATH: process.env.STATE_PATH,
     ROSTER_PATH: process.env.ROSTER_PATH,
+    MOMO_REMOTE: process.env.MOMO_REMOTE,
     BLOB_STORE_ID: process.env.BLOB_STORE_ID,
     BLOB_READ_WRITE_TOKEN: process.env.BLOB_READ_WRITE_TOKEN,
     RATE_LIMIT_STAFF_WRITE_PER_MIN: process.env.RATE_LIMIT_STAFF_WRITE_PER_MIN,
@@ -185,6 +186,7 @@ async function main() {
     assert.deepEqual(placed(live, "5-10"), []);
 
     delete process.env.MOMO_LOCAL;
+    process.env.MOMO_REMOTE = "1";
     process.env.BLOB_STORE_ID = "manual-checkin-offline";
     process.env.BLOB_READ_WRITE_TOKEN = "manual-checkin-offline";
     const stillLocked = await POST(manualRequest({ boothId: "5-10", code: "M511" }, WRONG_KEY));
@@ -197,6 +199,7 @@ async function main() {
     assert.equal(saved.includes("M511"), false);
 
     process.env.MOMO_LOCAL = "1";
+    delete process.env.MOMO_REMOTE;
     delete process.env.BLOB_STORE_ID;
     delete process.env.BLOB_READ_WRITE_TOKEN;
     live = await store.readLiveState();
@@ -206,6 +209,7 @@ async function main() {
   } finally {
     restore("STAFF_KEY");
     restore("MOMO_LOCAL");
+    restore("MOMO_REMOTE");
     restore("STATE_PATH");
     restore("ROSTER_PATH");
     restore("BLOB_STORE_ID");

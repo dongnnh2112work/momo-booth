@@ -8,11 +8,19 @@ function request(headers: Record<string, string> = {}) {
 
 resetRateLimits();
 
-assert.equal(clientIp(request({ "x-forwarded-for": "203.0.113.10, 10.0.0.8" })), "203.0.113.10");
+const previousTrust = process.env.TRUST_PROXY;
+delete process.env.TRUST_PROXY;
+assert.equal(clientIp(request({ "x-forwarded-for": "203.0.113.10, 10.0.0.8" })), "unknown");
+assert.equal(clientIp(request({ "x-real-ip": "198.51.100.8" })), "unknown");
+assert.equal(clientIp(request({ forwarded: 'for="203.0.113.44"' })), "unknown");
+process.env.TRUST_PROXY = "1";
+assert.equal(clientIp(request({ "x-forwarded-for": "203.0.113.10, 10.0.0.8" })), "10.0.0.8");
 assert.equal(clientIp(request({ "x-forwarded-for": "not-an-ip", "x-real-ip": "198.51.100.8" })), "198.51.100.8");
 assert.equal(clientIp(request({ forwarded: 'for="203.0.113.44"' })), "203.0.113.44");
 assert.equal(clientIp(request({ "x-forwarded-for": "%%%" })), "unknown");
 assert.equal(clientIp(request()), "unknown");
+if (previousTrust === undefined) delete process.env.TRUST_PROXY;
+else process.env.TRUST_PROXY = previousTrust;
 
 const now = 1_700_000_000_000;
 assert.equal(consumeRateLimit("checkin:203.0.113.10", 2, 60_000, now), true);
@@ -33,7 +41,7 @@ async function main() {
   assert.ok(blocked);
   assert.equal(blocked.status, 429);
   assert.deepEqual(await blocked.json(), { message: RATE_LIMIT_MESSAGE });
-  assert.equal(rateLimited(request({ "x-real-ip": "203.0.113.77" }), "staff-write", now + 60), null);
+  assert.ok(rateLimited(request({ "x-real-ip": "203.0.113.77" }), "staff-write", now + 60));
 
   const previous = {
     checkin: process.env.RATE_LIMIT_CHECKIN_PER_MIN,

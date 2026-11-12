@@ -38,7 +38,6 @@ export type RemoteCheckinBody = {
   canControl: false;
   code?: string;
   booth?: string;
-  client_id?: string;
   created_at?: string;
 };
 
@@ -191,15 +190,21 @@ async function codesBooths(client: CodesClient, code: string): Promise<string[] 
   return booths;
 }
 
-function admission(
+// Codes are the public check-in list. The roster file only confirms the TV
+// booth. A code is admitted when codes name this booth and the roster does not
+// name a different one. Lookup errors fail closed. An empty codes row is not
+// admitted from the sample roster.
+export function admission(
   rosterBooth: string | null,
   codes: string[] | "error",
   booth: string,
 ): "allow" | "unknown" | "wrong_booth" | "unavailable" {
-  const codesMatch = codes !== "error" && codes.includes(booth);
-  if (rosterBooth === booth || codesMatch) return "allow";
-  if (codes === "error") return rosterBooth ? "wrong_booth" : "unavailable";
-  if (rosterBooth || codes.length > 0) return "wrong_booth";
+  if (codes === "error") return "unavailable";
+  const codesMatch = codes.includes(booth);
+  if (rosterBooth && codesMatch && rosterBooth !== booth) return "wrong_booth";
+  if (codesMatch && (!rosterBooth || rosterBooth === booth)) return "allow";
+  if (rosterBooth && rosterBooth !== booth) return "wrong_booth";
+  if (codes.length > 0) return "wrong_booth";
   return "unknown";
 }
 
@@ -263,7 +268,6 @@ export async function recordRemoteCheckin(
         canControl: false,
         code: written.payload.code,
         booth: written.payload.booth,
-        client_id: written.payload.client_id,
       },
     };
   }
@@ -275,7 +279,6 @@ export async function recordRemoteCheckin(
       canControl: false,
       code: written.payload.code,
       booth: written.payload.booth,
-      client_id: written.payload.client_id,
       created_at: written.payload.created_at,
     },
   };

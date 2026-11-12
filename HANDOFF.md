@@ -60,7 +60,7 @@ export NEXT_PUBLIC_SUPABASE_ANON_KEY='<publishable, not the service role>'
 npm start   # hoặc next start, port 3000
 ```
 
-**Check-in role** (giống Vercel): không set `MOMO_LOCAL`. Cần `NEXT_PUBLIC_SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY`. Để `usesLocalStore()` = false khi test trên máy không có Blob, set dummy `BLOB_READ_WRITE_TOKEN` và `BLOB_STORE_ID` (không dùng token thật).
+**Check-in role** (giống Vercel): set `MOMO_REMOTE=1`, không set `MOMO_LOCAL`. Cần `NEXT_PUBLIC_SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY`. Role này chỉ ghi Supabase, không giữ hàng chờ TV và không dùng token Blob giả để đổi mode.
 
 **Sync 32 mã sample:**
 

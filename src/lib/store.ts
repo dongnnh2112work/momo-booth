@@ -313,14 +313,6 @@ function init(): StoreGlobal {
   return globalStore.__momoBooth;
 }
 
-function readShared(): LiveState {
-  return loadState();
-}
-
-function writeShared(state: LiveState) {
-  saveState(state);
-}
-
 function emitSnapshots(store: StoreGlobal, roster: RosterIndex, state: LiveState, now: number, emit: BoothId[]) {
   const ids = [...new Set(emit.length > 0 ? emit : BOOTH_IDS)];
   for (const id of ids) {
@@ -350,22 +342,14 @@ async function mutateShared<T>(
   store: StoreGlobal,
   work: (ctx: Ctx) => { changed: boolean; emit: BoothId[]; build: () => T },
 ): Promise<T> {
-  const roster = currentRoster(store);
-  const readStarted = Date.now();
-  const loaded = readShared();
-  const readMs = Date.now() - readStarted;
   const now = Date.now();
-  const draft = work({ state: loaded, now, roster });
-  if (draft.changed) loaded.revision += 1;
+  const roster = currentRoster(store);
+  const state = store.memory;
+  const draft = work({ state, now, roster });
+  if (draft.changed) state.revision += 1;
   const result = draft.build();
-  let writeMs = 0;
-  if (draft.changed) {
-    const writeStarted = Date.now();
-    writeShared(loaded);
-    writeMs = Date.now() - writeStarted;
-    emitSnapshots(store, roster, loaded, now, draft.emit);
-  }
-  rememberTiming(readMs, writeMs, 1);
+  if (draft.changed) emitSnapshots(store, roster, state, now, draft.emit);
+  rememberTiming(0, 0, 1);
   return result;
 }
 

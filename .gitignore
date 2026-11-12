@@ -1,6 +1,7 @@
 node_modules
 .next
 .toolchain
+.vercel
 data/live-state.json
 data/live-state.json.tmp
 data/live-state.json.bak*
@@ -10,7 +11,6 @@ data/stress-state.json.tmp
 data/stress-state.json.bak*
 data/*.bak*
 data/*.tmp
-.env
-.env.local
-.env*.local
-tsconfig.tsbuildinfo
+.env*
+!.env.example
+*.tsbuildinfo

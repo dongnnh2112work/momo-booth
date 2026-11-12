@@ -9,9 +9,13 @@ function envFlag(name: string) {
   return value === "1" || value === "true";
 }
 
+// Mac mini keeps the TV queue. Public check-in sets MOMO_REMOTE=1 and writes
+// Supabase only. MOMO_LOCAL wins if both are set. Blob env vars are not a mode
+// switch: that store was removed, and a dummy token must not move the queue.
 export function usesLocalStore(): boolean {
   if (envFlag("MOMO_LOCAL")) return true;
-  return !process.env.BLOB_STORE_ID && !process.env.BLOB_READ_WRITE_TOKEN;
+  if (envFlag("MOMO_REMOTE")) return false;
+  return true;
 }
 
 export function localStaffKeyRejected(value: string | undefined): boolean {

@@ -52,7 +52,17 @@ function mockInsert(error: SupabaseErrorLike): { client: CheckinInsertClient; ro
 }
 
 async function main() {
-  const { applyCheckinInsert, mapCheckinInsertError, toCheckinRow } = await import("./checkinRecord");
+  const { admission, applyCheckinInsert, mapCheckinInsertError, toCheckinRow } = await import("./checkinRecord");
+
+  assert.equal(admission("5-10", ["5-10"], "5-10"), "allow");
+  assert.equal(admission(null, ["5-10"], "5-10"), "allow");
+  assert.equal(admission("5-10", ["3-5"], "3-5"), "wrong_booth");
+  assert.equal(admission("5-10", ["3-5"], "5-10"), "wrong_booth");
+  assert.equal(admission("5-10", [], "5-10"), "unknown");
+  assert.equal(admission(null, [], "5-10"), "unknown");
+  assert.equal(admission("5-10", ["5-10"], "3-5"), "wrong_booth");
+  assert.equal(admission(null, "error", "5-10"), "unavailable");
+  assert.equal(admission("5-10", "error", "5-10"), "unavailable");
 
   assert.equal(mapCheckinInsertError(null), "checked-in");
   assert.equal(mapCheckinInsertError(conflictError()), "already-checked-in");
