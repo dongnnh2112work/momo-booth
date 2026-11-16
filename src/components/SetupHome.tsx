@@ -20,24 +20,18 @@ export function SetupHome({ booths, baseEnv = {} }: { booths: Booth[]; baseEnv?:
     if (!origin) return;
     let cancelled = false;
     void import("qrcode").then(async (QR) => {
-      const entries = await Promise.all(
-        booths.map(async (booth) => {
-          const url = `${origin}/c/${booth.id}`;
-          const image = await QR.toDataURL(url, {
-            margin: 1,
-            width: 560,
-            errorCorrectionLevel: "M",
-            color: { dark: "#4c1232", light: "#ffffff" },
-          });
-          return [booth.id, image] as const;
-        }),
-      );
-      if (!cancelled) setCodes(Object.fromEntries(entries));
+      const image = await QR.toDataURL(`${origin}/c`, {
+        margin: 1,
+        width: 560,
+        errorCorrectionLevel: "M",
+        color: { dark: "#4c1232", light: "#ffffff" },
+      });
+      if (!cancelled) setCodes({ shared: image });
     });
     return () => {
       cancelled = true;
     };
-  }, [origin, booths]);
+  }, [origin]);
 
   return (
     <main className="setup">
@@ -45,8 +39,8 @@ export function SetupHome({ booths, baseEnv = {} }: { booths: Booth[]; baseEnv?:
         <p className="brand">momo</p>
         <h1>Booth vinh danh</h1>
         <p>
-          Mỗi booth một màn hình và một QR. Mở đúng link trên đúng màn, rồi đưa QR cho nhân sự quét. Điện thoại và
-          máy chiếu cần vào cùng địa chỉ này.
+          Một QR cho cả hai màn. Khách nhập mã, hệ thống tự đưa ảnh lên màn đúng nhóm năm. Mỗi TV mở đúng link màn
+          hình của mình. Điện thoại và máy chiếu cần vào cùng địa chỉ này.
         </p>
         <p className="quiet no-print">Chạy một process duy nhất. Đặt STAFF_KEY riêng trước khi mở sự kiện.</p>
         <div className="setup-actions no-print">
@@ -58,28 +52,34 @@ export function SetupHome({ booths, baseEnv = {} }: { booths: Booth[]; baseEnv?:
           </button>
         </div>
       </header>
+      <article className="qr-card qr-card-shared">
+        <p className="eyebrow">Một QR</p>
+        <h2>Check-in</h2>
+        <p>Quét mã và nhập mã nhân viên. Hệ thống xếp vào màn 5–10 năm hoặc 3–5 năm.</p>
+        {codes.shared ? <img className="qr" src={codes.shared} alt="QR check-in" /> : <div className="qr skeleton" />}
+        <p className="url">{origin ? `${origin}/c` : "/c"}</p>
+        <div className="setup-actions no-print">
+          <a className="primary" href="/c">
+            Mở check-in
+          </a>
+        </div>
+      </article>
       <div className="setup-grid">
         {booths.map((booth) => {
           const id = booth.id;
-          const checkin = origin ? `${origin}/c/${id}` : `/c/${id}`;
           const display = origin ? `${origin}/d/${id}` : `/d/${id}`;
           return (
             <article className="qr-card" key={id}>
               <p className="eyebrow">{booth.label}</p>
               <h2>{booth.title}</h2>
               <p>{booth.blurb}</p>
-              {codes[id] ? <img className="qr" src={codes[id]} alt={`QR check-in ${booth.label}`} /> : <div className="qr skeleton" />}
-              <p className="url">{checkin}</p>
               <p className="quiet">Mã thử {booth.sample}</p>
               <div className="setup-actions no-print">
                 <a className="primary" href={`/d/${id}`}>
                   Mở màn hình
                 </a>
-                <a className="ghost" href={`/c/${id}`}>
-                  Mở check-in
-                </a>
               </div>
-              <p className="quiet no-print">{display}</p>
+              <p className="quiet">{display}</p>
             </article>
           );
         })}

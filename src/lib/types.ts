@@ -8,6 +8,8 @@ export type Employee = {
   years: number;
   photo: string;
   thumb?: string;
+  badge?: string;
+  joinedYear?: number;
 };
 
 export type Spotlight = {
@@ -79,6 +81,11 @@ export type RosterCard = {
   code: string;
   photo: string;
   thumb?: string;
+  name: string;
+  department: string;
+  years: number;
+  badge?: string;
+  joinedYear?: number;
 };
 
 export type CheckinStatus = "unknown" | "wrong_booth" | "cooldown" | "spotlight" | "queued" | "idle";

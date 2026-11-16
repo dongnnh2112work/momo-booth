@@ -4,8 +4,10 @@ import { EventEmitter } from "node:events";
 import fs from "node:fs";
 import path from "node:path";
 
+import { commitSharedState, supabaseLiveStateGateway } from "./liveStateRemote";
 import { assertLocalStaffKey, usesLocalStore } from "./staffKey";
 import { BOOTH_IDS, isBoothId, type BoothId } from "./booths";
+import { normalizeCode } from "./codes";
 import { indexRoster, type RosterIndex } from "./roster";
 import { PERSIST_DEBOUNCE_MS } from "./timing";
 import {
@@ -23,6 +25,7 @@ import type {
   ActionResponse,
   BoothLive,
   CheckinResponse,
+  CheckinResult,
   Employee,
   LiveState,
   PublicSnapshot,
@@ -342,15 +345,20 @@ async function mutateShared<T>(
   store: StoreGlobal,
   work: (ctx: Ctx) => { changed: boolean; emit: BoothId[]; build: () => T },
 ): Promise<T> {
-  const now = Date.now();
   const roster = currentRoster(store);
-  const state = store.memory;
-  const draft = work({ state, now, roster });
-  if (draft.changed) state.revision += 1;
-  const result = draft.build();
-  if (draft.changed) emitSnapshots(store, roster, state, now, draft.emit);
-  rememberTiming(0, 0, 1);
-  return result;
+  const started = Date.now();
+  const committed = await commitSharedState({
+    gateway: supabaseLiveStateGateway(),
+    empty: emptyState,
+    sanitize,
+    work: (state, now) => work({ state, now, roster }),
+  });
+  store.memory = committed.state;
+  rememberTiming(Date.now() - started, committed.changed ? Date.now() - started : 0, committed.attempts);
+  if (committed.changed) {
+    emitSnapshots(store, roster, committed.state, Date.now(), committed.emit as BoothId[]);
+  }
+  return committed.result;
 }
 
 function mutate<T>(work: (ctx: Ctx) => { changed: boolean; emit: BoothId[]; build: () => T }): Promise<T> {
@@ -373,8 +381,13 @@ function tick() {
 function cards(roster: RosterIndex, boothId: BoothId): RosterCard[] {
   return roster.byBooth[boothId].map((person) => ({
     code: person.code,
+    name: person.name,
+    department: person.department,
+    years: person.years,
     photo: person.photo,
     thumb: person.thumb,
+    badge: person.badge,
+    joinedYear: person.joinedYear,
   }));
 }
 
@@ -415,6 +428,22 @@ export function checkIn(
       }),
     };
   });
+}
+
+const UNKNOWN_CODE = "Không tìm thấy mã này trong danh sách vinh danh.";
+
+export function checkInByCode(input: {
+  code: string;
+  clientId: string;
+  intent: "join" | "resume";
+}): Promise<CheckinResponse | CheckinResult> {
+  const roster = currentRoster(init());
+  const code = normalizeCode(input.code);
+  const employee = code ? roster.byCode.get(code) : undefined;
+  if (!employee || !isBoothId(employee.boothId)) {
+    return Promise.resolve({ status: "unknown", message: UNKNOWN_CODE, canControl: false });
+  }
+  return checkIn(employee.boothId, input);
 }
 
 export function ingestDisplayedCheckins(

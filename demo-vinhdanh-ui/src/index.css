@@ -1,0 +1,154 @@
+@font-face {
+  font-family: "Be Vietnam Pro";
+  src: url("/fonts/BeVietnamPro-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Be Vietnam Pro";
+  src: url("/fonts/BeVietnamPro-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Be Vietnam Pro";
+  src: url("/fonts/BeVietnamPro-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Paytone One";
+  src: url("/fonts/PaytoneOne-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Baloo 2";
+  src: url("/fonts/Baloo2[wght].ttf") format("truetype");
+  font-weight: 400 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MoMo Trust Display";
+  src: url("/fonts/MoMoTrustDisplay.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MoMo Trust Sans";
+  src: url("/fonts/MoMoTrustSans-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MoMo Trust Sans";
+  src: url("/fonts/MoMoTrustSans-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MoMo Trust Sans";
+  src: url("/fonts/MoMoTrustSans-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #1a0810;
+}
+
+body {
+  font-family: "Be Vietnam Pro", "Noto Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+:root {
+  --pink: #f95396;
+  --footer: #d9d9d9;
+  --stage-w: 1080px;
+  --stage-h: 1920px;
+}
+
+.stage-wrap {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: #07060a;
+}
+
+.stage-wrap.is-card {
+  background: #ff4f98;
+}
+
+.stage {
+  width: 1080px;
+  height: 1920px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  overflow: hidden;
+  transform-origin: center center;
+  transform: translate(-50%, -50%) scale(min(100vw / 1080px, 100vh / 1920px));
+  background: #07060a;
+}
+
+.spotlight {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.spotlight .pc {
+  transform: scale(1.72);
+  transform-origin: center center;
+}
+
+.stage__scene {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 214, 230, 0.2), rgba(255, 47, 140, 0.28) 70%, rgba(160, 0, 80, 0.45)),
+    url("/bg/m16-stage.png") 18% 28% / cover no-repeat,
+    radial-gradient(circle at 50% 38%, #ffd0e6 0%, #ff5aa6 34%, #ff2f8c 68%, #e01878 100%);
+}
+
+.stage__bg {
+  position: absolute;
+  inset: 0;
+  background: url("/bg/bg_momo_vinhdanh_1080x1920.png") center / cover no-repeat;
+  pointer-events: none;
+  z-index: 0;
+}

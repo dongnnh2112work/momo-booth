@@ -6,6 +6,8 @@ data/live-state.json
 data/live-state.json.tmp
 data/live-state.json.bak*
 data/stress-roster.json
+data/m16/
+public/portraits/m16/
 data/stress-state.json
 data/stress-state.json.tmp
 data/stress-state.json.bak*

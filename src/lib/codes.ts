@@ -1,6 +1,6 @@
 export function normalizeCode(input: string): string | null {
   const code = input.trim().toUpperCase().replace(/\s+/g, "");
-  if (!/^[A-Z0-9-]{2,16}$/.test(code)) return null;
+  if (!/^[A-Z0-9.-]{2,40}$/.test(code)) return null;
   return code;
 }
 

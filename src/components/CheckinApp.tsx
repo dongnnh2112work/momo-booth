@@ -17,8 +17,9 @@ function clientId() {
   return created;
 }
 
-async function postCheckin(boothId: BoothId, code: string, intent: "join" | "resume") {
-  const response = await fetch(`/api/booths/${boothId}/checkin`, {
+async function postCheckin(target: BoothId | "shared", code: string, intent: "join" | "resume") {
+  const path = target === "shared" ? "/api/checkin" : `/api/booths/${target}/checkin`;
+  const response = await fetch(path, {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ code, clientId: clientId(), intent }),
@@ -29,8 +30,20 @@ async function postCheckin(boothId: BoothId, code: string, intent: "join" | "res
   return data;
 }
 
-export function CheckinApp({ boothId, label, title }: { boothId: BoothId; label: string; title: string }) {
-  const passKey = `momo-pass:${boothId}`;
+export function CheckinApp({
+  boothId: fixedBooth,
+  label,
+  title,
+  shared = false,
+}: {
+  boothId?: BoothId;
+  label: string;
+  title: string;
+  shared?: boolean;
+}) {
+  const passKey = shared ? "momo-pass:shared" : `momo-pass:${fixedBooth}`;
+  const [routedBooth, setRoutedBooth] = useState<BoothId | null>(fixedBooth ?? null);
+  const boothId = fixedBooth ?? routedBooth;
   const channel = useBoothChannel(boothId);
   const [extra, setExtra] = useState<PublicSnapshot | null>(null);
   const [session, setSession] = useState<CheckinResult | null>(null);
@@ -79,9 +92,10 @@ export function CheckinApp({ boothId, label, title }: { boothId: BoothId; label:
     }
     if (!savedCode) return;
     let stopped = false;
-    void postCheckin(boothId, savedCode, "resume")
+    void postCheckin(shared ? "shared" : (fixedBooth as BoothId), savedCode, "resume")
       .then((data) => {
         if (stopped) return;
+        if (data.snapshot?.boothId) setRoutedBooth(data.snapshot.boothId);
         if (data.snapshot) setExtra(data.snapshot);
         if (data.status === "idle") {
           sessionStorage.removeItem(passKey);
@@ -100,7 +114,7 @@ export function CheckinApp({ boothId, label, title }: { boothId: BoothId; label:
     return () => {
       stopped = true;
     };
-  }, [boothId, passKey]);
+  }, [fixedBooth, passKey, shared]);
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -109,7 +123,8 @@ export function CheckinApp({ boothId, label, title }: { boothId: BoothId; label:
     setBusy(true);
     setFinished(false);
     try {
-      const data = await postCheckin(boothId, nextCode, "join");
+      const data = await postCheckin(shared ? "shared" : (fixedBooth as BoothId), nextCode, "join");
+      if (data.snapshot?.boothId) setRoutedBooth(data.snapshot.boothId);
       if (data.snapshot) setExtra(data.snapshot);
       const current = sessionRef.current;
       if ((data.status === "unknown" || data.status === "wrong_booth") && current?.canControl) {
@@ -133,6 +148,7 @@ export function CheckinApp({ boothId, label, title }: { boothId: BoothId; label:
     if (!session?.ticket || busy) return;
     setBusy(true);
     try {
+      if (!boothId) return;
       const response = await fetch(`/api/booths/${boothId}/done`, {
         method: "POST",
         headers: { "content-type": "application/json" },
@@ -163,9 +179,13 @@ export function CheckinApp({ boothId, label, title }: { boothId: BoothId; label:
     <main className="phone-wrap">
       <section className="phone-card">
         <p className="brand">momo</p>
-        <p className="eyebrow">{label}</p>
-        <h1>{title}</h1>
-        <p className="lede">Nhập mã nhân viên để màn hình booth chiếu đúng ảnh của bạn.</p>
+        <p className="eyebrow">{snapshot?.label ?? label}</p>
+        <h1>{snapshot?.title ?? title}</h1>
+        <p className="lede">
+          {shared
+            ? "Nhập mã nhân viên. Hệ thống tự đưa ảnh lên màn đúng nhóm năm."
+            : "Nhập mã nhân viên để màn hình booth chiếu đúng ảnh của bạn."}
+        </p>
         <div role="status" aria-live="polite">
           {banner ? <p className="banner">{banner}</p> : null}
         </div>
@@ -173,6 +193,7 @@ export function CheckinApp({ boothId, label, title }: { boothId: BoothId; label:
         {live?.kind === "spotlight" && session?.canControl ? (
           <div className="status-card">
             <img src={live.person.photo} alt="" className="avatar" />
+            <p className="screen-note">Lên màn {snapshot?.label}</p>
             <p className="hello">Xin chào, {live.person.name}</p>
             <p className="quiet">{live.person.department}</p>
             <p className="quiet">Giữ tối đa {formatRemain(live.person.endsAt - now)}</p>
@@ -190,6 +211,7 @@ export function CheckinApp({ boothId, label, title }: { boothId: BoothId; label:
         {live?.kind === "queued" && session?.canControl ? (
           <div className="status-card">
             {live.item.photo ? <img src={live.item.photo} alt="" className="avatar" /> : null}
+            <p className="screen-note">Lên màn {snapshot?.label}</p>
             <p className="hello">Xin chào, {live.item.name}</p>
             <p className="queue-no">Bạn là số {live.item.position}</p>
             <p className="quiet">
@@ -229,7 +251,7 @@ export function CheckinApp({ boothId, label, title }: { boothId: BoothId; label:
               autoCorrect="off"
               autoComplete="off"
               spellCheck={false}
-              placeholder="VD: A01"
+              placeholder="VD: ANH.NGUYEN29"
               value={code}
               onChange={(event) => setCode(event.target.value)}
             />

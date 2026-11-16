@@ -9,9 +9,9 @@ function envFlag(name: string) {
   return value === "1" || value === "true";
 }
 
-// Mac mini keeps the TV queue. Public check-in sets MOMO_REMOTE=1 and writes
-// Supabase only. MOMO_LOCAL wins if both are set. Blob env vars are not a mode
-// switch: that store was removed, and a dummy token must not move the queue.
+// MOMO_REMOTE=1 keeps one shared TV queue in Supabase live_state.
+// MOMO_LOCAL=1 keeps that queue on this machine. MOMO_LOCAL wins if both are set.
+// Blob env vars are not a mode switch.
 export function usesLocalStore(): boolean {
   if (envFlag("MOMO_LOCAL")) return true;
   if (envFlag("MOMO_REMOTE")) return false;

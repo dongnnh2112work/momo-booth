@@ -6,12 +6,13 @@ import type { BoothId } from "@/lib/booths-shared";
 import { FALLBACK_POLL_MS } from "@/lib/timing";
 import type { PublicSnapshot, RosterCard } from "@/lib/types";
 
-export function useBoothChannel(boothId: BoothId) {
+export function useBoothChannel(boothId: BoothId | null) {
   const [snapshot, setSnapshot] = useState<PublicSnapshot | null>(null);
   const [roster, setRoster] = useState<RosterCard[]>([]);
   const [link, setLink] = useState<"pending" | "up" | "down">("pending");
 
   useEffect(() => {
+    if (!boothId) return;
     let stopped = false;
     let etag: string | null = null;
 
@@ -29,6 +30,11 @@ export function useBoothChannel(boothId: BoothId) {
           previous.every(
             (item, index) =>
               item.code === next[index]?.code &&
+              item.name === next[index]?.name &&
+              item.years === next[index]?.years &&
+              item.department === next[index]?.department &&
+              item.badge === next[index]?.badge &&
+              item.joinedYear === next[index]?.joinedYear &&
               item.photo === next[index]?.photo &&
               item.thumb === next[index]?.thumb,
           )

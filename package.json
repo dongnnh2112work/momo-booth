@@ -6,7 +6,7 @@
     "build": "next build",
     "start": "next start --hostname 0.0.0.0 --port 3000",
     "check:session": "tsx src/lib/session.test.ts",
-    "test": "tsx src/lib/session.test.ts && tsx src/lib/snapshot.test.ts && tsx src/lib/etag.test.ts && tsx src/lib/store.persist.test.ts && tsx src/lib/booths.test.ts && tsx src/lib/auth.test.ts && tsx src/lib/rateLimit.test.ts && tsx src/lib/staffExport.test.ts && tsx src/lib/publicBaseUrl.test.ts && tsx src/lib/checkinRecord.test.ts && tsx src/lib/checkinRealtime.test.ts && tsx src/lib/displayIngest.test.ts && tsx src/lib/manualCheckin.test.ts",
+    "test": "tsx src/lib/session.test.ts && tsx src/lib/snapshot.test.ts && tsx src/lib/etag.test.ts && tsx src/lib/store.persist.test.ts && tsx src/lib/booths.test.ts && tsx src/lib/auth.test.ts && tsx src/lib/rateLimit.test.ts && tsx src/lib/staffExport.test.ts && tsx src/lib/publicBaseUrl.test.ts && tsx src/lib/checkinRecord.test.ts && tsx src/lib/checkinRealtime.test.ts && tsx src/lib/displayIngest.test.ts && tsx src/lib/manualCheckin.test.ts && tsx src/lib/liveStateRemote.test.ts",
     "check:snapshot": "tsx src/lib/snapshot.test.ts",
     "portraits:optimize": "node scripts/optimize-portraits.mjs",
     "codes:sync": "node scripts/seed-codes.mjs",

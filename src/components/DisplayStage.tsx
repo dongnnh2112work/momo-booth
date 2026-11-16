@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import type { BoothId } from "@/lib/booths-shared";
 import type { PublicSpotlight } from "@/lib/types";
 import { createDisplayEngine, type RevealPhase } from "./displayEngine";
+import { LoopCardMosaic } from "./LoopCardMosaic";
 import { useBoothChannel } from "./useBoothChannel";
 
 const CUBES = [
@@ -24,6 +25,7 @@ export function DisplayStage({ boothId, label, title }: { boothId: BoothId; labe
   const [shown, setShown] = useState<PublicSpotlight | null>(null);
   const [fullscreen, setFullscreen] = useState(false);
   const liveCode = snapshot?.spotlight?.code ?? "";
+  const cardsOn = phase === "loop" && !snapshot?.spotlight && roster.length > 0;
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -73,11 +75,13 @@ export function DisplayStage({ boothId, label, title }: { boothId: BoothId; labe
         data-booth={boothId}
         data-phase={phase}
         data-live={liveCode}
+        data-cards={cardsOn ? "1" : "0"}
       >
         {CUBES.map((cube) => (
           <img key={cube.src} src={cube.src} alt="" className={cube.className} />
         ))}
         <canvas ref={canvasRef} />
+        <LoopCardMosaic people={roster} active={cardsOn} />
         <div className="scrim" />
         <p className="booth-tag">{label}</p>
         <div className={`reveal ${phase === "reveal" ? "show" : ""}`}>

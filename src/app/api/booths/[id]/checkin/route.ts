@@ -1,5 +1,4 @@
 import { isBoothId } from "@/lib/booths";
-import { recordRemoteCheckin, remoteCheckinEnabled } from "@/lib/checkinRecord";
 import { normalizeClientId } from "@/lib/codes";
 import { json, readJson } from "@/lib/http";
 import { rateLimited } from "@/lib/rateLimit";
@@ -19,10 +18,6 @@ export async function POST(request: Request, context: { params: Promise<{ id: st
   const code = typeof body.code === "string" ? body.code : "";
   const intent = body.intent === "resume" ? "resume" : "join";
   try {
-    if (remoteCheckinEnabled()) {
-      const recorded = await recordRemoteCheckin({ boothId: id, code, clientId });
-      return json(recorded.body, recorded.status);
-    }
     const result = await checkIn(id, { code, clientId, intent });
     return json(result);
   } catch (error) {
