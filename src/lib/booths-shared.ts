@@ -20,9 +20,9 @@ export const DEFAULT_BOOTHS: Booth[] = [
   },
   {
     id: "3-5",
-    label: "5 & 10 năm",
-    title: "5 và 10 năm cùng MoMo",
-    blurb: "Vinh danh nhân sự gắn bó 5 và 10 năm",
+    label: "10 & 15 năm",
+    title: "10 và 15 năm cùng MoMo",
+    blurb: "Vinh danh nhân sự gắn bó 10 và 15 năm",
     sample: "B01–B16",
   },
 ];
