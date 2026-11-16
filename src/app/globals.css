@@ -204,15 +204,24 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.03em; }
 }
 
 .pc__photo {
-  left: 39.2%;
-  top: 23.5%;
-  width: 50.6%;
-  height: 64.9%;
+  left: 30%;
+  top: 12%;
+  width: 74%;
+  height: 76%;
   object-fit: contain;
   object-position: center bottom;
-  z-index: 1;
-  -webkit-mask-image: linear-gradient(to bottom, #000 88%, transparent 99%);
-  mask-image: linear-gradient(to bottom, #000 88%, transparent 99%);
+  z-index: 2;
+  -webkit-mask-image: linear-gradient(to bottom, #000 84%, transparent 99%);
+  mask-image: linear-gradient(to bottom, #000 84%, transparent 99%);
+}
+
+.spot .pc__photo {
+  left: 28%;
+  top: 8%;
+  width: 76%;
+  height: 80%;
+  transform: scale(1.1);
+  transform-origin: 74% 100%;
 }
 
 .pc__pattern {
@@ -228,7 +237,7 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.03em; }
   top: 63.85%;
   width: 44.72%;
   height: 16.46%;
-  z-index: 2;
+  z-index: 3;
 }
 
 .pc__footer {
@@ -236,7 +245,7 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.03em; }
   top: 80.16%;
   width: 91.3%;
   height: 17.03%;
-  z-index: 3;
+  z-index: 5;
   box-sizing: border-box;
   border: 0.25cqw solid rgba(255, 255, 255, 0.7);
   border-radius: 3.8cqw;
@@ -249,7 +258,7 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.03em; }
   top: 2.6%;
   width: 39.35%;
   height: 3.65%;
-  z-index: 4;
+  z-index: 6;
 }
 
 .pc__badge,
@@ -312,7 +321,7 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.03em; }
   z-index: 4;
 }
 
-.pc__years { z-index: 5; }
+.pc__years { z-index: 4; }
 .pc__years.is-5 { left: 13.33%; top: 56.09%; width: 22.22%; height: 15%; }
 .pc__years.is-10 { left: 8.06%; top: 53.28%; width: 33.33%; height: 13.23%; }
 .pc__years.is-15 { left: 8.89%; top: 52.5%; width: 33.24%; height: 13.85%; }
@@ -505,7 +514,7 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.03em; }
   animation:
     spot-photo 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both,
     spot-drift 24s ease-out 1.65s forwards;
-  transform-origin: 50% 30%;
+  transform-origin: 74% 100%;
 }
 
 .spot__card.is-in .pc__pattern,
@@ -552,12 +561,12 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.03em; }
 
 @keyframes spot-photo {
   from { opacity: 0; transform: translate3d(0, 3cqh, 0) scale(1.04); }
-  to { opacity: 1; transform: none; }
+  to { opacity: 1; transform: scale(1.1); }
 }
 
 @keyframes spot-drift {
-  from { transform: scale(1); }
-  to { transform: scale(1.035); }
+  from { transform: scale(1.1); }
+  to { transform: scale(1.14); }
 }
 
 @keyframes spot-pop {

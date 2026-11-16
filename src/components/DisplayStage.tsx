@@ -22,13 +22,27 @@ type SpotCard = { key: string; person: RosterCard; leaving: boolean };
 function spotPerson(spotlight: PublicSpotlight, roster: RosterCard[]): RosterCard {
   const known = roster.find((person) => person.code === spotlight.code);
   return {
-    ...known,
     code: spotlight.code,
     name: spotlight.name,
     department: spotlight.department,
     years: spotlight.years,
     photo: spotlight.photo || known?.photo || "",
+    thumb: known?.thumb,
+    badge: known?.badge,
+    joinedYear: known?.joinedYear,
   };
+}
+
+function sameSpotPerson(a: RosterCard, b: RosterCard) {
+  return (
+    a.code === b.code &&
+    a.photo === b.photo &&
+    a.badge === b.badge &&
+    a.joinedYear === b.joinedYear &&
+    a.name === b.name &&
+    a.department === b.department &&
+    a.years === b.years
+  );
 }
 
 export function DisplayStage({ boothId, label, title }: { boothId: BoothId; label: string; title: string }) {
@@ -43,10 +57,18 @@ export function DisplayStage({ boothId, label, title }: { boothId: BoothId; labe
   useEffect(() => {
     setSpots((current) => {
       const shown = current.find((card) => !card.leaving);
-      if ((shown?.person.code ?? "") === liveCode) return current;
+      if (spotlight && (shown?.person.code ?? "") === liveCode) {
+        const person = spotPerson(spotlight, roster);
+        if (shown && sameSpotPerson(shown.person, person)) return current;
+        return current.map((card) => (card.leaving ? card : { ...card, person }));
+      }
       const next = current.map((card) => (card.leaving ? card : { ...card, leaving: true }));
       if (spotlight) {
-        next.push({ key: `${spotlight.code}-${spotlight.startedAt}`, person: spotPerson(spotlight, roster), leaving: false });
+        next.push({
+          key: `${spotlight.code}-${spotlight.startedAt}`,
+          person: spotPerson(spotlight, roster),
+          leaving: false,
+        });
       }
       return next;
     });
