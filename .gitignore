@@ -8,6 +8,9 @@ data/live-state.json.bak*
 data/stress-roster.json
 data/m16/
 public/portraits/m16/
+# Optimized web copies are allowed for production deploy.
+!public/portraits/m16-web/
+!public/portraits/m16-web/**
 data/stress-state.json
 data/stress-state.json.tmp
 data/stress-state.json.bak*
