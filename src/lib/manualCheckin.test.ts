@@ -40,10 +40,10 @@ function manualRequest(body: unknown, key?: string) {
     "x-forwarded-for": "203.0.113.77",
   };
   if (key !== undefined) headers["x-staff-key"] = key;
-  return new Request("http://127.0.0.1/api/staff/manual-checkin", {
+  return new Request("http://127.0.0.1/api/staff", {
     method: "POST",
     headers,
-    body: JSON.stringify(body),
+    body: JSON.stringify({ op: "manual-checkin", ...body }),
   });
 }
 
@@ -89,7 +89,7 @@ async function main() {
     delete process.env.BLOB_READ_WRITE_TOKEN;
     process.env.RATE_LIMIT_STAFF_WRITE_PER_MIN = "1";
 
-    const { POST } = await import("../app/api/staff/manual-checkin/route");
+    const { POST } = await import("../app/api/staff/route");
     const { resetRateLimits } = await import("./rateLimit");
     const store = await import("./store");
     resetRateLimits();

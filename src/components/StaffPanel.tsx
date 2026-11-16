@@ -33,7 +33,7 @@ export function StaffPanel({ boothIds }: { boothIds: BoothId[] }) {
   const pull = useCallback(async (staffKey: string) => {
     const headers: Record<string, string> = { "x-staff-key": staffKey };
     if (etagRef.current) headers["If-None-Match"] = etagRef.current;
-    const response = await fetch("/api/staff/state", {
+    const response = await fetch("/api/staff?op=state", {
       cache: "no-store",
       headers,
     });
@@ -78,7 +78,7 @@ export function StaffPanel({ boothIds }: { boothIds: BoothId[] }) {
     if (!key || busy) return;
     setBusy(true);
     try {
-      const response = await fetch("/api/staff/export", {
+      const response = await fetch("/api/staff?op=export", {
         cache: "no-store",
         headers: { "x-staff-key": key },
       });
@@ -104,14 +104,14 @@ export function StaffPanel({ boothIds }: { boothIds: BoothId[] }) {
     }
   }
 
-  async function act(path: string, body: Record<string, string>) {
+  async function act(op: string, body: Record<string, string>) {
     if (!key || busy) return;
     setBusy(true);
     try {
-      const response = await fetch(path, {
+      const response = await fetch("/api/staff", {
         method: "POST",
         headers: { "content-type": "application/json", "x-staff-key": key },
-        body: JSON.stringify(body),
+        body: JSON.stringify({ ...body, op }),
       });
       const data = (await response.json()) as { message?: string };
       if (!response.ok) {
@@ -138,10 +138,10 @@ export function StaffPanel({ boothIds }: { boothIds: BoothId[] }) {
     }
     setBusy(true);
     try {
-      const response = await fetch("/api/staff/manual-checkin", {
+      const response = await fetch("/api/staff", {
         method: "POST",
         headers: { "content-type": "application/json", "x-staff-key": key },
-        body: JSON.stringify({ boothId, code }),
+        body: JSON.stringify({ op: "manual-checkin", boothId, code }),
       });
       const data = (await response.json()) as { message?: string };
       const message = data.message || (response.ok ? "Đã cập nhật." : "Không thực hiện được.");
@@ -223,10 +223,10 @@ export function StaffPanel({ boothIds }: { boothIds: BoothId[] }) {
                   <p className="quiet">Không có ai trên màn hình.</p>
                 )}
                 <div className="setup-actions">
-                  <button type="button" className="primary" disabled={!spotlight || busy} onClick={() => void act("/api/staff/skip", { boothId: id })}>
+                  <button type="button" className="primary" disabled={!spotlight || busy} onClick={() => void act("skip", { boothId: id })}>
                     Skip lượt này
                   </button>
-                  <button type="button" className="ghost" disabled={busy || booth.snapshot.queue.length === 0} onClick={() => void act("/api/staff/clear", { boothId: id })}>
+                  <button type="button" className="ghost" disabled={busy || booth.snapshot.queue.length === 0} onClick={() => void act("clear", { boothId: id })}>
                     Xoá hàng chờ
                   </button>
                 </div>
@@ -278,14 +278,14 @@ export function StaffPanel({ boothIds }: { boothIds: BoothId[] }) {
                         <span>
                           {item.name} ({item.code}) · còn {formatRemain(item.until - now)}
                         </span>
-                        <button type="button" className="text-btn" disabled={busy} onClick={() => void act("/api/staff/clear-cooldown", { boothId: id, code: item.code })}>
+                        <button type="button" className="text-btn" disabled={busy} onClick={() => void act("clear-cooldown", { boothId: id, code: item.code })}>
                           Gỡ
                         </button>
                       </li>
                     ))}
                   </ul>
                 )}
-                <button type="button" className="ghost" disabled={busy || booth.cooldowns.length === 0} onClick={() => void act("/api/staff/clear-cooldown", { boothId: id })}>
+                <button type="button" className="ghost" disabled={busy || booth.cooldowns.length === 0} onClick={() => void act("clear-cooldown", { boothId: id })}>
                   Gỡ hết cooldown
                 </button>
               </section>

@@ -21,14 +21,14 @@ const WRONG_KEY = "wrong-export-route-key";
 function staffRequest(key?: string) {
   const headers: Record<string, string> = { "x-forwarded-for": "203.0.113.60" };
   if (key !== undefined) headers["x-staff-key"] = key;
-  return new Request("http://127.0.0.1/api/staff/export", { method: "GET", headers });
+  return new Request("http://127.0.0.1/api/staff?op=export", { method: "GET", headers });
 }
 
 async function main() {
   const previous = process.env.STAFF_KEY;
   process.env.STAFF_KEY = TEMP_KEY;
   try {
-    const { GET } = await import("../app/api/staff/export/route");
+    const { GET } = await import("../app/api/staff/route");
     const { resetRateLimits } = await import("./rateLimit");
     resetRateLimits();
 
