@@ -55,7 +55,7 @@ export function SetupHome({ booths, baseEnv = {} }: { booths: Booth[]; baseEnv?:
       <article className="qr-card qr-card-shared">
         <p className="eyebrow">Một QR</p>
         <h2>Check-in</h2>
-        <p>Quét mã và nhập mã nhân viên. Hệ thống xếp vào màn 5–10 năm hoặc 3–5 năm.</p>
+        <p>Quét mã và nhập mã nhân viên. Hệ thống xếp vào màn 5 năm hoặc màn 5 và 10 năm.</p>
         {codes.shared ? <img className="qr" src={codes.shared} alt="QR check-in" /> : <div className="qr skeleton" />}
         <p className="url">{origin ? `${origin}/c` : "/c"}</p>
         <div className="setup-actions no-print">

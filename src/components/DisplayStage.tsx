@@ -3,9 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 
 import type { BoothId } from "@/lib/booths-shared";
-import type { PublicSpotlight } from "@/lib/types";
-import { createDisplayEngine, type RevealPhase } from "./displayEngine";
-import { LoopCardMosaic } from "./LoopCardMosaic";
+import type { PublicSpotlight, RosterCard } from "@/lib/types";
+import { LoopCardMosaic, PersonCard } from "./LoopCardMosaic";
 import { useBoothChannel } from "./useBoothChannel";
 
 const CUBES = [
@@ -16,56 +15,57 @@ const CUBES = [
   { src: "/cubes/cube-5.png", className: "cube c5" },
 ];
 
+const SPOT_EXIT_MS = 700;
+
+type SpotCard = { key: string; person: RosterCard; leaving: boolean };
+
+function spotPerson(spotlight: PublicSpotlight, roster: RosterCard[]): RosterCard {
+  const known = roster.find((person) => person.code === spotlight.code);
+  return {
+    ...known,
+    code: spotlight.code,
+    name: spotlight.name,
+    department: spotlight.department,
+    years: spotlight.years,
+    photo: spotlight.photo || known?.photo || "",
+  };
+}
+
 export function DisplayStage({ boothId, label, title }: { boothId: BoothId; label: string; title: string }) {
   const { snapshot, roster, link } = useBoothChannel(boothId);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
-  const engineRef = useRef<ReturnType<typeof createDisplayEngine> | null>(null);
-  const [phase, setPhase] = useState<RevealPhase>("loop");
-  const [shown, setShown] = useState<PublicSpotlight | null>(null);
-  const [fullscreen, setFullscreen] = useState(false);
-  const liveCode = snapshot?.spotlight?.code ?? "";
-  const cardsOn = phase === "loop" && !snapshot?.spotlight && roster.length > 0;
+  const [spots, setSpots] = useState<SpotCard[]>([]);
+  const spotlight = snapshot?.spotlight ?? null;
+  const liveCode = spotlight?.code ?? "";
+  const phase = spotlight ? "reveal" : "loop";
+  const cardsOn = !spotlight && roster.length > 0;
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const engine = createDisplayEngine(canvas, (next) => {
-      setPhase((previous) => (previous === next ? previous : next));
+    setSpots((current) => {
+      const shown = current.find((card) => !card.leaving);
+      if ((shown?.person.code ?? "") === liveCode) return current;
+      const next = current.map((card) => (card.leaving ? card : { ...card, leaving: true }));
+      if (spotlight) {
+        next.push({ key: `${spotlight.code}-${spotlight.startedAt}`, person: spotPerson(spotlight, roster), leaving: false });
+      }
+      return next;
     });
-    engineRef.current = engine;
-    engine.start();
-    return () => {
-      engine.stop();
-      engineRef.current = null;
-    };
-  }, []);
+  }, [liveCode, spotlight, roster]);
 
   useEffect(() => {
-    engineRef.current?.setRoster(roster.map((person) => person.thumb || person.photo));
-  }, [roster]);
+    if (!spots.some((card) => card.leaving)) return;
+    const timer = window.setTimeout(() => {
+      setSpots((current) => current.filter((card) => !card.leaving));
+    }, SPOT_EXIT_MS);
+    return () => window.clearTimeout(timer);
+  }, [spots]);
 
   useEffect(() => {
-    const spotlight = snapshot?.spotlight;
-    engineRef.current?.setSpotlight(spotlight?.code ?? null, spotlight?.photo || null);
-    const upcoming = [
-      spotlight?.photo,
-      ...(snapshot?.queue ?? []).map((item) => item.photo),
-    ].filter((url): url is string => Boolean(url));
-    engineRef.current?.preload(upcoming);
-  }, [snapshot?.spotlight?.code, snapshot?.spotlight?.photo, snapshot?.queue]);
-
-  useEffect(() => {
-    if (phase === "reveal" && snapshot?.spotlight && snapshot.spotlight.code !== shown?.code) {
-      setShown(snapshot.spotlight);
+    const upcoming = [spotlight?.photo, ...(snapshot?.queue ?? []).map((item) => item.photo)];
+    for (const url of upcoming) {
+      if (url) new Image().src = url;
     }
-  }, [phase, snapshot, shown?.code]);
-
-  useEffect(() => {
-    const onChange = () => setFullscreen(Boolean(document.fullscreenElement));
-    document.addEventListener("fullscreenchange", onChange);
-    return () => document.removeEventListener("fullscreenchange", onChange);
-  }, []);
+  }, [spotlight?.photo, snapshot?.queue]);
 
   return (
     <div className="viewport">
@@ -76,60 +76,30 @@ export function DisplayStage({ boothId, label, title }: { boothId: BoothId; labe
         data-phase={phase}
         data-live={liveCode}
         data-cards={cardsOn ? "1" : "0"}
+        onDoubleClick={() => {
+          if (!document.fullscreenElement) void stageRef.current?.requestFullscreen?.();
+        }}
       >
         {CUBES.map((cube) => (
           <img key={cube.src} src={cube.src} alt="" className={cube.className} />
         ))}
-        <canvas ref={canvasRef} />
-        <LoopCardMosaic people={roster} active={cardsOn} />
-        <div className="scrim" />
+        <LoopCardMosaic people={roster} active={roster.length > 0} />
         <p className="booth-tag">{label}</p>
-        <div className={`reveal ${phase === "reveal" ? "show" : ""}`}>
-          {shown ? (
-            <>
-              <p className="thanks">
-                Thank you
-                <br />
-                for being you! <span aria-hidden="true">♥</span>
-              </p>
-              <p className="years">
-                <b>{shown.years}</b>
-                <span>
-                  YEARS
-                  <br />
-                  WITH MOMO
-                </span>
-              </p>
-              <div className="identity">
-                <h2>{shown.name}</h2>
-                <p className="pill">
-                  <span aria-hidden="true">☺</span>
-                  {shown.department}
-                </p>
-              </div>
-            </>
-          ) : null}
-        </div>
-        <div className="loop-caption">
-          <p>Những mảnh ghép của MoMo</p>
-          <h1>{title}</h1>
-        </div>
         <div className="loop-scrim" />
-        <div className="wordmarks">
-          <img className="wordmark" src="/brand/the-power-of-small.svg" alt="The Power of Small. Me. We. Impact." />
+        <div className="loop-caption">
+          <p className="loop-caption__eyebrow">Những mảnh ghép</p>
+          <h1>{title}</h1>
+          <span className="loop-caption__rule" />
+          <img className="wordmark" src="/brand/the-power-of-small.png" alt="The Power of Small" />
+        </div>
+        <div className="spot" aria-live="polite">
+          {spots.map((card) => (
+            <div key={card.key} className={`spot__card ${card.leaving ? "is-out" : "is-in"}`}>
+              <PersonCard person={card.person} hires />
+            </div>
+          ))}
         </div>
         {link === "down" ? <p className="offline">Đang kết nối lại…</p> : null}
-        {!fullscreen && phase !== "reveal" ? (
-          <button
-            type="button"
-            className="fs-btn"
-            onClick={() => {
-              void stageRef.current?.requestFullscreen?.();
-            }}
-          >
-            Toàn màn hình
-          </button>
-        ) : null}
       </div>
     </div>
   );
