@@ -7,18 +7,23 @@ const MAX_BUCKETS = 4_000;
 
 export const RATE_LIMIT_MESSAGE = "Quá nhiều yêu cầu.";
 
-// Per IP, per minute. Check-in stays high so guests behind one office NAT can
-// burst together. Duplicate check-ins are still rejected per code and booth.
+// Per IP, per minute. Check-in stays wide enough for a shared event Wi-Fi.
+// A separate global bucket is only a circuit breaker. Duplicate check-ins are
+// still rejected per code and booth.
 const DEFAULT_LIMITS = {
-  checkin: 300,
-  "staff-read": 20,
-  "staff-write": 10,
+  checkin: 120,
+  "checkin-client": 10,
+  "staff-read": 120,
+  "staff-write": 60,
+  global: 5000,
 } as const;
 
 const LIMIT_ENV = {
   checkin: "RATE_LIMIT_CHECKIN_PER_MIN",
+  "checkin-client": "RATE_LIMIT_CHECKIN_CLIENT_PER_MIN",
   "staff-read": "RATE_LIMIT_STAFF_READ_PER_MIN",
   "staff-write": "RATE_LIMIT_STAFF_WRITE_PER_MIN",
+  global: "RATE_LIMIT_GLOBAL_PER_MIN",
 } as const;
 
 export type RateScope = keyof typeof DEFAULT_LIMITS;
@@ -40,11 +45,17 @@ export const LIMITS: { readonly [K in RateScope]: number } = {
   get checkin() {
     return limitFor("checkin");
   },
+  get "checkin-client"() {
+    return limitFor("checkin-client");
+  },
   get "staff-read"() {
     return limitFor("staff-read");
   },
   get "staff-write"() {
     return limitFor("staff-write");
+  },
+  get global() {
+    return limitFor("global");
   },
 };
 
@@ -158,14 +169,18 @@ export function consumeRateLimit(key: string, limit: number, windowMs: number, n
   return true;
 }
 
-export function rateLimited(request: Request, scope: RateScope, now = Date.now()): Response | null {
-  const limit = limitFor(scope);
-  if (!consumeRateLimit(`${scope}:all`, limit, WINDOW_MS, now)) {
-    return json({ message: RATE_LIMIT_MESSAGE }, 429);
-  }
+function blocked(): Response {
+  return json({ message: RATE_LIMIT_MESSAGE }, 429);
+}
+
+export function rateLimited(request: Request, scope: Exclude<RateScope, "global" | "checkin-client">, now = Date.now()): Response | null {
+  if (!consumeRateLimit(`global:${scope}`, limitFor("global"), WINDOW_MS, now)) return blocked();
   const ip = clientIp(request);
-  if (ip !== "unknown" && !consumeRateLimit(`${scope}:${ip}`, limit, WINDOW_MS, now)) {
-    return json({ message: RATE_LIMIT_MESSAGE }, 429);
-  }
+  if (ip !== "unknown" && !consumeRateLimit(`${scope}:${ip}`, limitFor(scope), WINDOW_MS, now)) return blocked();
+  return null;
+}
+
+export function clientRateLimited(clientId: string, now = Date.now()): Response | null {
+  if (!consumeRateLimit(`checkin:client:${clientId}`, limitFor("checkin-client"), WINDOW_MS, now)) return blocked();
   return null;
 }

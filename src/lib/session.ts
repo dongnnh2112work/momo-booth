@@ -327,6 +327,28 @@ export function applySkip(state: LiveState, boothId: BoothId, now: number): Acti
   return { ok: true, message: "Đã chuyển lượt.", ...withEmit(true, emit) };
 }
 
+export function applyRemoveQueued(state: LiveState, boothId: BoothId, code: string, now: number): ActionResult & Mutation {
+  const sweepState = baseSweep(sweep(state, now));
+  const emit = sweepState.emit;
+  const booth = state.booths[boothId];
+  const normalized = normalizeCode(code);
+  if (!normalized) {
+    return { ok: false, error: "forbidden", message: "Không có mã này trong hàng.", ...withEmit(sweepState.changed, emit) };
+  }
+  if (booth.spotlight?.code === normalized) {
+    finishSpotlight(booth, now);
+    emit.add(boothId);
+    return { ok: true, message: "Đã bỏ người đang chiếu.", ...withEmit(true, emit) };
+  }
+  const next = booth.queue.filter((item) => item.code !== normalized);
+  if (next.length === booth.queue.length) {
+    return { ok: false, error: "forbidden", message: "Không có mã này trong hàng.", ...withEmit(sweepState.changed, emit) };
+  }
+  booth.queue = next;
+  emit.add(boothId);
+  return { ok: true, message: "Đã xoá khỏi hàng chờ.", ...withEmit(true, emit) };
+}
+
 export function applyClearQueue(state: LiveState, boothId: BoothId, now: number): ActionResult & Mutation {
   const sweepState = baseSweep(sweep(state, now));
   const emit = sweepState.emit;

@@ -223,10 +223,24 @@ export function StaffPanel({ boothIds }: { boothIds: BoothId[] }) {
                   <p className="quiet">Không có ai trên màn hình.</p>
                 )}
                 <div className="setup-actions">
-                  <button type="button" className="primary" disabled={!spotlight || busy} onClick={() => void act("skip", { boothId: id })}>
+                  <button
+                    type="button"
+                    className="primary"
+                    disabled={!spotlight || busy}
+                    onClick={() => {
+                      if (window.confirm("Skip người đang chiếu?")) void act("skip", { boothId: id });
+                    }}
+                  >
                     Skip lượt này
                   </button>
-                  <button type="button" className="ghost" disabled={busy || booth.snapshot.queue.length === 0} onClick={() => void act("clear", { boothId: id })}>
+                  <button
+                    type="button"
+                    className="ghost"
+                    disabled={busy || booth.snapshot.queue.length === 0}
+                    onClick={() => {
+                      if (window.confirm("Xoá cả hàng chờ?")) void act("clear", { boothId: id });
+                    }}
+                  >
                     Xoá hàng chờ
                   </button>
                 </div>
@@ -263,7 +277,19 @@ export function StaffPanel({ boothIds }: { boothIds: BoothId[] }) {
                   <ol>
                     {booth.snapshot.queue.map((item) => (
                       <li key={item.code}>
-                        Số {item.position}: {item.name} ({item.code})
+                        <span>
+                          Số {item.position}: {item.name} ({item.code})
+                        </span>
+                        <button
+                          type="button"
+                          className="text-btn"
+                          disabled={busy}
+                          onClick={() => {
+                            if (window.confirm(`Xoá ${item.name} khỏi hàng?`)) void act("remove", { boothId: id, code: item.code });
+                          }}
+                        >
+                          Xoá
+                        </button>
                       </li>
                     ))}
                   </ol>

@@ -45,12 +45,14 @@ export function useBoothChannel(boothId: BoothId | null) {
       });
     };
 
+    let pollMisses = 0;
     const pull = async () => {
       try {
         const headers: Record<string, string> = {};
         if (etag) headers["If-None-Match"] = etag;
         const response = await fetch(`/api/booths/${boothId}`, { cache: "no-store", headers });
         if (response.status === 304) {
+          pollMisses = 0;
           if (!stopped) setLink("up");
           return;
         }
@@ -61,9 +63,11 @@ export function useBoothChannel(boothId: BoothId | null) {
         if (stopped) return;
         applySnapshot(data.snapshot);
         applyRoster(data.roster);
+        pollMisses = 0;
         setLink("up");
       } catch {
-        if (!stopped) setLink("down");
+        pollMisses += 1;
+        if (!stopped && pollMisses >= 3) setLink("down");
       }
     };
 
@@ -79,7 +83,6 @@ export function useBoothChannel(boothId: BoothId | null) {
       }
     });
     source.onerror = () => {
-      if (!stopped) setLink("down");
       void pull();
     };
     const poll = window.setInterval(() => {

@@ -15,6 +15,7 @@ import {
   applyClearCooldown,
   applyClearQueue,
   applyDone,
+  applyRemoveQueued,
   applySkip,
   cooldownList,
   emptyState,
@@ -493,6 +494,20 @@ export function finishTurn(boothId: BoothId, ticket: string): Promise<ActionResp
 export function skipTurn(boothId: BoothId): Promise<ActionResponse> {
   return mutate((ctx) => {
     const applied = applySkip(ctx.state, boothId, ctx.now);
+    return {
+      changed: applied.changed,
+      emit: applied.emit,
+      build: () => ({
+        ...applied,
+        snapshot: toSnapshot(ctx.state, ctx.roster, boothId, ctx.now),
+      }),
+    };
+  });
+}
+
+export function removeQueued(boothId: BoothId, code: string): Promise<ActionResponse> {
+  return mutate((ctx) => {
+    const applied = applyRemoveQueued(ctx.state, boothId, code, ctx.now);
     return {
       changed: applied.changed,
       emit: applied.emit,

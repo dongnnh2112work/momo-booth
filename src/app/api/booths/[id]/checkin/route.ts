@@ -1,7 +1,7 @@
 import { isBoothId } from "@/lib/booths";
 import { normalizeClientId } from "@/lib/codes";
 import { json, readJson } from "@/lib/http";
-import { rateLimited } from "@/lib/rateLimit";
+import { clientRateLimited, rateLimited } from "@/lib/rateLimit";
 import { checkIn } from "@/lib/store";
 
 export const runtime = "nodejs";
@@ -15,6 +15,8 @@ export async function POST(request: Request, context: { params: Promise<{ id: st
   const body = await readJson(request);
   const clientId = typeof body.clientId === "string" ? normalizeClientId(body.clientId) : null;
   if (!clientId) return json({ message: "Thiếu mã máy." }, 400);
+  const clientLimited = clientRateLimited(clientId);
+  if (clientLimited) return clientLimited;
   const code = typeof body.code === "string" ? body.code : "";
   const intent = body.intent === "resume" ? "resume" : "join";
   try {

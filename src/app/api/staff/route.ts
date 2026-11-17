@@ -14,6 +14,7 @@ import {
   readHealth,
   readLiveState,
   readStaff,
+  removeQueued,
   skipTurn,
 } from "@/lib/store";
 
@@ -30,12 +31,18 @@ function opOf(request: Request, body?: Record<string, unknown>) {
 export async function GET(request: Request) {
   const op = opOf(request) ?? "state";
   if (op === "health") {
-    return json(await readHealth());
+    const health = await readHealth();
+    const mode = health.local ? "local" : "remote";
+    if (!staffAuthorized(request.headers.get("x-staff-key"))) {
+      return json({ ok: health.ok, mode, serverNow: health.serverNow });
+    }
+    return json({ ...health, mode });
   }
 
-  const limited = rateLimited(request, "staff-read");
-  if (limited) return limited;
-  if (!staffAuthorized(request.headers.get("x-staff-key"))) {
+  const staffKey = request.headers.get("x-staff-key");
+  if (!staffAuthorized(staffKey)) {
+    const limited = rateLimited(request, "staff-read");
+    if (limited) return limited;
     return json({ message: "Sai khóa." }, 401);
   }
 
@@ -69,6 +76,10 @@ export async function POST(request: Request) {
   try {
     if (op === "skip") return json(await skipTurn(boothId));
     if (op === "clear") return json(await clearQueue(boothId));
+    if (op === "remove") {
+      const code = typeof body.code === "string" ? body.code : "";
+      return json(await removeQueued(boothId, code));
+    }
     if (op === "clear-cooldown") {
       const code = typeof body.code === "string" ? body.code : undefined;
       return json(await clearCooldown(boothId, code));

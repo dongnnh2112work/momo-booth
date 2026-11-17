@@ -34,7 +34,7 @@ function person(code: string, boothId: BoothId) {
   };
 }
 
-function manualRequest(body: unknown, key?: string) {
+function manualRequest(body: Record<string, string>, key?: string) {
   const headers: Record<string, string> = {
     "content-type": "application/json",
     "x-forwarded-for": "203.0.113.77",
@@ -68,6 +68,7 @@ async function main() {
     BLOB_STORE_ID: process.env.BLOB_STORE_ID,
     BLOB_READ_WRITE_TOKEN: process.env.BLOB_READ_WRITE_TOKEN,
     RATE_LIMIT_STAFF_WRITE_PER_MIN: process.env.RATE_LIMIT_STAFF_WRITE_PER_MIN,
+    TRUST_PROXY: process.env.TRUST_PROXY,
   };
   const restore = (name: keyof typeof previous) => {
     const value = previous[name];
@@ -88,6 +89,7 @@ async function main() {
     delete process.env.BLOB_STORE_ID;
     delete process.env.BLOB_READ_WRITE_TOKEN;
     process.env.RATE_LIMIT_STAFF_WRITE_PER_MIN = "1";
+    process.env.TRUST_PROXY = "1";
 
     const { POST } = await import("../app/api/staff/route");
     const { resetRateLimits } = await import("./rateLimit");
@@ -215,6 +217,7 @@ async function main() {
     restore("BLOB_STORE_ID");
     restore("BLOB_READ_WRITE_TOKEN");
     restore("RATE_LIMIT_STAFF_WRITE_PER_MIN");
+    restore("TRUST_PROXY");
     fs.rmSync(directory, { recursive: true, force: true });
   }
   console.log("manual checkin checks passed");

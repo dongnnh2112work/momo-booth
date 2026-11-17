@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import type { BoothId } from "@/lib/booths-shared";
 import type { PublicSpotlight, RosterCard } from "@/lib/types";
 import { LoopCardMosaic, PersonCard } from "./LoopCardMosaic";
+import { LoopCornerQr } from "./LoopCornerQr";
 import { useBoothChannel } from "./useBoothChannel";
 
 const CUBES = [
@@ -52,11 +53,13 @@ export function DisplayStage({
   label,
   title,
   previewSlide = false,
+  checkInUrl = "",
 }: {
   boothId: BoothId;
   label: string;
   title: string;
   previewSlide?: boolean;
+  checkInUrl?: string;
 }) {
   const { snapshot, roster, link } = useBoothChannel(boothId);
   const stageRef = useRef<HTMLDivElement>(null);
@@ -160,6 +163,7 @@ export function DisplayStage({
         <LoopCardMosaic people={roster} active={roster.length > 0} />
         <p className="booth-tag">{label}</p>
         <div className="loop-scrim" />
+        <LoopCornerQr checkInUrl={checkInUrl} />
         <div className="loop-caption">
           <p className="loop-caption__eyebrow">Những mảnh ghép</p>
           <h1>{title}</h1>

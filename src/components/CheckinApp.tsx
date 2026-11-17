@@ -1,19 +1,48 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import type { BoothId } from "@/lib/booths-shared";
 import { formatClock, formatRemain } from "@/lib/format";
 import type { CheckinResponse, CheckinResult, PublicSnapshot } from "@/lib/types";
+import { CodeScanner } from "./CodeScanner";
 import { useBoothChannel } from "./useBoothChannel";
 import { useServerNow } from "./useServerNow";
 
+const memoryStore = new Map<string, string>();
+
+function readStore(key: string) {
+  try {
+    return localStorage.getItem(key);
+  } catch {
+    return memoryStore.get(key) ?? null;
+  }
+}
+
+function writeStore(key: string, value: string) {
+  memoryStore.set(key, value);
+  try {
+    localStorage.setItem(key, value);
+  } catch {
+    /* private mode keeps the in-memory copy */
+  }
+}
+
+function removeStore(key: string) {
+  memoryStore.delete(key);
+  try {
+    localStorage.removeItem(key);
+  } catch {
+    /* already gone from memory */
+  }
+}
+
 function clientId() {
   const key = "momo-client-id";
-  const existing = sessionStorage.getItem(key);
+  const existing = readStore(key);
   if (existing && /^[A-Za-z0-9-]{8,80}$/.test(existing)) return existing;
   const created = crypto.randomUUID();
-  sessionStorage.setItem(key, created);
+  writeStore(key, created);
   return created;
 }
 
@@ -47,7 +76,6 @@ export function CheckinApp({
   const channel = useBoothChannel(boothId);
   const [extra, setExtra] = useState<PublicSnapshot | null>(null);
   const [session, setSession] = useState<CheckinResult | null>(null);
-  const [code, setCode] = useState("");
   const [banner, setBanner] = useState("");
   const [busy, setBusy] = useState(false);
   const [finished, setFinished] = useState(false);
@@ -80,14 +108,21 @@ export function CheckinApp({
     return { kind: "away" as const };
   }, [snapshot, session]);
 
+  const liveKind = live?.kind ?? "";
+  const previousKind = useRef(liveKind);
   useEffect(() => {
-    const raw = sessionStorage.getItem(passKey);
+    if (previousKind.current === "queued" && liveKind === "spotlight") setBanner("");
+    previousKind.current = liveKind;
+  }, [liveKind]);
+
+  useEffect(() => {
+    const raw = readStore(passKey);
     if (!raw) return;
     let savedCode = "";
     try {
       savedCode = (JSON.parse(raw) as { code?: string }).code ?? "";
     } catch {
-      sessionStorage.removeItem(passKey);
+      removeStore(passKey);
       return;
     }
     if (!savedCode) return;
@@ -98,14 +133,14 @@ export function CheckinApp({
         if (data.snapshot?.boothId) setRoutedBooth(data.snapshot.boothId);
         if (data.snapshot) setExtra(data.snapshot);
         if (data.status === "idle") {
-          sessionStorage.removeItem(passKey);
+          removeStore(passKey);
           return;
         }
         sessionRef.current = data;
         setSession(data);
         if (data.message) setBanner(data.message);
         if (data.canControl && data.ticket && data.code) {
-          sessionStorage.setItem(passKey, JSON.stringify({ code: data.code, ticket: data.ticket }));
+          writeStore(passKey, JSON.stringify({ code: data.code, ticket: data.ticket }));
         }
       })
       .catch(() => {
@@ -116,9 +151,7 @@ export function CheckinApp({
     };
   }, [fixedBooth, passKey, shared]);
 
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const nextCode = code.trim();
+  async function onScan(nextCode: string) {
     if (!nextCode || busy) return;
     setBusy(true);
     setFinished(false);
@@ -135,7 +168,7 @@ export function CheckinApp({
       setSession(data);
       setBanner(data.message);
       if (data.canControl && data.ticket && data.code) {
-        sessionStorage.setItem(passKey, JSON.stringify({ code: data.code, ticket: data.ticket }));
+        writeStore(passKey, JSON.stringify({ code: data.code, ticket: data.ticket }));
       }
     } catch {
       setBanner("Không gửi được mã. Thử lại giúp mình.");
@@ -160,7 +193,7 @@ export function CheckinApp({
         setBanner(data.message || "Chưa thể đóng lượt.");
         return;
       }
-      sessionStorage.removeItem(passKey);
+      removeStore(passKey);
       sessionRef.current = null;
       setSession(null);
       setFinished(true);
@@ -181,11 +214,7 @@ export function CheckinApp({
         <p className="brand">momo</p>
         <p className="eyebrow">{snapshot?.label ?? label}</p>
         <h1>{snapshot?.title ?? title}</h1>
-        <p className="lede">
-          {shared
-            ? "Nhập mã nhân viên. Hệ thống tự đưa ảnh lên màn đúng nhóm năm."
-            : "Nhập mã nhân viên để màn hình booth chiếu đúng ảnh của bạn."}
-        </p>
+        <p className="lede">Quét QR mã nhân viên. Ảnh lên đúng màn nhóm năm.</p>
         <div role="status" aria-live="polite">
           {banner ? <p className="banner">{banner}</p> : null}
         </div>
@@ -233,7 +262,7 @@ export function CheckinApp({
                 setBanner("");
               }}
             >
-              Nhập mã khác
+              Quét mã khác
             </button>
           </div>
         ) : null}
@@ -241,24 +270,7 @@ export function CheckinApp({
         {finished && !session ? <p className="thanks-phone">Cảm ơn bạn. Hẹn gặp lại trên vòng lặp của MoMo.</p> : null}
 
         {!controlling && !(session?.canControl && live?.kind === "away") ? (
-          <form onSubmit={onSubmit}>
-            <label htmlFor="employee-code">Mã nhân viên</label>
-            <input
-              id="employee-code"
-              name="code"
-              inputMode="text"
-              autoCapitalize="characters"
-              autoCorrect="off"
-              autoComplete="off"
-              spellCheck={false}
-              placeholder="VD: ANH.NGUYEN29"
-              value={code}
-              onChange={(event) => setCode(event.target.value)}
-            />
-            <button type="submit" className="primary" disabled={busy || code.trim().length < 2}>
-              {busy ? "Đang gửi…" : "Check in"}
-            </button>
-          </form>
+          <CodeScanner paused={busy} onCode={(value) => void onScan(value)} />
         ) : null}
       </section>
     </main>

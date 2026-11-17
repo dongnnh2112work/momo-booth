@@ -39,10 +39,13 @@ export function SetupHome({ booths, baseEnv = {} }: { booths: Booth[]; baseEnv?:
         <p className="brand">momo</p>
         <h1>Booth vinh danh</h1>
         <p>
-          Một QR cho cả hai màn. Khách nhập mã, hệ thống tự đưa ảnh lên màn đúng nhóm năm. Mỗi TV mở đúng link màn
-          hình của mình. Điện thoại và máy chiếu cần vào cùng địa chỉ này.
+          QR check-in nằm ở góc màn loop. Khách quét QR mã nhân viên, hệ thống tự đưa ảnh lên màn đúng nhóm năm. Mỗi
+          TV mở đúng link màn hình của mình. Điện thoại và máy chiếu cần vào cùng địa chỉ này.
         </p>
         <p className="quiet no-print">Chạy một process duy nhất. Đặt STAFF_KEY riêng trước khi mở sự kiện.</p>
+        {origin && /localhost|127\.0\.0\.1|\.local(?::\d+)?$/i.test(origin) ? (
+          <p className="banner">QR này là địa chỉ máy local. Điện thoại khách không mở được.</p>
+        ) : null}
         <div className="setup-actions no-print">
           <a className="ghost" href="/staff">
             Bảng điều phối
@@ -55,7 +58,7 @@ export function SetupHome({ booths, baseEnv = {} }: { booths: Booth[]; baseEnv?:
       <article className="qr-card qr-card-shared">
         <p className="eyebrow">Một QR</p>
         <h2>Check-in</h2>
-        <p>Quét mã và nhập mã nhân viên. Hệ thống xếp vào màn 5 năm hoặc màn 10 và 15 năm.</p>
+        <p>Cùng một QR đang ở góc phải màn loop. Quét xong, điện thoại mở camera để quét QR mã nhân viên.</p>
         {codes.shared ? <img className="qr" src={codes.shared} alt="QR check-in" /> : <div className="qr skeleton" />}
         <p className="url">{origin ? `${origin}/c` : "/c"}</p>
         <div className="setup-actions no-print">
@@ -73,7 +76,6 @@ export function SetupHome({ booths, baseEnv = {} }: { booths: Booth[]; baseEnv?:
               <p className="eyebrow">{booth.label}</p>
               <h2>{booth.title}</h2>
               <p>{booth.blurb}</p>
-              <p className="quiet">Mã thử {booth.sample}</p>
               <div className="setup-actions no-print">
                 <a className="primary" href={`/d/${id}`}>
                   Mở màn hình

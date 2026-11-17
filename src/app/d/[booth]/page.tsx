@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 
 import { DisplayStage } from "@/components/DisplayStage";
 import { BOOTHS, isBoothId } from "@/lib/booths";
+import { publicBaseUrl } from "@/lib/publicBaseUrl";
 
 export default async function Page({
   params,
@@ -14,5 +15,17 @@ export default async function Page({
   const { demo } = await searchParams;
   if (!isBoothId(booth)) notFound();
   const meta = BOOTHS[booth];
-  return <DisplayStage boothId={booth} label={meta.label} title={meta.title} previewSlide={demo !== "off"} />;
+  const checkInUrl = publicBaseUrl(
+    { PUBLIC_BASE_URL: process.env.PUBLIC_BASE_URL, NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL },
+    "",
+  );
+  return (
+    <DisplayStage
+      boothId={booth}
+      label={meta.label}
+      title={meta.title}
+      previewSlide={demo !== "off"}
+      checkInUrl={checkInUrl}
+    />
+  );
 }

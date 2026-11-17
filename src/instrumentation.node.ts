@@ -5,10 +5,4 @@ export async function registerNode() {
   } catch {
     process.exit(1);
   }
-  try {
-    const { startDisplayIngest } = await import("./lib/displayIngest");
-    await startDisplayIngest();
-  } catch {
-    console.error("display ingest failed");
-  }
 }

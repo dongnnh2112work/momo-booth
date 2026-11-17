@@ -1,9 +1,29 @@
 import "server-only";
 
-import type { SupabaseClient } from "@supabase/supabase-js";
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
-import { serviceRoleClient } from "./checkinRecord";
 import type { LiveState } from "./types";
+
+function envValue(name: string): string {
+  const value = process.env[name];
+  if (typeof value !== "string") return "";
+  return value.trim();
+}
+
+let service: { url: string; client: SupabaseClient } | null = null;
+
+export function serviceRoleClient(): SupabaseClient | null {
+  const url = envValue("NEXT_PUBLIC_SUPABASE_URL");
+  const key = envValue("SUPABASE_SERVICE_ROLE_KEY");
+  if (!url || !key) return null;
+  if (service && service.url === url) return service.client;
+  const client = createClient(url, key, {
+    auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
+    db: { schema: "public" },
+  });
+  service = { url, client };
+  return client;
+}
 
 export const LIVE_STATE_ID = "live";
 export const LIVE_STATE_ATTEMPTS = 5;

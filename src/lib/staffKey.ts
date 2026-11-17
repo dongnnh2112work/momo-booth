@@ -26,9 +26,19 @@ export function localStaffKeyRejected(value: string | undefined): boolean {
 }
 
 export function assertLocalStaffKey(): void {
-  if (!usesLocalStore()) return;
-  if (!localStaffKeyRejected(process.env.STAFF_KEY)) return;
-  console.error(REFUSE_MESSAGE);
+  if (localStaffKeyRejected(process.env.STAFF_KEY)) {
+    console.error(REFUSE_MESSAGE);
+    process.exitCode = 1;
+    throw new Error(REFUSE_MESSAGE);
+  }
+  if (usesLocalStore()) return;
+  const missing = ["NEXT_PUBLIC_SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY"].filter((name) => {
+    const value = process.env[name];
+    return typeof value !== "string" || value.trim().length === 0;
+  });
+  if (missing.length === 0) return;
+  const message = `Refusing to start: remote mode missing ${missing.join(", ")}.`;
+  console.error(message);
   process.exitCode = 1;
-  throw new Error(REFUSE_MESSAGE);
+  throw new Error(message);
 }
