@@ -506,6 +506,14 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.03em; }
   animation: spot-out 0.7s cubic-bezier(0.4, 0, 1, 1) both;
 }
 
+.spot__card.is-pop.is-in {
+  animation: spot-pop-in 0.95s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.spot__card.is-pop.is-out {
+  animation: spot-pop-out 0.7s cubic-bezier(0.4, 0, 1, 1) both;
+}
+
 .spot__card.is-in .pc > * {
   animation: spot-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
@@ -547,6 +555,16 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.03em; }
 @keyframes spot-out {
   from { opacity: 1; transform: none; }
   to { opacity: 0; transform: scale(1.03); }
+}
+
+@keyframes spot-pop-in {
+  from { opacity: 0; transform: scale(0.34); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes spot-pop-out {
+  from { opacity: 1; transform: none; }
+  to { opacity: 0; transform: scale(0.34); }
 }
 
 @keyframes spot-rise {

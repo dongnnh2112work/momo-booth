@@ -16,6 +16,8 @@ const CUBES = [
 ];
 
 const SPOT_EXIT_MS = 700;
+const PREVIEW_LOOP_MS = 15_000;
+const PREVIEW_HOLD_MS = 8_000;
 
 type SpotCard = { key: string; person: RosterCard; leaving: boolean };
 
@@ -45,14 +47,29 @@ function sameSpotPerson(a: RosterCard, b: RosterCard) {
   );
 }
 
-export function DisplayStage({ boothId, label, title }: { boothId: BoothId; label: string; title: string }) {
+export function DisplayStage({
+  boothId,
+  label,
+  title,
+  previewSlide = false,
+}: {
+  boothId: BoothId;
+  label: string;
+  title: string;
+  previewSlide?: boolean;
+}) {
   const { snapshot, roster, link } = useBoothChannel(boothId);
   const stageRef = useRef<HTMLDivElement>(null);
+  const previewIndex = useRef(0);
+  const rosterRef = useRef(roster);
+  rosterRef.current = roster;
   const [spots, setSpots] = useState<SpotCard[]>([]);
+  const [preview, setPreview] = useState<SpotCard | null>(null);
   const spotlight = snapshot?.spotlight ?? null;
   const liveCode = spotlight?.code ?? "";
-  const phase = spotlight ? "reveal" : "loop";
-  const cardsOn = !spotlight && roster.length > 0;
+  const featuring = Boolean(preview && !preview.leaving);
+  const phase = spotlight || featuring ? "reveal" : "loop";
+  const cardsOn = !spotlight && !featuring && roster.length > 0;
 
   useEffect(() => {
     setSpots((current) => {
@@ -81,6 +98,41 @@ export function DisplayStage({ boothId, label, title }: { boothId: BoothId; labe
     }, SPOT_EXIT_MS);
     return () => window.clearTimeout(timer);
   }, [spots]);
+
+  useEffect(() => {
+    if (!previewSlide || liveCode || rosterRef.current.length === 0) {
+      setPreview(null);
+      return;
+    }
+    let timer = 0;
+    let stopped = false;
+    const wait = (ms: number) =>
+      new Promise<void>((resolve) => {
+        timer = window.setTimeout(resolve, ms);
+      });
+    const cycle = async () => {
+      while (!stopped) {
+        await wait(PREVIEW_LOOP_MS);
+        if (stopped) return;
+        const people = rosterRef.current;
+        if (people.length === 0) continue;
+        const person = people[previewIndex.current % people.length];
+        previewIndex.current += 1;
+        setPreview({ key: `preview-${person.code}-${previewIndex.current}`, person, leaving: false });
+        await wait(PREVIEW_HOLD_MS);
+        if (stopped) return;
+        setPreview((current) => (current ? { ...current, leaving: true } : null));
+        await wait(SPOT_EXIT_MS);
+        if (stopped) return;
+        setPreview(null);
+      }
+    };
+    void cycle();
+    return () => {
+      stopped = true;
+      window.clearTimeout(timer);
+    };
+  }, [previewSlide, liveCode, roster.length]);
 
   useEffect(() => {
     const upcoming = [spotlight?.photo, ...(snapshot?.queue ?? []).map((item) => item.photo)];
@@ -115,8 +167,11 @@ export function DisplayStage({ boothId, label, title }: { boothId: BoothId; labe
           <img className="wordmark" src="/brand/the-power-of-small.png" alt="The Power of Small" />
         </div>
         <div className="spot" aria-live="polite">
-          {spots.map((card) => (
-            <div key={card.key} className={`spot__card ${card.leaving ? "is-out" : "is-in"}`}>
+          {(spotlight ? spots : preview ? [preview] : []).map((card) => (
+            <div
+              key={card.key}
+              className={`spot__card ${previewSlide && !spotlight ? "is-pop" : ""} ${card.leaving ? "is-out" : "is-in"}`}
+            >
               <PersonCard person={card.person} hires />
             </div>
           ))}
