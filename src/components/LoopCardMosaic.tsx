@@ -1,5 +1,7 @@
 "use client";
 
+import { useLayoutEffect, useRef } from "react";
+
 import type { RosterCard } from "@/lib/types";
 
 const COLUMN_COUNT = 3;
@@ -14,42 +16,72 @@ function columnsOf(people: RosterCard[]) {
 }
 
 const EVENT_YEAR = 2026;
-const YEAR_ART = new Set([5, 10, 15]);
+const YEAR_ART: Record<number, string> = {
+  5: "/card/m16/num-5.webp",
+  10: "/card/num-10.png",
+  15: "/card/num-15.png",
+};
 
 function milestones(person: RosterCard) {
   return person.joinedYear ? EVENT_YEAR - person.joinedYear + 1 : person.years;
 }
 
+// Shrinks a single line of card text until it fits the width it was given in CSS.
+// Sizes are in cqw, so the ratio measured once holds for every card size.
+function FitLine({ className, text }: { className: string; text: string }) {
+  const ref = useRef<HTMLParagraphElement>(null);
+
+  useLayoutEffect(() => {
+    let cancelled = false;
+    const measure = () => {
+      const el = ref.current;
+      if (cancelled || !el) return;
+      el.style.setProperty("--fit", "1");
+      const ratio = el.scrollWidth > 0 ? el.clientWidth / el.scrollWidth : 1;
+      if (ratio < 1) el.style.setProperty("--fit", String(Math.max(0.55, Math.floor(ratio * 1000) / 1000)));
+    };
+    measure();
+    void document.fonts?.ready.then(measure);
+    return () => {
+      cancelled = true;
+    };
+  }, [text]);
+
+  return (
+    <p ref={ref} className={className}>
+      <span>{text}</span>
+    </p>
+  );
+}
+
+// Layout follows "M16 | VINH DANH 5-10-15.psd" (2126×3780). See .pc rules in globals.css.
 export function PersonCard({ person, hires = false }: { person: RosterCard; hires?: boolean }) {
-  const art = YEAR_ART.has(person.years) ? person.years : 5;
+  const art = YEAR_ART[person.years] ? person.years : 5;
   return (
     <article className="pc">
       <img className="pc__photo" src={hires ? person.photo : person.thumb || person.photo} alt="" />
-      <img className="pc__pattern" src="/card/pattern-side.png" alt="" />
-      <img className="pc__cubes" src="/card/cubes-stack.png" alt="" />
-      <div className="pc__footer" />
-      <img className="pc__logo" src="/card/logo-momo16.png" alt="" />
-      {person.badge ? <p className="pc__badge">{person.badge}</p> : null}
-      <p className="pc__mile">
-        <b>{milestones(person)}</b>
-        <span>cột mốc</span>
+      <img className="pc__band" src="/card/m16/band.webp" alt="" />
+      <img className="pc__logo" src="/card/m16/logo.webp" alt="" />
+      {person.badge ? <FitLine className="pc__badge" text={person.badge} /> : null}
+      <p className="pc__num is-mile">
+        {milestones(person)}
+        <span className="pc__unit">cột mốc</span>
       </p>
-      <p className="pc__label is-mile">cùng MoMo</p>
+      <p className="pc__label is-mile-b">cùng MoMo</p>
       <p className="pc__num is-peers">700+</p>
-      <p className="pc__label is-peers">đồng nghiệp</p>
-      <p className="pc__num is-momoers">2000+</p>
-      <p className="pc__label is-momoers">MoMoers</p>
-      <img className="pc__cube-small" src="/card/cube-small.png" alt="" />
-      <img className={`pc__years is-${art}`} src={`/card/num-${art}.png`} alt={String(person.years)} />
-      <p className="pc__name">{person.name}</p>
-      <p className="pc__dept">{person.department}</p>
-      <span className="pc__rule" />
+      <p className="pc__label is-peers">đồng đội</p>
       {person.joinedYear ? (
         <>
-          <p className="pc__join">Năm gia nhập:</p>
-          <p className="pc__join-year">{person.joinedYear}</p>
+          <p className="pc__num is-join">{person.joinedYear}</p>
+          <p className="pc__label is-join">nhập hội MoMo</p>
         </>
       ) : null}
+      <img className="pc__podium" src="/card/m16/podium.webp" alt="" />
+      <img className={`pc__years is-${art}`} src={YEAR_ART[art]} alt={String(person.years)} />
+      <img className="pc__panel" src="/card/m16/panel.webp" alt="" />
+      <FitLine className="pc__name" text={person.name} />
+      <span className="pc__rule" />
+      <FitLine className="pc__dept" text={person.department} />
     </article>
   );
 }
