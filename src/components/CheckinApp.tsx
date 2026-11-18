@@ -4,7 +4,8 @@ import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 
 import type { BoothId } from "@/lib/booths-shared";
 import { formatClock, formatRemain } from "@/lib/format";
-import type { CheckinResponse, CheckinResult, PublicSnapshot } from "@/lib/types";
+import type { CheckinResponse, CheckinResult, PublicSnapshot, RosterCard } from "@/lib/types";
+import { PersonCard } from "./LoopCardMosaic";
 import { useBoothChannel } from "./useBoothChannel";
 import { useServerNow } from "./useServerNow";
 
@@ -212,55 +213,101 @@ export function CheckinApp({
 
   const controlling = Boolean(session?.canControl && (live?.kind === "spotlight" || live?.kind === "queued"));
   const ready = live?.kind === "spotlight" ? now >= live.person.minHoldUntil : false;
+  const screenLabel = snapshot?.label ?? label;
+
+  // The guest's own honor card, as it shows on the TV. Roster cards carry the
+  // badge, join year and photo fit; the live snapshot fills in if the roster
+  // has not loaded yet.
+  const myCard = useMemo<RosterCard | null>(() => {
+    if (!session?.code || !live || live.kind === "away") return null;
+    const known = channel.roster.find((person) => person.code === session.code);
+    if (known) return known;
+    if (live.kind === "spotlight") {
+      const person = live.person;
+      return {
+        code: person.code,
+        name: person.name,
+        department: person.department,
+        years: person.years,
+        photo: person.photo,
+      };
+    }
+    return null;
+  }, [channel.roster, live, session?.code]);
+
+  const showForm = !controlling && !(session?.canControl && live?.kind === "away");
 
   return (
-    <main className="phone-wrap">
-      <section className="phone-card">
-        <p className="brand">momo</p>
-        <p className="eyebrow">{snapshot?.label ?? label}</p>
-        <h1>{snapshot?.title ?? title}</h1>
-        <p className="lede">Nhập mã nhân viên. Ảnh lên đúng màn nhóm năm.</p>
+    <main className="ck">
+      <img className="ck__band" src="/card/m16/band.webp" alt="" aria-hidden="true" />
+      <img className="ck__podium" src="/card/m16/podium.webp" alt="" aria-hidden="true" />
+
+      <header className="ck__head">
+        <img className="ck__logo" src="/card/m16/logo.webp" alt="MoMo M16 · The Power of Small" />
+        <p className="ck__eyebrow">{snapshot?.label ?? (shared ? "Check-in" : label)}</p>
+        <h1 className="ck__title">
+          <span>{snapshot?.title ?? (shared ? "Vinh danh MoMoer" : title)}</span>
+        </h1>
+      </header>
+
+      <div className="ck__body">
         <div role="status" aria-live="polite">
-          {banner ? <p className="banner">{banner}</p> : null}
+          {banner ? <p className="ck__banner">{banner}</p> : null}
         </div>
 
         {live?.kind === "spotlight" && session?.canControl ? (
-          <div className="status-card">
-            <img src={live.person.photo} alt="" className="avatar" />
-            <p className="screen-note">Lên màn {snapshot?.label}</p>
-            <p className="hello">Xin chào, {live.person.name}</p>
-            <p className="quiet">{live.person.department}</p>
-            <p className="quiet">Giữ tối đa {formatRemain(live.person.endsAt - now)}</p>
+          <section className="ck__panel">
+            <p className="ck__chip">Đang lên màn {screenLabel}</p>
+            {myCard ? (
+              <div className="ck__card">
+                <PersonCard person={myCard} hires />
+              </div>
+            ) : null}
+            <p className="ck__meta">
+              Giữ màn tối đa <b>{formatRemain(live.person.endsAt - now)}</b>
+            </p>
             {live.person.waitingBehind > 0 ? (
-              <p className="wait-note">
-                Có {live.person.waitingBehind} người đang chờ — bấm Chụp xong để nhường màn hình.
+              <p className="ck__note">
+                Có {live.person.waitingBehind} người đang chờ. Chụp xong bấm nút để nhường màn nhé.
               </p>
             ) : null}
-            <button type="button" className="primary" onClick={() => void finish()} disabled={!ready || busy}>
+            <button type="button" className="ck__btn" onClick={() => void finish()} disabled={!ready || busy}>
               {ready ? "Chụp xong" : `Chụp xong sau ${formatRemain(live.person.minHoldUntil - now)}`}
             </button>
-          </div>
+          </section>
         ) : null}
 
         {live?.kind === "queued" && session?.canControl ? (
-          <div className="status-card">
-            {live.item.photo ? <img src={live.item.photo} alt="" className="avatar" /> : null}
-            <p className="screen-note">Lên màn {snapshot?.label}</p>
-            <p className="hello">Xin chào, {live.item.name}</p>
-            <p className="queue-no">Bạn là số {live.item.position}</p>
-            <p className="quiet">
-              Màn hình đang giữ người phía trước. Trễ nhất {formatClock(live.item.worstCaseEndsAt)} (còn{" "}
+          <section className="ck__panel">
+            <p className="ck__chip">Chờ lên màn {screenLabel}</p>
+            <p className="ck__stat">
+              <b>{live.item.position}</b>
+              <span>
+                số thứ tự
+                <br />
+                của bạn
+              </span>
+            </p>
+            {myCard ? (
+              <div className="ck__card is-waiting">
+                <PersonCard person={myCard} />
+              </div>
+            ) : (
+              <p className="ck__hello">Xin chào, {live.item.name}</p>
+            )}
+            <p className="ck__meta">
+              Màn hình đang giữ người phía trước. Trễ nhất <b>{formatClock(live.item.worstCaseEndsAt)}</b> (còn{" "}
               {formatRemain(live.item.worstCaseEndsAt - now)}).
             </p>
-          </div>
+          </section>
         ) : null}
 
         {session?.canControl && live?.kind === "away" ? (
-          <div className="status-card">
-            <p className="hello">Lượt chiếu đã kết thúc.</p>
+          <section className="ck__panel">
+            <p className="ck__hello">Lượt chiếu đã kết thúc.</p>
             <button
               type="button"
-              className="ghost"
+              className="ck__btn is-ghost"
               onClick={() => {
                 sessionRef.current = null;
                 setSession(null);
@@ -269,33 +316,48 @@ export function CheckinApp({
             >
               Nhập mã khác
             </button>
-          </div>
+          </section>
         ) : null}
 
-        {finished && !session ? <p className="thanks-phone">Cảm ơn bạn. Hẹn gặp lại trên vòng lặp của MoMo.</p> : null}
+        {finished && !session ? (
+          <section className="ck__panel is-thanks">
+            <p className="ck__thanks">
+              <span>Thank you for being you!</span>
+            </p>
+            <p className="ck__meta">Hẹn gặp lại bạn trên vòng lặp của MoMo.</p>
+          </section>
+        ) : null}
 
-        {!controlling && !(session?.canControl && live?.kind === "away") ? (
+        {showForm ? (
           pass ? (
-            <form onSubmit={(event) => void onSubmit(event)}>
-              <label htmlFor="employee-code">Mã nhân viên</label>
+            <form className="ck__panel ck__form" onSubmit={(event) => void onSubmit(event)}>
+              <p className="ck__lede">Nhập mã nhân viên để ảnh của bạn lên đúng màn nhóm năm.</p>
+              <label className="ck__label" htmlFor="employee-code">
+                Mã nhân viên
+              </label>
               <input
                 id="employee-code"
+                className="ck__input"
                 value={code}
+                placeholder="vd. ten.ho (phần trước @momo.vn)"
                 autoComplete="off"
                 autoCapitalize="none"
                 spellCheck={false}
                 disabled={busy}
                 onChange={(event) => setCode(event.target.value)}
               />
-              <button type="submit" className="primary" disabled={busy || code.trim().length === 0}>
-                Check in
+              <button type="submit" className="ck__btn" disabled={busy || code.trim().length === 0}>
+                {busy ? "Đang gửi…" : "Check in"}
               </button>
             </form>
           ) : (
-            <p className="banner">Quét QR trên màn hình booth rồi nhập mã nhân viên.</p>
+            <section className="ck__panel">
+              <p className="ck__hello">Quét QR trên màn hình booth</p>
+              <p className="ck__meta">Mã QR ở góc phải màn hình vinh danh, đổi mỗi 15 phút. Quét xong là nhập được mã.</p>
+            </section>
           )
         ) : null}
-      </section>
+      </div>
     </main>
   );
 }
