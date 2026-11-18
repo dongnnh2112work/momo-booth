@@ -183,15 +183,17 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.03em; }
   width: 100%;
 }
 
-/* Positions are percentages of the 1080×1920 artboard in "led VINH DANH.psd". */
+/* Positions are percentages of the 2126×3780 artboard in "M16 | VINH DANH 5-10-15.psd".
+   Text is placed by baseline: top = baseline − (typo ascent + half-leading) × font-size,
+   which is 0.885em for MoMo Trust Display and 0.935em for MoMo Trust Sans at line-height 1. */
 .pc {
   position: relative;
   width: 100%;
-  aspect-ratio: 1080 / 1920;
+  aspect-ratio: 2126 / 3780;
   container-type: size;
   overflow: hidden;
-  border-radius: 4.6cqw;
-  background: #fbe3ec url("/card/card-bg.jpg") center / 100% 100% no-repeat;
+  border-radius: 4.6% / 2.59%;
+  background: #fde3ee url("/card/m16/bg.webp") center / 100% 100% no-repeat;
   color: #f95396;
   font-family: "MoMo Trust Sans", var(--font-be), "Be Vietnam Pro", sans-serif;
 }
@@ -204,169 +206,157 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.03em; }
 }
 
 .pc__photo {
-  left: 30%;
-  top: 12%;
-  width: 74%;
-  height: 76%;
-  object-fit: contain;
-  object-position: center bottom;
+  left: 25.76%;
+  top: 17.27%;
+  width: 74.19%;
+  height: 62.2%;
+  object-fit: fill;
   z-index: 2;
-  -webkit-mask-image: linear-gradient(to bottom, #000 84%, transparent 99%);
-  mask-image: linear-gradient(to bottom, #000 84%, transparent 99%);
+  filter: brightness(1.09) saturate(1.06);
 }
 
 .spot .pc__photo {
-  left: 28%;
-  top: 8%;
-  width: 76%;
-  height: 80%;
-  transform: scale(1.1);
-  transform-origin: 74% 100%;
+  filter: brightness(1.09) saturate(1.06) drop-shadow(0 0 5cqw rgba(253, 227, 240, 0.4));
 }
 
-.pc__pattern {
-  left: 91.57%;
-  top: 13.85%;
-  width: 4.63%;
-  height: 50.36%;
-  z-index: 2;
-}
-
-.pc__cubes {
-  left: 3.24%;
-  top: 63.85%;
-  width: 44.72%;
-  height: 16.46%;
-  z-index: 3;
-}
-
-.pc__footer {
-  left: 4.35%;
-  top: 80.16%;
-  width: 91.3%;
-  height: 17.03%;
-  z-index: 5;
-  box-sizing: border-box;
-  border: 0.25cqw solid rgba(255, 255, 255, 0.7);
-  border-radius: 3.8cqw;
-  background: rgba(255, 236, 243, 0.42);
-  box-shadow: 0 1cqw 3cqw rgba(196, 30, 110, 0.1);
+.pc__band {
+  left: 90.5%;
+  top: 22.22%;
+  width: 5.17%;
+  height: 42.17%;
+  z-index: 7;
 }
 
 .pc__logo {
-  left: 4.35%;
-  top: 2.6%;
-  width: 39.35%;
-  height: 3.65%;
-  z-index: 6;
+  left: 7.06%;
+  top: 3.17%;
+  width: 45.48%;
+  height: 4.34%;
+  z-index: 7;
 }
 
+/* Every text layer in the PSD has Faux Bold on; weight 700 asks the browser
+   for the same synthetic bold since only regular/medium faces ship. */
 .pc__badge,
-.pc__mile b,
 .pc__num,
-.pc__name,
-.pc__join-year {
+.pc__name {
   font-family: "MoMo Trust Display", var(--font-be), sans-serif;
-  font-weight: 400;
+  font-weight: 700;
+  letter-spacing: 0.028em; /* Photoshop's faux bold also widens each glyph */
+}
+
+/* Lines that shrink to fit clip horizontally, so they get room for accents and
+   descenders: at line-height 1.3 the baseline sits 1.035em (Display) or 1.085em
+   (Sans) below the top of the box. */
+.pc__badge,
+.pc__name,
+.pc__dept {
+  line-height: 1.3;
 }
 
 .pc__badge {
-  left: 4.08%;
-  top: 12.5%;
+  --size: calc(7.93cqw * var(--fit, 1));
+  left: 6.56%;
+  top: calc(15.29% - 1.035 * var(--size));
+  width: 87%;
+  overflow: hidden;
   z-index: 4;
-  font-size: 7.42cqw;
+  font-size: var(--size);
 }
 
-.pc__mile {
-  left: 4.89%;
-  top: 18.97%;
-  z-index: 4;
-  display: flex;
-  align-items: baseline;
+/* The gradient overlay spans the text itself, not the box it may shrink in. */
+.pc__badge span {
+  background: linear-gradient(90deg, #f95396 0%, #000 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
-
-.pc__mile b {
-  font-size: 8.97cqw;
-}
-
-.pc__mile span {
-  margin-left: 1.2cqw;
-}
-
-.pc__mile span,
-.pc__label {
-  font-size: 4.2cqw;
-  font-weight: 500;
-  letter-spacing: -0.025em;
-}
-
-.pc__label { z-index: 4; }
-.pc__label.is-mile { left: 5.12%; top: 24.08%; }
-.pc__label.is-peers { left: 4.59%; top: 35.67%; }
-.pc__label.is-momoers { left: 4.93%; top: 47.92%; }
 
 .pc__num {
+  --size: 9.24cqw;
   z-index: 4;
-  font-size: 8.97cqw;
+  font-size: var(--size);
+  color: #f95396;
+  text-shadow: 0 0.18cqw 0 rgba(200, 20, 100, 0.22);
 }
 
-.pc__num.is-peers { left: 4.89%; top: 30.54%; }
-.pc__num.is-momoers { left: 4.59%; top: 42.76%; }
+.pc__num.is-mile { left: 6.85%; top: calc(24.31% - 0.885 * var(--size)); }
+.pc__num.is-peers { left: 6.94%; top: calc(35.93% - 0.885 * var(--size)); }
+.pc__num.is-join { left: 6.9%; top: calc(47.32% - 0.885 * var(--size)); }
 
-.pc__cube-small {
-  left: 6.11%;
-  top: 53.8%;
-  width: 5.56%;
-  height: 3.02%;
+.pc__label {
+  --size: 5.15cqw;
   z-index: 4;
+  font-size: var(--size);
+  font-weight: 700;
+  color: #000;
+}
+
+/* "cột mốc" follows the milestone number on its baseline, 62px of ink gap after "11" in the PSD. */
+.pc__unit {
+  margin-left: 1.81cqw;
+  font-family: "MoMo Trust Sans", var(--font-be), sans-serif;
+  font-size: 4.95cqw;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: #000;
+  text-shadow: none;
+}
+.pc__label.is-mile-b { left: 7.44%; top: calc(27.62% - 0.935 * var(--size)); }
+.pc__label.is-peers { left: 7.52%; top: calc(39.13% - 0.935 * var(--size)); }
+.pc__label.is-join { --size: 3.97cqw; left: 6.87%; top: calc(50.34% - 0.935 * var(--size)); }
+
+.pc__podium {
+  left: 15.24%;
+  top: 64.05%;
+  width: 81.23%;
+  height: 20.11%;
+  z-index: 3;
 }
 
 .pc__years { z-index: 4; }
-.pc__years.is-5 { left: 13.33%; top: 56.09%; width: 22.22%; height: 15%; }
-.pc__years.is-10 { left: 8.06%; top: 53.28%; width: 33.33%; height: 13.23%; }
-.pc__years.is-15 { left: 8.89%; top: 52.5%; width: 33.24%; height: 13.85%; }
+.pc__years.is-5 { left: 10.4%; top: 63.36%; width: 15.76%; height: 10.66%; }
+.pc__years.is-10 { left: 6.43%; top: 63.99%; width: 23.69%; height: 9.4%; }
+.pc__years.is-15 { left: 6.47%; top: 63.77%; width: 23.61%; height: 9.85%; }
+
+.pc__panel {
+  left: 3.76%;
+  top: 82.8%;
+  width: 92.8%;
+  height: 15%;
+  z-index: 5;
+}
+
+.pc__name,
+.pc__dept {
+  left: 15.07%;
+  width: 77%;
+  overflow: hidden;
+  z-index: 6;
+  color: #fff;
+}
 
 .pc__name {
-  left: 8.74%;
-  top: 83.08%;
-  z-index: 6;
-  max-width: 84%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 5.79cqw;
+  --size: calc(7.06cqw * var(--fit, 1));
+  top: calc(88.99% - 1.035 * var(--size));
+  font-size: var(--size);
+  text-shadow: 0 0.25cqw 0.4cqw rgba(120, 0, 50, 0.25);
 }
 
 .pc__dept {
-  left: 9.16%;
-  top: 87.25%;
-  z-index: 6;
-  max-width: 82%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 2.96cqw;
+  --size: calc(5.88cqw * var(--fit, 1));
+  top: calc(94.78% - 1.085 * var(--size));
+  font-size: var(--size);
+  font-weight: 500;
 }
 
 .pc__rule {
-  left: 9.35%;
-  top: 90.05%;
+  left: 15.52%;
+  top: 91.06%;
+  width: 52.73%;
+  height: 0.13%;
   z-index: 6;
-  width: 17.87%;
-  height: 0.31%;
-  background: #f95396;
-}
-
-.pc__join {
-  left: 9.48%;
-  top: 92.13%;
-  z-index: 6;
-  font-size: 3.42cqw;
-}
-
-.pc__join-year {
-  left: 36.16%;
-  top: 91.94%;
-  z-index: 6;
-  font-size: 4cqw;
+  background: rgba(255, 255, 255, 0.85);
 }
 
 @keyframes col-up {
@@ -560,30 +550,27 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.03em; }
   animation:
     spot-photo 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both,
     spot-drift 24s ease-out 1.65s forwards;
-  transform-origin: 74% 100%;
+  transform-origin: 60% 100%;
 }
 
-.spot__card.is-in .pc__pattern,
+.spot__card.is-in .pc__band,
 .spot__card.is-in .pc__logo { animation-delay: 0.45s; }
 .spot__card.is-in .pc__badge { animation-name: spot-slide; animation-delay: 0.55s; }
-.spot__card.is-in .pc__mile,
-.spot__card.is-in .pc__label.is-mile { animation-name: spot-slide; animation-delay: 0.65s; }
+.spot__card.is-in .pc__num.is-mile,
+.spot__card.is-in .pc__label.is-mile-b { animation-name: spot-slide; animation-delay: 0.65s; }
 .spot__card.is-in .pc__num.is-peers,
 .spot__card.is-in .pc__label.is-peers { animation-name: spot-slide; animation-delay: 0.73s; }
-.spot__card.is-in .pc__num.is-momoers,
-.spot__card.is-in .pc__label.is-momoers { animation-name: spot-slide; animation-delay: 0.81s; }
-.spot__card.is-in .pc__cubes { animation-delay: 0.7s; }
-.spot__card.is-in .pc__cube-small { animation-delay: 0.95s; }
+.spot__card.is-in .pc__num.is-join,
+.spot__card.is-in .pc__label.is-join { animation-name: spot-slide; animation-delay: 0.81s; }
+.spot__card.is-in .pc__podium { animation-delay: 0.7s; }
 .spot__card.is-in .pc__years {
   animation: spot-pop 0.9s cubic-bezier(0.34, 1.4, 0.64, 1) 0.85s both;
   transform-origin: 40% 70%;
 }
-.spot__card.is-in .pc__footer { animation-delay: 0.9s; }
+.spot__card.is-in .pc__panel { animation-delay: 0.9s; }
 .spot__card.is-in .pc__name { animation-delay: 1s; }
 .spot__card.is-in .pc__dept,
 .spot__card.is-in .pc__rule { animation-delay: 1.08s; }
-.spot__card.is-in .pc__join,
-.spot__card.is-in .pc__join-year { animation-delay: 1.16s; }
 
 @keyframes spot-in {
   from { opacity: 0; transform: translate3d(0, 3%, 0) scale(0.96); }
@@ -616,13 +603,13 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.03em; }
 }
 
 @keyframes spot-photo {
-  from { opacity: 0; transform: translate3d(0, 3cqh, 0) scale(1.04); }
-  to { opacity: 1; transform: scale(1.1); }
+  from { opacity: 0; transform: translate3d(0, 3cqh, 0) scale(0.97); }
+  to { opacity: 1; transform: none; }
 }
 
 @keyframes spot-drift {
-  from { transform: scale(1.1); }
-  to { transform: scale(1.14); }
+  from { transform: none; }
+  to { transform: scale(1.025); }
 }
 
 @keyframes spot-pop {
@@ -834,3 +821,26 @@ input {
     page-break-inside: avoid;
   }
 }
+
+.card-sheet {
+  min-height: 100dvh;
+  padding: 24px 16px;
+  background: #2a0616;
+  color: #fff;
+}
+
+.card-sheet.is-single {
+  padding: 0;
+  background: #fff;
+}
+
+.card-sheet__count { margin: 0 0 12px; font-weight: 700; }
+
+.card-sheet__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.card-sheet__grid figure { margin: 0; }
+.card-sheet__grid figcaption { margin-top: 6px; font-size: 12px; opacity: 0.7; }
