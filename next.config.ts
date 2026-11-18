@@ -20,6 +20,9 @@ type Compiler = {
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  outputFileTracingIncludes: {
+    "/api/**/*": ["./data/roster.json"],
+  },
   webpack: (config) => {
     const plugin = {
       apply(compiler: Compiler) {

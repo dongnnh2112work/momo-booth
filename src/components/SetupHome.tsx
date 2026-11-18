@@ -18,20 +18,38 @@ export function SetupHome({ booths, baseEnv = {} }: { booths: Booth[]; baseEnv?:
 
   useEffect(() => {
     if (!origin) return;
+    const boothId = booths[0]?.id;
+    if (!boothId) return;
     let cancelled = false;
-    void import("qrcode").then(async (QR) => {
-      const image = await QR.toDataURL(`${origin}/c`, {
-        margin: 1,
-        width: 560,
-        errorCorrectionLevel: "M",
-        color: { dark: "#4c1232", light: "#ffffff" },
-      });
-      if (!cancelled) setCodes({ shared: image });
-    });
+    let timer = 0;
+    const load = async () => {
+      try {
+        const response = await fetch(`/api/booths/${boothId}`, { cache: "no-store" });
+        if (!response.ok) return;
+        const data = (await response.json()) as { checkIn?: { token?: string; expiresAt?: number } };
+        const token = data.checkIn?.token;
+        if (!token) return;
+        const QR = await import("qrcode");
+        const image = await QR.toDataURL(`${origin}/c?k=${encodeURIComponent(token)}`, {
+          margin: 1,
+          width: 560,
+          errorCorrectionLevel: "M",
+          color: { dark: "#4c1232", light: "#ffffff" },
+        });
+        if (!cancelled) setCodes({ shared: image });
+        const expiresAt = data.checkIn?.expiresAt ?? Date.now() + 60_000;
+        const wait = Math.min(60_000, Math.max(1000, expiresAt - Date.now() + 500));
+        timer = window.setTimeout(() => void load(), wait);
+      } catch {
+        timer = window.setTimeout(() => void load(), 15_000);
+      }
+    };
+    void load();
     return () => {
       cancelled = true;
+      window.clearTimeout(timer);
     };
-  }, [origin]);
+  }, [origin, booths]);
 
   return (
     <main className="setup">
@@ -39,7 +57,7 @@ export function SetupHome({ booths, baseEnv = {} }: { booths: Booth[]; baseEnv?:
         <p className="brand">momo</p>
         <h1>Booth vinh danh</h1>
         <p>
-          QR check-in nằm ở góc màn loop. Khách quét QR mã nhân viên, hệ thống tự đưa ảnh lên màn đúng nhóm năm. Mỗi
+          QR check-in nằm ở góc màn loop và đổi mỗi 15 phút. Khách quét QR rồi nhập mã nhân viên. Mỗi
           TV mở đúng link màn hình của mình. Điện thoại và máy chiếu cần vào cùng địa chỉ này.
         </p>
         <p className="quiet no-print">Chạy một process duy nhất. Đặt STAFF_KEY riêng trước khi mở sự kiện.</p>
@@ -58,7 +76,7 @@ export function SetupHome({ booths, baseEnv = {} }: { booths: Booth[]; baseEnv?:
       <article className="qr-card qr-card-shared">
         <p className="eyebrow">Một QR</p>
         <h2>Check-in</h2>
-        <p>Cùng một QR đang ở góc phải màn loop. Quét xong, điện thoại mở camera để quét QR mã nhân viên.</p>
+        <p>Cùng một QR đang ở góc phải màn loop. Quét xong, điện thoại mở trang nhập mã nhân viên. Mã QR đổi mỗi 15 phút.</p>
         {codes.shared ? <img className="qr" src={codes.shared} alt="QR check-in" /> : <div className="qr skeleton" />}
         <p className="url">{origin ? `${origin}/c` : "/c"}</p>
         <div className="setup-actions no-print">

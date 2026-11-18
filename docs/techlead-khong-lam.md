@@ -12,7 +12,7 @@ Mã nhân viên là username email, đoán được. Reclaim trước khi có th
 
 Không làm PIN 4 số đổi mỗi 3 phút.
 
-Anh muốn khách quét QR, không gõ thêm mã. PIN là một ô nhập nữa trên điện thoại và một số trên TV. Thay vào đó, QR check-in nằm góc phải màn loop (`/c`). Trang điện thoại mở camera và quét QR chứa mã nhân viên.
+QR góc màn loop đổi mỗi 15 phút (`/c?k=` ký HMAC, nhận cửa sổ hiện tại và cửa sổ liền trước). Quét QR mở trang nhập mã nhân viên. Link chụp lại hết hạn, nên không dùng được để spam mã mãi.
 
 Không làm trần 3 slot (spotlight + hàng) mỗi IP cho cả hai booth.
 
@@ -22,7 +22,7 @@ Wifi sảnh là một NAT. Trần 3 sẽ chặn khách thật đứng cùng mạ
 
 Chưa đổi payload public sang khóa mờ.
 
-TV, điện thoại và staff đang khớp người bằng `code` (`spotlight.code`, roster, hàng chờ). Đổi cùng lúc với camera quét QR dễ làm màn vinh danh mất người. Mã vẫn có trong `GET /api/booths/*`. Nên làm thành một thay đổi riêng sau khi QR đã diễn tập, không gộp vào tối nay.
+TV, điện thoại và staff đang khớp người bằng `code` (`spotlight.code`, roster, hàng chờ). Đổi cùng lúc với QR 15 phút dễ làm màn vinh danh mất người. Mã vẫn có trong `GET /api/booths/*`. Nên làm thành một thay đổi riêng sau khi QR đã diễn tập, không gộp vào tối nay.
 
 ## Task 5 — xác nhận tới booth và đổi giờ
 

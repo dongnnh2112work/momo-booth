@@ -4,6 +4,8 @@ import { EventEmitter } from "node:events";
 import fs from "node:fs";
 import path from "node:path";
 
+import rosterSeed from "../../data/roster.json";
+import { qrExpiresAt, qrToken } from "./checkinPass";
 import { commitSharedState, supabaseLiveStateGateway } from "./liveStateRemote";
 import { assertLocalStaffKey, usesLocalStore } from "./staffKey";
 import { BOOTH_IDS, isBoothId, type BoothId } from "./booths";
@@ -47,7 +49,9 @@ function stateFile() {
 }
 
 function rosterFile() {
-  return resolveDataPath("ROSTER_PATH", "data/roster.json");
+  const raw = process.env.ROSTER_PATH;
+  if (!raw) return path.join(process.cwd(), "data/roster.json");
+  return path.isAbsolute(raw) ? raw : path.join(process.cwd(), raw);
 }
 
 function useSharedState() {
@@ -88,10 +92,20 @@ type Ctx = {
   roster: RosterIndex;
 };
 
+function employeesOf(value: unknown): Employee[] {
+  const parsed = value as { employees?: Employee[] };
+  return Array.isArray(parsed?.employees) ? parsed.employees : [];
+}
+
 function readRosterFile(): Employee[] {
-  const raw = fs.readFileSync(rosterFile(), "utf8");
-  const parsed = JSON.parse(raw) as { employees?: Employee[] };
-  return Array.isArray(parsed.employees) ? parsed.employees : [];
+  try {
+    const parsed = JSON.parse(fs.readFileSync(rosterFile(), "utf8")) as unknown;
+    const employees = employeesOf(parsed);
+    if (employees.length > 0) return employees;
+  } catch (error) {
+    console.error("roster", error instanceof Error ? error.name : "read");
+  }
+  return employeesOf(rosterSeed);
 }
 
 function isSpotlight(value: unknown): value is Spotlight {
@@ -409,6 +423,7 @@ export function getBooth(boothId: BoothId) {
       build: () => ({
         snapshot: toSnapshot(ctx.state, ctx.roster, boothId, ctx.now),
         roster: cards(ctx.roster, boothId),
+        checkIn: { token: qrToken(ctx.now), expiresAt: qrExpiresAt(ctx.now) },
       }),
     };
   });

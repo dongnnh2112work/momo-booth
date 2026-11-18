@@ -1,11 +1,10 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 
 import type { BoothId } from "@/lib/booths-shared";
 import { formatClock, formatRemain } from "@/lib/format";
 import type { CheckinResponse, CheckinResult, PublicSnapshot } from "@/lib/types";
-import { CodeScanner } from "./CodeScanner";
 import { useBoothChannel } from "./useBoothChannel";
 import { useServerNow } from "./useServerNow";
 
@@ -46,12 +45,12 @@ function clientId() {
   return created;
 }
 
-async function postCheckin(target: BoothId | "shared", code: string, intent: "join" | "resume") {
+async function postCheckin(target: BoothId | "shared", code: string, intent: "join" | "resume", pass = "") {
   const path = target === "shared" ? "/api/checkin" : `/api/booths/${target}/checkin`;
   const response = await fetch(path, {
     method: "POST",
     headers: { "content-type": "application/json" },
-    body: JSON.stringify({ code, clientId: clientId(), intent }),
+    body: JSON.stringify({ code, clientId: clientId(), intent, k: pass }),
     cache: "no-store",
   });
   const data = (await response.json()) as CheckinResponse;
@@ -64,11 +63,13 @@ export function CheckinApp({
   label,
   title,
   shared = false,
+  pass = "",
 }: {
   boothId?: BoothId;
   label: string;
   title: string;
   shared?: boolean;
+  pass?: string;
 }) {
   const passKey = shared ? "momo-pass:shared" : `momo-pass:${fixedBooth}`;
   const [routedBooth, setRoutedBooth] = useState<BoothId | null>(fixedBooth ?? null);
@@ -79,6 +80,7 @@ export function CheckinApp({
   const [banner, setBanner] = useState("");
   const [busy, setBusy] = useState(false);
   const [finished, setFinished] = useState(false);
+  const [code, setCode] = useState("");
   const sessionRef = useRef<CheckinResult | null>(null);
 
   const snapshot =
@@ -151,12 +153,14 @@ export function CheckinApp({
     };
   }, [fixedBooth, passKey, shared]);
 
-  async function onScan(nextCode: string) {
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const nextCode = code.trim();
     if (!nextCode || busy) return;
     setBusy(true);
     setFinished(false);
     try {
-      const data = await postCheckin(shared ? "shared" : (fixedBooth as BoothId), nextCode, "join");
+      const data = await postCheckin(shared ? "shared" : (fixedBooth as BoothId), nextCode, "join", pass);
       if (data.snapshot?.boothId) setRoutedBooth(data.snapshot.boothId);
       if (data.snapshot) setExtra(data.snapshot);
       const current = sessionRef.current;
@@ -169,6 +173,7 @@ export function CheckinApp({
       setBanner(data.message);
       if (data.canControl && data.ticket && data.code) {
         writeStore(passKey, JSON.stringify({ code: data.code, ticket: data.ticket }));
+        setCode("");
       }
     } catch {
       setBanner("Không gửi được mã. Thử lại giúp mình.");
@@ -214,7 +219,7 @@ export function CheckinApp({
         <p className="brand">momo</p>
         <p className="eyebrow">{snapshot?.label ?? label}</p>
         <h1>{snapshot?.title ?? title}</h1>
-        <p className="lede">Quét QR mã nhân viên. Ảnh lên đúng màn nhóm năm.</p>
+        <p className="lede">Nhập mã nhân viên. Ảnh lên đúng màn nhóm năm.</p>
         <div role="status" aria-live="polite">
           {banner ? <p className="banner">{banner}</p> : null}
         </div>
@@ -262,7 +267,7 @@ export function CheckinApp({
                 setBanner("");
               }}
             >
-              Quét mã khác
+              Nhập mã khác
             </button>
           </div>
         ) : null}
@@ -270,7 +275,25 @@ export function CheckinApp({
         {finished && !session ? <p className="thanks-phone">Cảm ơn bạn. Hẹn gặp lại trên vòng lặp của MoMo.</p> : null}
 
         {!controlling && !(session?.canControl && live?.kind === "away") ? (
-          <CodeScanner paused={busy} onCode={(value) => void onScan(value)} />
+          pass ? (
+            <form onSubmit={(event) => void onSubmit(event)}>
+              <label htmlFor="employee-code">Mã nhân viên</label>
+              <input
+                id="employee-code"
+                value={code}
+                autoComplete="off"
+                autoCapitalize="none"
+                spellCheck={false}
+                disabled={busy}
+                onChange={(event) => setCode(event.target.value)}
+              />
+              <button type="submit" className="primary" disabled={busy || code.trim().length === 0}>
+                Check in
+              </button>
+            </form>
+          ) : (
+            <p className="banner">Quét QR trên màn hình booth rồi nhập mã nhân viên.</p>
+          )
         ) : null}
       </section>
     </main>

@@ -163,7 +163,7 @@ export function DisplayStage({
         <LoopCardMosaic people={roster} active={roster.length > 0} />
         <p className="booth-tag">{label}</p>
         <div className="loop-scrim" />
-        <LoopCornerQr checkInUrl={checkInUrl} />
+        <LoopCornerQr boothId={boothId} checkInUrl={checkInUrl} />
         <div className="loop-caption">
           <p className="loop-caption__eyebrow">Những mảnh ghép</p>
           <h1>{title}</h1>
