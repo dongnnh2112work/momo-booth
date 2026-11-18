@@ -6,7 +6,7 @@ Sự kiện 19–27/11/2026. Hai màn: `5-10` (5 năm) và `3-5` (10 và 15 năm
 
 Vercel chạy `MOMO_REMOTE=1`. Hàng chờ nằm một dòng `public.live_state`. Check-in, skip và done đều sửa dòng đó. TV mở `https://<domain>/d/<booth>` bằng Chrome. Không còn ghi bảng `checkins` và không còn listener Realtime trên Mac mini.
 
-Cần `NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `BOOTH_QR_SECRET` và `STAFF_KEY` không phải placeholder. Trên Vercel đặt `TRUST_PROXY=1`.
+Cần `NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` và `STAFF_KEY` không phải placeholder. Trên Vercel đặt `TRUST_PROXY=1`.
 
 ## Fallback khi mất mạng
 
@@ -20,4 +20,4 @@ Cần `NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `BOOTH_QR_SECRET`
 
 ## Check-in
 
-QR check-in nằm góc phải màn loop, đổi mỗi 15 phút, và mở `/c?k=…`. Điện thoại nhập mã nhân viên. Link cũ quá một cửa sổ thì báo quét lại. Staff vẫn nhập mã tay, chỉ khi `MOMO_LOCAL=1`.
+QR check-in là một mã cố định in ra, đặt cạnh booth, mở `/c` (trang setup `/` có bản để in). Điện thoại vào thẳng trang nhập mã nhân viên. Màn TV không còn QR ở góc. Mã `?k=` của QR cũ được bỏ qua. Staff vẫn nhập mã tay, chỉ khi `MOMO_LOCAL=1`.

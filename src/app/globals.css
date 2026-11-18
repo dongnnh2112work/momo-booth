@@ -453,39 +453,6 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.03em; }
   background: rgba(255, 255, 255, 0.75);
 }
 
-.loop-qr {
-  position: absolute;
-  top: 2.2%;
-  right: 2.4%;
-  z-index: 7;
-  width: 22cqw;
-  padding: 1.6cqw 1.6cqw 1.3cqw;
-  border-radius: 2.2cqw;
-  background: #fff;
-  color: #a50064;
-  text-align: center;
-  box-shadow: 0 1.2cqw 3cqw rgba(80, 0, 40, 0.28);
-  transition: opacity 0.5s ease;
-}
-
-.loop-qr img,
-.loop-qr__box {
-  display: block;
-  width: 100%;
-  aspect-ratio: 1;
-  border-radius: 1.2cqw;
-  background: #fff;
-}
-
-.loop-qr p {
-  margin: 1cqw 0 0;
-  font-family: "MoMo Trust Sans", var(--font-be), sans-serif;
-  font-size: 2.1cqw;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  line-height: 1.15;
-}
-
 .stage[data-phase="reveal"] .loop-caption,
 .stage[data-phase="reveal"] .booth-tag,
 .stage[data-phase="reveal"] .loop-scrim,

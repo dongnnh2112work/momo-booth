@@ -1,4 +1,3 @@
-import { expiredCheckin, qrTokenValid } from "@/lib/checkinPass";
 import { isBoothId } from "@/lib/booths";
 import { normalizeClientId } from "@/lib/codes";
 import { json, readJson } from "@/lib/http";
@@ -20,8 +19,6 @@ export async function POST(request: Request, context: { params: Promise<{ id: st
   if (clientLimited) return clientLimited;
   const code = typeof body.code === "string" ? body.code : "";
   const intent = body.intent === "resume" ? "resume" : "join";
-  const pass = typeof body.k === "string" ? body.k : "";
-  if (intent === "join" && !qrTokenValid(pass)) return json(expiredCheckin());
   try {
     const result = await checkIn(id, { code, clientId, intent });
     return json(result);

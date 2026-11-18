@@ -10,6 +10,6 @@ export async function GET(request: Request, context: { params: Promise<{ id: str
   const { id } = await context.params;
   if (!isBoothId(id)) return json({ message: "Không có booth này." }, 404);
   const payload = await getBooth(id);
-  const etag = makeEtag([id, payload.snapshot.revision, payload.checkIn.token]);
+  const etag = makeEtag([id, payload.snapshot.revision]);
   return withEtag(request, etag, payload);
 }

@@ -46,12 +46,12 @@ function clientId() {
   return created;
 }
 
-async function postCheckin(target: BoothId | "shared", code: string, intent: "join" | "resume", pass = "") {
+async function postCheckin(target: BoothId | "shared", code: string, intent: "join" | "resume") {
   const path = target === "shared" ? "/api/checkin" : `/api/booths/${target}/checkin`;
   const response = await fetch(path, {
     method: "POST",
     headers: { "content-type": "application/json" },
-    body: JSON.stringify({ code, clientId: clientId(), intent, k: pass }),
+    body: JSON.stringify({ code, clientId: clientId(), intent }),
     cache: "no-store",
   });
   const data = (await response.json()) as CheckinResponse;
@@ -64,13 +64,11 @@ export function CheckinApp({
   label,
   title,
   shared = false,
-  pass = "",
 }: {
   boothId?: BoothId;
   label: string;
   title: string;
   shared?: boolean;
-  pass?: string;
 }) {
   const passKey = shared ? "momo-pass:shared" : `momo-pass:${fixedBooth}`;
   const [routedBooth, setRoutedBooth] = useState<BoothId | null>(fixedBooth ?? null);
@@ -161,7 +159,7 @@ export function CheckinApp({
     setBusy(true);
     setFinished(false);
     try {
-      const data = await postCheckin(shared ? "shared" : (fixedBooth as BoothId), nextCode, "join", pass);
+      const data = await postCheckin(shared ? "shared" : (fixedBooth as BoothId), nextCode, "join");
       if (data.snapshot?.boothId) setRoutedBooth(data.snapshot.boothId);
       if (data.snapshot) setExtra(data.snapshot);
       const current = sessionRef.current;
@@ -329,33 +327,26 @@ export function CheckinApp({
         ) : null}
 
         {showForm ? (
-          pass ? (
-            <form className="ck__panel ck__form" onSubmit={(event) => void onSubmit(event)}>
-              <p className="ck__lede">Nhập mã nhân viên để ảnh của bạn lên đúng màn nhóm năm.</p>
-              <label className="ck__label" htmlFor="employee-code">
-                Mã nhân viên
-              </label>
-              <input
-                id="employee-code"
-                className="ck__input"
-                value={code}
-                placeholder="vd. ten.ho (phần trước @momo.vn)"
-                autoComplete="off"
-                autoCapitalize="none"
-                spellCheck={false}
-                disabled={busy}
-                onChange={(event) => setCode(event.target.value)}
-              />
-              <button type="submit" className="ck__btn" disabled={busy || code.trim().length === 0}>
-                {busy ? "Đang gửi…" : "Check in"}
-              </button>
-            </form>
-          ) : (
-            <section className="ck__panel">
-              <p className="ck__hello">Quét QR trên màn hình booth</p>
-              <p className="ck__meta">Mã QR ở góc phải màn hình vinh danh, đổi mỗi 15 phút. Quét xong là nhập được mã.</p>
-            </section>
-          )
+          <form className="ck__panel ck__form" onSubmit={(event) => void onSubmit(event)}>
+            <p className="ck__lede">Nhập mã nhân viên để ảnh của bạn lên đúng màn nhóm năm.</p>
+            <label className="ck__label" htmlFor="employee-code">
+              Mã nhân viên
+            </label>
+            <input
+              id="employee-code"
+              className="ck__input"
+              value={code}
+              placeholder="vd. ten.ho (phần trước @momo.vn)"
+              autoComplete="off"
+              autoCapitalize="none"
+              spellCheck={false}
+              disabled={busy}
+              onChange={(event) => setCode(event.target.value)}
+            />
+            <button type="submit" className="ck__btn" disabled={busy || code.trim().length === 0}>
+              {busy ? "Đang gửi…" : "Check in"}
+            </button>
+          </form>
         ) : null}
       </div>
     </main>

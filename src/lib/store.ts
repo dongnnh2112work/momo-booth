@@ -5,7 +5,6 @@ import fs from "node:fs";
 import path from "node:path";
 
 import rosterSeed from "../../data/roster.json";
-import { qrExpiresAt, qrToken } from "./checkinPass";
 import { commitSharedState, supabaseLiveStateGateway } from "./liveStateRemote";
 import { assertLocalStaffKey, usesLocalStore } from "./staffKey";
 import { BOOTH_IDS, isBoothId, type BoothId } from "./booths";
@@ -424,7 +423,6 @@ export function getBooth(boothId: BoothId) {
       build: () => ({
         snapshot: toSnapshot(ctx.state, ctx.roster, boothId, ctx.now),
         roster: cards(ctx.roster, boothId),
-        checkIn: { token: qrToken(ctx.now), expiresAt: qrExpiresAt(ctx.now) },
       }),
     };
   });
