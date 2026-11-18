@@ -17,10 +17,14 @@ const CUBES = [
 ];
 
 const SPOT_EXIT_MS = 700;
-const PREVIEW_LOOP_MS = 15_000;
-const PREVIEW_HOLD_MS = 8_000;
+// Idle screen: the three columns run for 30s, then 10 people are featured
+// full-screen for 5s each, then the columns run again. The first card pops out
+// of the wall and the last one folds back into it; cards in between cross-fade.
+const IDLE_RUN_MS = 30_000;
+const IDLE_SLIDES = 10;
+const IDLE_SLIDE_MS = 5_000;
 
-type SpotCard = { key: string; person: RosterCard; leaving: boolean };
+type SpotCard = { key: string; person: RosterCard; leaving: boolean; pop?: boolean };
 
 function spotPerson(spotlight: PublicSpotlight, roster: RosterCard[]): RosterCard {
   const known = roster.find((person) => person.code === spotlight.code);
@@ -67,10 +71,10 @@ export function DisplayStage({
   const rosterRef = useRef(roster);
   rosterRef.current = roster;
   const [spots, setSpots] = useState<SpotCard[]>([]);
-  const [preview, setPreview] = useState<SpotCard | null>(null);
+  const [preview, setPreview] = useState<SpotCard[]>([]);
   const spotlight = snapshot?.spotlight ?? null;
   const liveCode = spotlight?.code ?? "";
-  const featuring = Boolean(preview && !preview.leaving);
+  const featuring = preview.some((card) => !card.leaving);
   const phase = spotlight || featuring ? "reveal" : "loop";
   const cardsOn = !spotlight && !featuring && roster.length > 0;
 
@@ -104,7 +108,7 @@ export function DisplayStage({
 
   useEffect(() => {
     if (!previewSlide || liveCode || rosterRef.current.length === 0) {
-      setPreview(null);
+      setPreview([]);
       return;
     }
     let timer = 0;
@@ -113,21 +117,43 @@ export function DisplayStage({
       new Promise<void>((resolve) => {
         timer = window.setTimeout(resolve, ms);
       });
+    const nextPerson = () => {
+      const people = rosterRef.current;
+      const person = people[previewIndex.current % people.length];
+      previewIndex.current += 1;
+      return person;
+    };
+    const preload = () => {
+      const people = rosterRef.current;
+      const upcoming = people[previewIndex.current % people.length];
+      if (upcoming?.photo) new Image().src = upcoming.photo;
+    };
     const cycle = async () => {
       while (!stopped) {
-        await wait(PREVIEW_LOOP_MS);
+        await wait(IDLE_RUN_MS);
         if (stopped) return;
-        const people = rosterRef.current;
-        if (people.length === 0) continue;
-        const person = people[previewIndex.current % people.length];
-        previewIndex.current += 1;
-        setPreview({ key: `preview-${person.code}-${previewIndex.current}`, person, leaving: false });
-        await wait(PREVIEW_HOLD_MS);
+        const total = Math.min(IDLE_SLIDES, rosterRef.current.length);
+        if (total === 0) continue;
+        for (let slide = 0; slide < total && !stopped; slide += 1) {
+          const person = nextPerson();
+          const card: SpotCard = {
+            key: `preview-${person.code}-${previewIndex.current}`,
+            person,
+            leaving: false,
+            pop: slide === 0,
+          };
+          setPreview((current) => [...current.map((item) => ({ ...item, leaving: true, pop: false })), card]);
+          preload();
+          await wait(SPOT_EXIT_MS);
+          if (stopped) return;
+          setPreview((current) => current.filter((item) => !item.leaving));
+          await wait(IDLE_SLIDE_MS - SPOT_EXIT_MS);
+        }
         if (stopped) return;
-        setPreview((current) => (current ? { ...current, leaving: true } : null));
+        setPreview((current) => current.map((item) => ({ ...item, leaving: true, pop: true })));
         await wait(SPOT_EXIT_MS);
         if (stopped) return;
-        setPreview(null);
+        setPreview([]);
       }
     };
     void cycle();
@@ -171,10 +197,10 @@ export function DisplayStage({
           <img className="wordmark" src="/brand/the-power-of-small.png" alt="The Power of Small" />
         </div>
         <div className="spot" aria-live="polite">
-          {(spotlight ? spots : preview ? [preview] : []).map((card) => (
+          {(spotlight ? spots : preview).map((card) => (
             <div
               key={card.key}
-              className={`spot__card ${previewSlide && !spotlight ? "is-pop" : ""} ${card.leaving ? "is-out" : "is-in"}`}
+              className={`spot__card ${!spotlight && card.pop ? "is-pop" : ""} ${card.leaving ? "is-out" : "is-in"}`}
             >
               <PersonCard person={card.person} hires />
             </div>
