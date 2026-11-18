@@ -10,6 +10,8 @@ export type Employee = {
   thumb?: string;
   badge?: string;
   joinedYear?: number;
+  /** Shrinks this portrait on the honor card so it clears the copy (1 = PSD size). */
+  photoScale?: number;
 };
 
 export type Spotlight = {
@@ -86,6 +88,8 @@ export type RosterCard = {
   years: number;
   badge?: string;
   joinedYear?: number;
+  /** Shrinks this portrait on the honor card so it clears the copy (1 = PSD size). */
+  photoScale?: number;
 };
 
 export type CheckinStatus = "unknown" | "wrong_booth" | "cooldown" | "spotlight" | "queued" | "idle";

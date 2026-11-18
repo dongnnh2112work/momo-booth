@@ -403,6 +403,7 @@ function cards(roster: RosterIndex, boothId: BoothId): RosterCard[] {
     thumb: person.thumb,
     badge: person.badge,
     joinedYear: person.joinedYear,
+    photoScale: person.photoScale,
   }));
 }
 

@@ -36,7 +36,8 @@ export function useBoothChannel(boothId: BoothId | null) {
               item.badge === next[index]?.badge &&
               item.joinedYear === next[index]?.joinedYear &&
               item.photo === next[index]?.photo &&
-              item.thumb === next[index]?.thumb,
+              item.thumb === next[index]?.thumb &&
+              item.photoScale === next[index]?.photoScale,
           )
         ) {
           return previous;

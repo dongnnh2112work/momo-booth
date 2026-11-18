@@ -212,6 +212,10 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.03em; }
   height: 62.2%;
   object-fit: fill;
   z-index: 2;
+  /* Per-person shrink from the roster, anchored where the body meets the podium.
+     `scale` composes with the spotlight's transform animations. */
+  scale: var(--photo-scale, 1);
+  transform-origin: 60% 100%;
   filter: brightness(1.09) saturate(1.06);
 }
 
@@ -302,6 +306,7 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.03em; }
   color: #000;
   text-shadow: none;
 }
+
 .pc__label.is-mile-b { left: 7.44%; top: calc(27.62% - 0.935 * var(--size)); }
 .pc__label.is-peers { left: 7.52%; top: calc(39.13% - 0.935 * var(--size)); }
 .pc__label.is-join { --size: 3.97cqw; left: 6.87%; top: calc(50.34% - 0.935 * var(--size)); }

@@ -9,7 +9,8 @@
       "photo": "/portraits/m16-web/cuong.le.webp",
       "thumb": "/portraits/m16-web/thumbs/cuong.le.webp",
       "badge": "Huyền thoại lão làng",
-      "joinedYear": 2011
+      "joinedYear": 2011,
+      "photoScale": 0.93
     },
     {
       "code": "lien.nguyen",
@@ -20,7 +21,8 @@
       "photo": "/portraits/m16-web/lien.nguyen.webp",
       "thumb": "/portraits/m16-web/thumbs/lien.nguyen.webp",
       "badge": "Huyền thoại lão làng",
-      "joinedYear": 2011
+      "joinedYear": 2011,
+      "photoScale": 0.93
     },
     {
       "code": "anhduc.bui",
@@ -42,7 +44,8 @@
       "photo": "/portraits/m16-web/cuong.phan.webp",
       "thumb": "/portraits/m16-web/thumbs/cuong.phan.webp",
       "badge": "Nhân chứng lịch sử",
-      "joinedYear": 2016
+      "joinedYear": 2016,
+      "photoScale": 0.91
     },
     {
       "code": "dong.le",
@@ -53,7 +56,8 @@
       "photo": "/portraits/m16-web/dong.le.webp",
       "thumb": "/portraits/m16-web/thumbs/dong.le.webp",
       "badge": "Nhân chứng lịch sử",
-      "joinedYear": 2016
+      "joinedYear": 2016,
+      "photoScale": 0.93
     },
     {
       "code": "hung.do",
@@ -75,7 +79,8 @@
       "photo": "/portraits/m16-web/hung.huynh.webp",
       "thumb": "/portraits/m16-web/thumbs/hung.huynh.webp",
       "badge": "Nhân chứng lịch sử",
-      "joinedYear": 2016
+      "joinedYear": 2016,
+      "photoScale": 0.92
     },
     {
       "code": "khoa.ngo",
@@ -108,7 +113,8 @@
       "photo": "/portraits/m16-web/phi.ngo.webp",
       "thumb": "/portraits/m16-web/thumbs/phi.ngo.webp",
       "badge": "Nhân chứng lịch sử",
-      "joinedYear": 2016
+      "joinedYear": 2016,
+      "photoScale": 0.93
     },
     {
       "code": "phu.phan",
@@ -152,7 +158,8 @@
       "photo": "/portraits/m16-web/thuhien.nguyen.webp",
       "thumb": "/portraits/m16-web/thumbs/thuhien.nguyen.webp",
       "badge": "Nhân chứng lịch sử",
-      "joinedYear": 2016
+      "joinedYear": 2016,
+      "photoScale": 0.95
     },
     {
       "code": "tuoi.le",
@@ -251,7 +258,8 @@
       "photo": "/portraits/m16-web/anh.vu2.webp",
       "thumb": "/portraits/m16-web/thumbs/anh.vu2.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.99
     },
     {
       "code": "chinh.le",
@@ -284,7 +292,8 @@
       "photo": "/portraits/m16-web/dang.le1.webp",
       "thumb": "/portraits/m16-web/thumbs/dang.le1.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.93
     },
     {
       "code": "dao.thai",
@@ -306,7 +315,8 @@
       "photo": "/portraits/m16-web/diep.vo.webp",
       "thumb": "/portraits/m16-web/thumbs/diep.vo.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.95
     },
     {
       "code": "dinh.kim",
@@ -317,7 +327,8 @@
       "photo": "/portraits/m16-web/dinh.kim.webp",
       "thumb": "/portraits/m16-web/thumbs/dinh.kim.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.95
     },
     {
       "code": "dong.dang",
@@ -405,7 +416,8 @@
       "photo": "/portraits/m16-web/duy.phan5.webp",
       "thumb": "/portraits/m16-web/thumbs/duy.phan5.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.96
     },
     {
       "code": "duy.vo",
@@ -416,7 +428,8 @@
       "photo": "/portraits/m16-web/duy.vo.webp",
       "thumb": "/portraits/m16-web/thumbs/duy.vo.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.97
     },
     {
       "code": "duyen.banh",
@@ -438,7 +451,8 @@
       "photo": "/portraits/m16-web/duyen.ngo.webp",
       "thumb": "/portraits/m16-web/thumbs/duyen.ngo.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.95
     },
     {
       "code": "giang.nguyen1",
@@ -449,7 +463,8 @@
       "photo": "/portraits/m16-web/giang.nguyen1.webp",
       "thumb": "/portraits/m16-web/thumbs/giang.nguyen1.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.91
     },
     {
       "code": "ha.dang",
@@ -482,7 +497,8 @@
       "photo": "/portraits/m16-web/han.nguyen2.webp",
       "thumb": "/portraits/m16-web/thumbs/han.nguyen2.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.95
     },
     {
       "code": "hang.luu",
@@ -493,7 +509,8 @@
       "photo": "/portraits/m16-web/hang.luu.webp",
       "thumb": "/portraits/m16-web/thumbs/hang.luu.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.99
     },
     {
       "code": "hang.nguyen11",
@@ -526,7 +543,8 @@
       "photo": "/portraits/m16-web/hanh.le5.webp",
       "thumb": "/portraits/m16-web/thumbs/hanh.le5.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.99
     },
     {
       "code": "hanh.pham1",
@@ -548,7 +566,8 @@
       "photo": "/portraits/m16-web/hao.nguyen3.webp",
       "thumb": "/portraits/m16-web/thumbs/hao.nguyen3.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.99
     },
     {
       "code": "hien.ngo",
@@ -647,7 +666,8 @@
       "photo": "/portraits/m16-web/hoang.tran8.webp",
       "thumb": "/portraits/m16-web/thumbs/hoang.tran8.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.96
     },
     {
       "code": "hoang.tran9",
@@ -691,7 +711,8 @@
       "photo": "/portraits/m16-web/hung.vo2.webp",
       "thumb": "/portraits/m16-web/thumbs/hung.vo2.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.95
     },
     {
       "code": "huy.nguyen13",
@@ -724,7 +745,8 @@
       "photo": "/portraits/m16-web/khanh.pham2.webp",
       "thumb": "/portraits/m16-web/thumbs/khanh.pham2.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.97
     },
     {
       "code": "khoi.doan",
@@ -735,7 +757,8 @@
       "photo": "/portraits/m16-web/khoi.doan.webp",
       "thumb": "/portraits/m16-web/thumbs/khoi.doan.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.94
     },
     {
       "code": "kiet.tran2",
@@ -746,7 +769,8 @@
       "photo": "/portraits/m16-web/kiet.tran2.webp",
       "thumb": "/portraits/m16-web/thumbs/kiet.tran2.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.91
     },
     {
       "code": "ky.le",
@@ -768,7 +792,8 @@
       "photo": "/portraits/m16-web/lam.doan.webp",
       "thumb": "/portraits/m16-web/thumbs/lam.doan.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.99
     },
     {
       "code": "lam.nguyen7",
@@ -790,7 +815,8 @@
       "photo": "/portraits/m16-web/lan.do.webp",
       "thumb": "/portraits/m16-web/thumbs/lan.do.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.95
     },
     {
       "code": "le.vu",
@@ -823,7 +849,8 @@
       "photo": "/portraits/m16-web/linh.nguyen14.webp",
       "thumb": "/portraits/m16-web/thumbs/linh.nguyen14.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.96
     },
     {
       "code": "linh.nguyen16",
@@ -834,7 +861,8 @@
       "photo": "/portraits/m16-web/linh.nguyen16.webp",
       "thumb": "/portraits/m16-web/thumbs/linh.nguyen16.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.99
     },
     {
       "code": "linh.nguyen17",
@@ -889,7 +917,8 @@
       "photo": "/portraits/m16-web/linh.vu2.webp",
       "thumb": "/portraits/m16-web/thumbs/linh.vu2.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.88
     },
     {
       "code": "long.pham4",
@@ -944,7 +973,8 @@
       "photo": "/portraits/m16-web/minh.phung1.webp",
       "thumb": "/portraits/m16-web/thumbs/minh.phung1.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.97
     },
     {
       "code": "my.doan1",
@@ -977,7 +1007,8 @@
       "photo": "/portraits/m16-web/nam.pham1.webp",
       "thumb": "/portraits/m16-web/thumbs/nam.pham1.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.95
     },
     {
       "code": "nga.tran",
@@ -988,7 +1019,8 @@
       "photo": "/portraits/m16-web/nga.tran.webp",
       "thumb": "/portraits/m16-web/thumbs/nga.tran.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.95
     },
     {
       "code": "ngoc.nguyen18",
@@ -1010,7 +1042,8 @@
       "photo": "/portraits/m16-web/ngoc.phan2.webp",
       "thumb": "/portraits/m16-web/thumbs/ngoc.phan2.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.99
     },
     {
       "code": "nguyen.nguyen13",
@@ -1021,7 +1054,8 @@
       "photo": "/portraits/m16-web/nguyen.nguyen13.webp",
       "thumb": "/portraits/m16-web/thumbs/nguyen.nguyen13.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.87
     },
     {
       "code": "nhan.nguyen6",
@@ -1054,7 +1088,8 @@
       "photo": "/portraits/m16-web/nhi.bui1.webp",
       "thumb": "/portraits/m16-web/thumbs/nhi.bui1.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.96
     },
     {
       "code": "nhi.dang2",
@@ -1098,7 +1133,8 @@
       "photo": "/portraits/m16-web/nhon.nguyen.webp",
       "thumb": "/portraits/m16-web/thumbs/nhon.nguyen.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.94
     },
     {
       "code": "nhu.truong",
@@ -1142,7 +1178,8 @@
       "photo": "/portraits/m16-web/pha.nguyen.webp",
       "thumb": "/portraits/m16-web/thumbs/pha.nguyen.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.97
     },
     {
       "code": "phat.bui",
@@ -1175,7 +1212,8 @@
       "photo": "/portraits/m16-web/phong.manh.webp",
       "thumb": "/portraits/m16-web/thumbs/phong.manh.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.96
     },
     {
       "code": "phu.nguyen3",
@@ -1186,7 +1224,8 @@
       "photo": "/portraits/m16-web/phu.nguyen3.webp",
       "thumb": "/portraits/m16-web/thumbs/phu.nguyen3.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.93
     },
     {
       "code": "phung.huynh",
@@ -1219,7 +1258,8 @@
       "photo": "/portraits/m16-web/phuong.dang1.webp",
       "thumb": "/portraits/m16-web/thumbs/phuong.dang1.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.98
     },
     {
       "code": "phuong.nguyen22",
@@ -1241,7 +1281,8 @@
       "photo": "/portraits/m16-web/phuong.tran8.webp",
       "thumb": "/portraits/m16-web/thumbs/phuong.tran8.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.9
     },
     {
       "code": "quang.duong",
@@ -1296,7 +1337,8 @@
       "photo": "/portraits/m16-web/sinh.dang.webp",
       "thumb": "/portraits/m16-web/thumbs/sinh.dang.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.97
     },
     {
       "code": "son.hua",
@@ -1318,7 +1360,8 @@
       "photo": "/portraits/m16-web/son.nguyen12.webp",
       "thumb": "/portraits/m16-web/thumbs/son.nguyen12.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.93
     },
     {
       "code": "tai.vo",
@@ -1329,7 +1372,8 @@
       "photo": "/portraits/m16-web/tai.vo.webp",
       "thumb": "/portraits/m16-web/thumbs/tai.vo.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.96
     },
     {
       "code": "tan.nguyen4",
@@ -1362,7 +1406,8 @@
       "photo": "/portraits/m16-web/tan.nguyen6.webp",
       "thumb": "/portraits/m16-web/thumbs/tan.nguyen6.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.96
     },
     {
       "code": "thai.nguyen3",
@@ -1417,7 +1462,8 @@
       "photo": "/portraits/m16-web/thanh.tran3.webp",
       "thumb": "/portraits/m16-web/thumbs/thanh.tran3.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.94
     },
     {
       "code": "thanh.vo3",
@@ -1439,7 +1485,8 @@
       "photo": "/portraits/m16-web/thao.luu.webp",
       "thumb": "/portraits/m16-web/thumbs/thao.luu.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.94
     },
     {
       "code": "thao.nguyen20",
@@ -1450,7 +1497,8 @@
       "photo": "/portraits/m16-web/thao.nguyen20.webp",
       "thumb": "/portraits/m16-web/thumbs/thao.nguyen20.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.95
     },
     {
       "code": "thi.huynh1",
@@ -1483,7 +1531,8 @@
       "photo": "/portraits/m16-web/thien.tran7.webp",
       "thumb": "/portraits/m16-web/thumbs/thien.tran7.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.97
     },
     {
       "code": "thinh.nguyen6",
@@ -1538,7 +1587,8 @@
       "photo": "/portraits/m16-web/thuc.truong.webp",
       "thumb": "/portraits/m16-web/thumbs/thuc.truong.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.98
     },
     {
       "code": "thuy.vo2",
@@ -1571,7 +1621,8 @@
       "photo": "/portraits/m16-web/tien.nguyen13.webp",
       "thumb": "/portraits/m16-web/thumbs/tien.nguyen13.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.96
     },
     {
       "code": "tien.nguyen16",
@@ -1604,7 +1655,8 @@
       "photo": "/portraits/m16-web/ton.lu.webp",
       "thumb": "/portraits/m16-web/thumbs/ton.lu.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.98
     },
     {
       "code": "tra.nguyen",
@@ -1637,7 +1689,8 @@
       "photo": "/portraits/m16-web/tram.nguyen8.webp",
       "thumb": "/portraits/m16-web/thumbs/tram.nguyen8.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.95
     },
     {
       "code": "tran.bui",
@@ -1648,7 +1701,8 @@
       "photo": "/portraits/m16-web/tran.bui.webp",
       "thumb": "/portraits/m16-web/thumbs/tran.bui.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.98
     },
     {
       "code": "tran.nguyen9",
@@ -1659,7 +1713,8 @@
       "photo": "/portraits/m16-web/tran.nguyen9.webp",
       "thumb": "/portraits/m16-web/thumbs/tran.nguyen9.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.92
     },
     {
       "code": "trang.le9",
@@ -1670,7 +1725,8 @@
       "photo": "/portraits/m16-web/trang.le9.webp",
       "thumb": "/portraits/m16-web/thumbs/trang.le9.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.99
     },
     {
       "code": "trang.nguyen12",
@@ -1681,7 +1737,8 @@
       "photo": "/portraits/m16-web/trang.nguyen12.webp",
       "thumb": "/portraits/m16-web/thumbs/trang.nguyen12.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.94
     },
     {
       "code": "tri.tran5",
@@ -1725,7 +1782,8 @@
       "photo": "/portraits/m16-web/trung.le6.webp",
       "thumb": "/portraits/m16-web/thumbs/trung.le6.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.85
     },
     {
       "code": "truong.huynh1",
@@ -1736,7 +1794,8 @@
       "photo": "/portraits/m16-web/truong.huynh1.webp",
       "thumb": "/portraits/m16-web/thumbs/truong.huynh1.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.99
     },
     {
       "code": "truong.nguyen",
@@ -1758,7 +1817,8 @@
       "photo": "/portraits/m16-web/truong.phan.webp",
       "thumb": "/portraits/m16-web/thumbs/truong.phan.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.94
     },
     {
       "code": "tuan.le5",
@@ -1802,7 +1862,8 @@
       "photo": "/portraits/m16-web/tuan.trinh.webp",
       "thumb": "/portraits/m16-web/thumbs/tuan.trinh.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.95
     },
     {
       "code": "tuan.truong4",
@@ -1813,7 +1874,8 @@
       "photo": "/portraits/m16-web/tuan.truong4.webp",
       "thumb": "/portraits/m16-web/thumbs/tuan.truong4.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.96
     },
     {
       "code": "tue.tran",
@@ -1857,7 +1919,8 @@
       "photo": "/portraits/m16-web/uyen.bui.webp",
       "thumb": "/portraits/m16-web/thumbs/uyen.bui.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.97
     },
     {
       "code": "uyen.ly",
@@ -1901,7 +1964,8 @@
       "photo": "/portraits/m16-web/vinh.le2.webp",
       "thumb": "/portraits/m16-web/thumbs/vinh.le2.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.98
     },
     {
       "code": "xuan.nguyen2",
@@ -1923,7 +1987,8 @@
       "photo": "/portraits/m16-web/y.ton.webp",
       "thumb": "/portraits/m16-web/thumbs/y.ton.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "photoScale": 0.95
     }
   ]
 }

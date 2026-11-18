@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef, type CSSProperties } from "react";
 
 import type { RosterCard } from "@/lib/types";
 
@@ -54,12 +54,25 @@ function FitLine({ className, text }: { className: string; text: string }) {
   );
 }
 
+// Some portraits are framed wider than the PSD sample and would cover the copy
+// on the left; data/roster.json gives those a photoScale below 1.
+function photoScale(person: RosterCard): CSSProperties | undefined {
+  const scale = person.photoScale;
+  if (typeof scale !== "number" || !Number.isFinite(scale) || scale >= 1 || scale <= 0.5) return undefined;
+  return { "--photo-scale": String(scale) } as CSSProperties;
+}
+
 // Layout follows "M16 | VINH DANH 5-10-15.psd" (2126×3780). See .pc rules in globals.css.
 export function PersonCard({ person, hires = false }: { person: RosterCard; hires?: boolean }) {
   const art = YEAR_ART[person.years] ? person.years : 5;
   return (
     <article className="pc">
-      <img className="pc__photo" src={hires ? person.photo : person.thumb || person.photo} alt="" />
+      <img
+        className="pc__photo"
+        src={hires ? person.photo : person.thumb || person.photo}
+        alt=""
+        style={photoScale(person)}
+      />
       <img className="pc__band" src="/card/m16/band.webp" alt="" />
       <img className="pc__logo" src="/card/m16/logo.webp" alt="" />
       {person.badge ? <FitLine className="pc__badge" text={person.badge} /> : null}
