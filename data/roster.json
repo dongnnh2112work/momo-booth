@@ -307,6 +307,17 @@
       "joinedYear": 2021
     },
     {
+      "code": "dat.nguyen9",
+      "boothId": "5-10",
+      "name": "Nguyễn Võ Thành Đạt",
+      "department": "Risk Management",
+      "years": 5,
+      "photo": "/portraits/m16-web/dat.nguyen9.webp",
+      "thumb": "/portraits/m16-web/thumbs/dat.nguyen9.webp",
+      "badge": "Cao thủ làng MoMo",
+      "joinedYear": 2021
+    },
+    {
       "code": "diep.vo",
       "boothId": "5-10",
       "name": "Võ Trọng Diệp",
