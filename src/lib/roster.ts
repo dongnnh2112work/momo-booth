@@ -39,6 +39,7 @@ export function indexRoster(employees: Employee[]): RosterIndex {
   const byBooth = {} as Record<BoothId, Employee[]>;
   for (const id of BOOTH_IDS) byBooth[id] = [];
   for (const employee of employees) {
+    if (employee.hidden === true) continue;
     if (!isBoothId(employee.boothId)) continue;
     if (!employee.name || !employee.department || !employee.photo) continue;
     if (!Number.isFinite(employee.years)) continue;

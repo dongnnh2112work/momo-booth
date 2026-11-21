@@ -18,6 +18,8 @@ export type Employee = {
   teammates?: number;
   /** Shrinks this portrait on the honor card so it clears the copy (1 = PSD size). */
   photoScale?: number;
+  /** Left out of the booth entirely: no card in the loop, and check-in does not find the code. */
+  hidden?: boolean;
 };
 
 export type Spotlight = {
