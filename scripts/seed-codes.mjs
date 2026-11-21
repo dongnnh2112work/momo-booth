@@ -59,6 +59,7 @@ export function buildCodeRows(employees) {
       errors += 1;
       continue;
     }
+    if (person.hidden === true) continue;
     const code = normalizeCode(person.code);
     const booth = boothIdOf(person.boothId);
     if (!code || !booth) {

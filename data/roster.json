@@ -1315,7 +1315,8 @@
       "photo": "/portraits/m16-web/ngoc.nguyen18.webp",
       "thumb": "/portraits/m16-web/thumbs/ngoc.nguyen18.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "hidden": true
     },
     {
       "code": "ngoc.phan2",
@@ -1786,7 +1787,8 @@
       "photo": "/portraits/m16-web/tan.nguyen5.webp",
       "thumb": "/portraits/m16-web/thumbs/tan.nguyen5.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "hidden": true
     },
     {
       "code": "tan.nguyen6",
@@ -2186,7 +2188,8 @@
       "thumb": "/portraits/m16-web/thumbs/tran.nguyen9.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.92
+      "photoScale": 0.92,
+      "hidden": true
     },
     {
       "code": "trang.le9",
