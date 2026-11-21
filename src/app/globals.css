@@ -287,6 +287,8 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.03em; }
 .pc__num.is-mile { left: 6.85%; top: calc(24.31% - 0.885 * var(--size)); }
 .pc__num.is-peers { left: 6.94%; top: calc(35.93% - 0.885 * var(--size)); }
 .pc__num.is-join { left: 6.9%; top: calc(47.32% - 0.885 * var(--size)); }
+/* A full dd/mm/yyyy date is twice as wide as the year the PSD shows; a smaller size keeps it clear of the portrait. */
+.pc__num.is-join.is-date { --size: 5.4cqw; }
 
 .pc__label {
   --size: 5.15cqw;
