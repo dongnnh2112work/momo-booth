@@ -36,6 +36,9 @@ function spotPerson(spotlight: PublicSpotlight, roster: RosterCard[]): RosterCar
     thumb: known?.thumb,
     badge: known?.badge,
     joinedYear: known?.joinedYear,
+    joinedDate: known?.joinedDate,
+    daysWithMomo: known?.daysWithMomo,
+    teammates: known?.teammates,
     photoScale: known?.photoScale,
   };
 }
@@ -46,6 +49,9 @@ function sameSpotPerson(a: RosterCard, b: RosterCard) {
     a.photo === b.photo &&
     a.badge === b.badge &&
     a.joinedYear === b.joinedYear &&
+    a.joinedDate === b.joinedDate &&
+    a.daysWithMomo === b.daysWithMomo &&
+    a.teammates === b.teammates &&
     a.photoScale === b.photoScale &&
     a.name === b.name &&
     a.department === b.department &&

@@ -26,6 +26,21 @@ function milestones(person: RosterCard) {
   return person.joinedYear ? EVENT_YEAR - person.joinedYear + 1 : person.years;
 }
 
+function positive(value: number | undefined) {
+  return typeof value === "number" && Number.isFinite(value) && value > 0 ? Math.round(value) : 0;
+}
+
+// 5695 -> "5.695", the Vietnamese thousands mark.
+function formatCount(value: number) {
+  return String(value).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
+// "2011-04-18" -> "18/04/2011"
+function formatDate(value: string | undefined) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value ?? "");
+  return match ? `${match[3]}/${match[2]}/${match[1]}` : "";
+}
+
 // Shrinks a single line of card text until it fits the width it was given in CSS.
 // Sizes are in cqw, so the ratio measured once holds for every card size.
 function FitLine({ className, text }: { className: string; text: string }) {
@@ -65,6 +80,12 @@ function photoScale(person: RosterCard): CSSProperties | undefined {
 // Layout follows "M16 | VINH DANH 5-10-15.psd" (2126×3780). See .pc rules in globals.css.
 export function PersonCard({ person, hires = false }: { person: RosterCard; hires?: boolean }) {
   const art = YEAR_ART[person.years] ? person.years : 5;
+  // Round 4 of the customer sheet: column M (days), K (teammates), L (join date).
+  // People the sheet left blank keep the earlier milestones / 700+ / year copy.
+  const days = positive(person.daysWithMomo);
+  const teammates = positive(person.teammates);
+  const joinedDate = formatDate(person.joinedDate);
+  const joined = joinedDate || (person.joinedYear ? String(person.joinedYear) : "");
   return (
     <article className="pc">
       <img
@@ -76,16 +97,23 @@ export function PersonCard({ person, hires = false }: { person: RosterCard; hire
       <img className="pc__band" src="/card/m16/band.webp" alt="" />
       <img className="pc__logo" src="/card/m16/logo.webp" alt="" />
       {person.badge ? <FitLine className="pc__badge" text={person.badge} /> : null}
-      <p className="pc__num is-mile">
-        {milestones(person)}
-        <span className="pc__unit">cột mốc</span>
-      </p>
+      {days ? (
+        <p className="pc__num is-mile">
+          {formatCount(days)}
+          <span className="pc__unit">ngày</span>
+        </p>
+      ) : (
+        <p className="pc__num is-mile">
+          {milestones(person)}
+          <span className="pc__unit">cột mốc</span>
+        </p>
+      )}
       <p className="pc__label is-mile-b">cùng MoMo</p>
-      <p className="pc__num is-peers">700+</p>
+      <p className="pc__num is-peers">{teammates ? formatCount(teammates) : "700+"}</p>
       <p className="pc__label is-peers">đồng đội</p>
-      {person.joinedYear ? (
+      {joined ? (
         <>
-          <p className="pc__num is-join">{person.joinedYear}</p>
+          <p className={`pc__num is-join${joinedDate ? " is-date" : ""}`}>{joined}</p>
           <p className="pc__label is-join">nhập hội MoMo</p>
         </>
       ) : null}

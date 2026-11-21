@@ -10,6 +10,12 @@ export type Employee = {
   thumb?: string;
   badge?: string;
   joinedYear?: number;
+  /** Join date from the customer sheet, YYYY-MM-DD. */
+  joinedDate?: string;
+  /** Days with MoMo as counted in the customer sheet. */
+  daysWithMomo?: number;
+  /** Colleagues in the same department, from the customer sheet. */
+  teammates?: number;
   /** Shrinks this portrait on the honor card so it clears the copy (1 = PSD size). */
   photoScale?: number;
 };
@@ -88,6 +94,12 @@ export type RosterCard = {
   years: number;
   badge?: string;
   joinedYear?: number;
+  /** Join date from the customer sheet, YYYY-MM-DD. */
+  joinedDate?: string;
+  /** Days with MoMo as counted in the customer sheet. */
+  daysWithMomo?: number;
+  /** Colleagues in the same department, from the customer sheet. */
+  teammates?: number;
   /** Shrinks this portrait on the honor card so it clears the copy (1 = PSD size). */
   photoScale?: number;
 };

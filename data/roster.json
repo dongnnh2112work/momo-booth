@@ -10,7 +10,10 @@
       "thumb": "/portraits/m16-web/thumbs/cuong.le.webp",
       "badge": "Huyền thoại lão làng",
       "joinedYear": 2011,
-      "photoScale": 0.93
+      "photoScale": 0.93,
+      "joinedDate": "2011-10-04",
+      "daysWithMomo": 5526,
+      "teammates": 867
     },
     {
       "code": "lien.nguyen",
@@ -22,7 +25,10 @@
       "thumb": "/portraits/m16-web/thumbs/lien.nguyen.webp",
       "badge": "Huyền thoại lão làng",
       "joinedYear": 2011,
-      "photoScale": 0.93
+      "photoScale": 0.93,
+      "joinedDate": "2011-04-18",
+      "daysWithMomo": 5695,
+      "teammates": 49
     },
     {
       "code": "anhduc.bui",
@@ -33,7 +39,10 @@
       "photo": "/portraits/m16-web/anhduc.bui.webp",
       "thumb": "/portraits/m16-web/thumbs/anhduc.bui.webp",
       "badge": "Nhân chứng lịch sử",
-      "joinedYear": 2016
+      "joinedYear": 2016,
+      "joinedDate": "2016-10-17",
+      "daysWithMomo": 3686,
+      "teammates": 738
     },
     {
       "code": "cuong.phan",
@@ -45,7 +54,10 @@
       "thumb": "/portraits/m16-web/thumbs/cuong.phan.webp",
       "badge": "Nhân chứng lịch sử",
       "joinedYear": 2016,
-      "photoScale": 0.91
+      "photoScale": 0.91,
+      "joinedDate": "2016-07-11",
+      "daysWithMomo": 3784,
+      "teammates": 738
     },
     {
       "code": "dong.le",
@@ -57,7 +69,10 @@
       "thumb": "/portraits/m16-web/thumbs/dong.le.webp",
       "badge": "Nhân chứng lịch sử",
       "joinedYear": 2016,
-      "photoScale": 0.93
+      "photoScale": 0.93,
+      "joinedDate": "2016-06-01",
+      "daysWithMomo": 3824,
+      "teammates": 867
     },
     {
       "code": "hung.do",
@@ -68,7 +83,10 @@
       "photo": "/portraits/m16-web/hung.do.webp",
       "thumb": "/portraits/m16-web/thumbs/hung.do.webp",
       "badge": "Nhân chứng lịch sử",
-      "joinedYear": 2016
+      "joinedYear": 2016,
+      "joinedDate": "2016-07-11",
+      "daysWithMomo": 3784,
+      "teammates": 738
     },
     {
       "code": "hung.huynh",
@@ -80,7 +98,10 @@
       "thumb": "/portraits/m16-web/thumbs/hung.huynh.webp",
       "badge": "Nhân chứng lịch sử",
       "joinedYear": 2016,
-      "photoScale": 0.92
+      "photoScale": 0.92,
+      "joinedDate": "2016-03-14",
+      "daysWithMomo": 3903,
+      "teammates": 738
     },
     {
       "code": "khoa.ngo",
@@ -91,7 +112,10 @@
       "photo": "/portraits/m16-web/khoa.ngo.webp",
       "thumb": "/portraits/m16-web/thumbs/khoa.ngo.webp",
       "badge": "Nhân chứng lịch sử",
-      "joinedYear": 2016
+      "joinedYear": 2016,
+      "joinedDate": "2016-09-30",
+      "daysWithMomo": 3703,
+      "teammates": 738
     },
     {
       "code": "ngoc.doan",
@@ -102,7 +126,10 @@
       "photo": "/portraits/m16-web/ngoc.doan.webp",
       "thumb": "/portraits/m16-web/thumbs/ngoc.doan.webp",
       "badge": "Nhân chứng lịch sử",
-      "joinedYear": 2016
+      "joinedYear": 2016,
+      "joinedDate": "2016-02-15",
+      "daysWithMomo": 3931,
+      "teammates": 867
     },
     {
       "code": "phi.ngo",
@@ -114,7 +141,10 @@
       "thumb": "/portraits/m16-web/thumbs/phi.ngo.webp",
       "badge": "Nhân chứng lịch sử",
       "joinedYear": 2016,
-      "photoScale": 0.93
+      "photoScale": 0.93,
+      "joinedDate": "2016-10-17",
+      "daysWithMomo": 3686,
+      "teammates": 738
     },
     {
       "code": "phu.phan",
@@ -125,7 +155,10 @@
       "photo": "/portraits/m16-web/phu.phan.webp",
       "thumb": "/portraits/m16-web/thumbs/phu.phan.webp",
       "badge": "Nhân chứng lịch sử",
-      "joinedYear": 2016
+      "joinedYear": 2016,
+      "joinedDate": "2016-04-10",
+      "daysWithMomo": 3876,
+      "teammates": 867
     },
     {
       "code": "quan.le",
@@ -136,7 +169,10 @@
       "photo": "/portraits/m16-web/quan.le.webp",
       "thumb": "/portraits/m16-web/thumbs/quan.le.webp",
       "badge": "Nhân chứng lịch sử",
-      "joinedYear": 2016
+      "joinedYear": 2016,
+      "joinedDate": "2016-11-17",
+      "daysWithMomo": 3655,
+      "teammates": 738
     },
     {
       "code": "suong.dinh",
@@ -147,7 +183,10 @@
       "photo": "/portraits/m16-web/suong.dinh.webp",
       "thumb": "/portraits/m16-web/thumbs/suong.dinh.webp",
       "badge": "Nhân chứng lịch sử",
-      "joinedYear": 2016
+      "joinedYear": 2016,
+      "joinedDate": "2016-03-14",
+      "daysWithMomo": 3903,
+      "teammates": 111
     },
     {
       "code": "thuhien.nguyen",
@@ -159,7 +198,10 @@
       "thumb": "/portraits/m16-web/thumbs/thuhien.nguyen.webp",
       "badge": "Nhân chứng lịch sử",
       "joinedYear": 2016,
-      "photoScale": 0.95
+      "photoScale": 0.95,
+      "joinedDate": "2016-08-19",
+      "daysWithMomo": 3745,
+      "teammates": 111
     },
     {
       "code": "tuoi.le",
@@ -170,7 +212,10 @@
       "photo": "/portraits/m16-web/tuoi.le.webp",
       "thumb": "/portraits/m16-web/thumbs/tuoi.le.webp",
       "badge": "Nhân chứng lịch sử",
-      "joinedYear": 2016
+      "joinedYear": 2016,
+      "joinedDate": "2016-02-29",
+      "daysWithMomo": 3917,
+      "teammates": 122
     },
     {
       "code": "tuyen.nguyen",
@@ -181,7 +226,10 @@
       "photo": "/portraits/m16-web/tuyen.nguyen.webp",
       "thumb": "/portraits/m16-web/thumbs/tuyen.nguyen.webp",
       "badge": "Nhân chứng lịch sử",
-      "joinedYear": 2016
+      "joinedYear": 2016,
+      "joinedDate": "2016-05-09",
+      "daysWithMomo": 3847,
+      "teammates": 58
     },
     {
       "code": "an.huynh2",
@@ -192,7 +240,10 @@
       "photo": "/portraits/m16-web/an.huynh2.webp",
       "thumb": "/portraits/m16-web/thumbs/an.huynh2.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-08-18",
+      "daysWithMomo": 1920,
+      "teammates": 111
     },
     {
       "code": "anh.do1",
@@ -203,7 +254,10 @@
       "photo": "/portraits/m16-web/anh.do1.webp",
       "thumb": "/portraits/m16-web/thumbs/anh.do1.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-12-29",
+      "daysWithMomo": 1787,
+      "teammates": 738
     },
     {
       "code": "anh.le9",
@@ -214,7 +268,10 @@
       "photo": "/portraits/m16-web/anh.le9.webp",
       "thumb": "/portraits/m16-web/thumbs/anh.le9.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-06-01",
+      "daysWithMomo": 1998,
+      "teammates": 111
     },
     {
       "code": "anh.nguyen29",
@@ -225,7 +282,10 @@
       "photo": "/portraits/m16-web/anh.nguyen29.webp",
       "thumb": "/portraits/m16-web/thumbs/anh.nguyen29.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-03-01",
+      "daysWithMomo": 2090,
+      "teammates": 738
     },
     {
       "code": "anh.nguyen37",
@@ -236,7 +296,10 @@
       "photo": "/portraits/m16-web/anh.nguyen37.webp",
       "thumb": "/portraits/m16-web/thumbs/anh.nguyen37.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-10-11",
+      "daysWithMomo": 1866,
+      "teammates": 738
     },
     {
       "code": "anh.vo1",
@@ -247,7 +310,10 @@
       "photo": "/portraits/m16-web/anh.vo1.webp",
       "thumb": "/portraits/m16-web/thumbs/anh.vo1.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-08-09",
+      "daysWithMomo": 1929,
+      "teammates": 61
     },
     {
       "code": "anh.vu2",
@@ -259,7 +325,10 @@
       "thumb": "/portraits/m16-web/thumbs/anh.vu2.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.99
+      "photoScale": 0.99,
+      "joinedDate": "2021-07-05",
+      "daysWithMomo": 1964,
+      "teammates": 738
     },
     {
       "code": "chinh.le",
@@ -270,7 +339,10 @@
       "photo": "/portraits/m16-web/chinh.le.webp",
       "thumb": "/portraits/m16-web/thumbs/chinh.le.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-11-22",
+      "daysWithMomo": 1824,
+      "teammates": 738
     },
     {
       "code": "cuong.mai",
@@ -281,7 +353,10 @@
       "photo": "/portraits/m16-web/cuong.mai.webp",
       "thumb": "/portraits/m16-web/thumbs/cuong.mai.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-09-27",
+      "daysWithMomo": 1880,
+      "teammates": 111
     },
     {
       "code": "dang.le1",
@@ -293,7 +368,10 @@
       "thumb": "/portraits/m16-web/thumbs/dang.le1.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.93
+      "photoScale": 0.93,
+      "joinedDate": "2021-05-20",
+      "daysWithMomo": 2010,
+      "teammates": 738
     },
     {
       "code": "dao.thai",
@@ -304,7 +382,10 @@
       "photo": "/portraits/m16-web/dao.thai.webp",
       "thumb": "/portraits/m16-web/thumbs/dao.thai.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-08-04",
+      "daysWithMomo": 1934,
+      "teammates": 738
     },
     {
       "code": "dat.nguyen9",
@@ -315,7 +396,10 @@
       "photo": "/portraits/m16-web/dat.nguyen9.webp",
       "thumb": "/portraits/m16-web/thumbs/dat.nguyen9.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-08-04",
+      "daysWithMomo": 1934,
+      "teammates": 17
     },
     {
       "code": "diep.vo",
@@ -327,7 +411,10 @@
       "thumb": "/portraits/m16-web/thumbs/diep.vo.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.95
+      "photoScale": 0.95,
+      "joinedDate": "2021-05-21",
+      "daysWithMomo": 2009,
+      "teammates": 17
     },
     {
       "code": "dinh.kim",
@@ -339,7 +426,10 @@
       "thumb": "/portraits/m16-web/thumbs/dinh.kim.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.95
+      "photoScale": 0.95,
+      "joinedDate": "2021-09-06",
+      "daysWithMomo": 1901,
+      "teammates": 61
     },
     {
       "code": "dong.dang",
@@ -350,7 +440,10 @@
       "photo": "/portraits/m16-web/dong.dang.webp",
       "thumb": "/portraits/m16-web/thumbs/dong.dang.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-10-13",
+      "daysWithMomo": 1864,
+      "teammates": 867
     },
     {
       "code": "duc.dam",
@@ -361,7 +454,10 @@
       "photo": "/portraits/m16-web/duc.dam.webp",
       "thumb": "/portraits/m16-web/thumbs/duc.dam.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-06-14",
+      "daysWithMomo": 1985,
+      "teammates": 738
     },
     {
       "code": "dung.huynh1",
@@ -372,7 +468,10 @@
       "photo": "/portraits/m16-web/dung.huynh1.webp",
       "thumb": "/portraits/m16-web/thumbs/dung.huynh1.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-06-16",
+      "daysWithMomo": 1983,
+      "teammates": 738
     },
     {
       "code": "dung.nguyen16",
@@ -383,7 +482,10 @@
       "photo": "/portraits/m16-web/dung.nguyen16.webp",
       "thumb": "/portraits/m16-web/thumbs/dung.nguyen16.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-08-02",
+      "daysWithMomo": 1936,
+      "teammates": 867
     },
     {
       "code": "dung.tran3",
@@ -394,7 +496,10 @@
       "photo": "/portraits/m16-web/dung.tran3.webp",
       "thumb": "/portraits/m16-web/thumbs/dung.tran3.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-12-22",
+      "daysWithMomo": 1794,
+      "teammates": 106
     },
     {
       "code": "duong.hoang1",
@@ -405,7 +510,10 @@
       "photo": "/portraits/m16-web/duong.hoang1.webp",
       "thumb": "/portraits/m16-web/thumbs/duong.hoang1.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-07-19",
+      "daysWithMomo": 1950,
+      "teammates": 738
     },
     {
       "code": "duy.do",
@@ -416,7 +524,10 @@
       "photo": "/portraits/m16-web/duy.do.webp",
       "thumb": "/portraits/m16-web/thumbs/duy.do.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-05-04",
+      "daysWithMomo": 2026,
+      "teammates": 738
     },
     {
       "code": "duy.phan5",
@@ -428,7 +539,10 @@
       "thumb": "/portraits/m16-web/thumbs/duy.phan5.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.96
+      "photoScale": 0.96,
+      "joinedDate": "2021-09-29",
+      "daysWithMomo": 1878,
+      "teammates": 122
     },
     {
       "code": "duy.vo",
@@ -440,7 +554,10 @@
       "thumb": "/portraits/m16-web/thumbs/duy.vo.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.97
+      "photoScale": 0.97,
+      "joinedDate": "2021-10-11",
+      "daysWithMomo": 1866,
+      "teammates": 106
     },
     {
       "code": "duyen.banh",
@@ -451,7 +568,10 @@
       "photo": "/portraits/m16-web/duyen.banh.webp",
       "thumb": "/portraits/m16-web/thumbs/duyen.banh.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-09-13",
+      "daysWithMomo": 1894,
+      "teammates": 738
     },
     {
       "code": "duyen.ngo",
@@ -463,7 +583,10 @@
       "thumb": "/portraits/m16-web/thumbs/duyen.ngo.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.95
+      "photoScale": 0.95,
+      "joinedDate": "2021-08-02",
+      "daysWithMomo": 1936,
+      "teammates": 122
     },
     {
       "code": "giang.nguyen1",
@@ -475,7 +598,10 @@
       "thumb": "/portraits/m16-web/thumbs/giang.nguyen1.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.91
+      "photoScale": 0.91,
+      "joinedDate": "2021-06-01",
+      "daysWithMomo": 1998,
+      "teammates": 111
     },
     {
       "code": "ha.dang",
@@ -486,7 +612,10 @@
       "photo": "/portraits/m16-web/ha.dang.webp",
       "thumb": "/portraits/m16-web/thumbs/ha.dang.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-04-15",
+      "daysWithMomo": 2045,
+      "teammates": 83
     },
     {
       "code": "hai.le4",
@@ -497,7 +626,10 @@
       "photo": "/portraits/m16-web/hai.le4.webp",
       "thumb": "/portraits/m16-web/thumbs/hai.le4.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-03-08",
+      "daysWithMomo": 2083,
+      "teammates": 738
     },
     {
       "code": "han.nguyen2",
@@ -509,7 +641,10 @@
       "thumb": "/portraits/m16-web/thumbs/han.nguyen2.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.95
+      "photoScale": 0.95,
+      "joinedDate": "2021-08-02",
+      "daysWithMomo": 1936,
+      "teammates": 738
     },
     {
       "code": "hang.luu",
@@ -521,7 +656,10 @@
       "thumb": "/portraits/m16-web/thumbs/hang.luu.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.99
+      "photoScale": 0.99,
+      "joinedDate": "2021-08-04",
+      "daysWithMomo": 1934,
+      "teammates": 111
     },
     {
       "code": "hang.nguyen11",
@@ -532,7 +670,10 @@
       "photo": "/portraits/m16-web/hang.nguyen11.webp",
       "thumb": "/portraits/m16-web/thumbs/hang.nguyen11.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-09-01",
+      "daysWithMomo": 1906,
+      "teammates": 122
     },
     {
       "code": "hang.nguyen6",
@@ -543,7 +684,10 @@
       "photo": "/portraits/m16-web/hang.nguyen6.webp",
       "thumb": "/portraits/m16-web/thumbs/hang.nguyen6.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-02-17",
+      "daysWithMomo": 2102,
+      "teammates": 106
     },
     {
       "code": "hanh.le5",
@@ -555,7 +699,10 @@
       "thumb": "/portraits/m16-web/thumbs/hanh.le5.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.99
+      "photoScale": 0.99,
+      "joinedDate": "2021-06-07",
+      "daysWithMomo": 1992,
+      "teammates": 738
     },
     {
       "code": "hanh.pham1",
@@ -566,7 +713,10 @@
       "photo": "/portraits/m16-web/hanh.pham1.webp",
       "thumb": "/portraits/m16-web/thumbs/hanh.pham1.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-09-29",
+      "daysWithMomo": 1878,
+      "teammates": 738
     },
     {
       "code": "hao.nguyen3",
@@ -578,7 +728,10 @@
       "thumb": "/portraits/m16-web/thumbs/hao.nguyen3.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.99
+      "photoScale": 0.99,
+      "joinedDate": "2021-11-22",
+      "daysWithMomo": 1824,
+      "teammates": 738
     },
     {
       "code": "hien.ngo",
@@ -589,7 +742,10 @@
       "photo": "/portraits/m16-web/hien.ngo.webp",
       "thumb": "/portraits/m16-web/thumbs/hien.ngo.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-08-09",
+      "daysWithMomo": 1929,
+      "teammates": 867
     },
     {
       "code": "hieu.tran3",
@@ -600,7 +756,10 @@
       "photo": "/portraits/m16-web/hieu.tran3.webp",
       "thumb": "/portraits/m16-web/thumbs/hieu.tran3.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-06-01",
+      "daysWithMomo": 1998,
+      "teammates": 738
     },
     {
       "code": "hoa.lai",
@@ -611,7 +770,10 @@
       "photo": "/portraits/m16-web/hoa.lai.webp",
       "thumb": "/portraits/m16-web/thumbs/hoa.lai.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-10-18",
+      "daysWithMomo": 1859,
+      "teammates": 46
     },
     {
       "code": "hoai.vo",
@@ -622,7 +784,10 @@
       "photo": "/portraits/m16-web/hoai.vo.webp",
       "thumb": "/portraits/m16-web/thumbs/hoai.vo.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-09-27",
+      "daysWithMomo": 1880,
+      "teammates": 738
     },
     {
       "code": "hoang.dong",
@@ -633,7 +798,10 @@
       "photo": "/portraits/m16-web/hoang.dong.webp",
       "thumb": "/portraits/m16-web/thumbs/hoang.dong.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-07-19",
+      "daysWithMomo": 1950,
+      "teammates": 738
     },
     {
       "code": "hoang.le6",
@@ -644,7 +812,10 @@
       "photo": "/portraits/m16-web/hoang.le6.webp",
       "thumb": "/portraits/m16-web/thumbs/hoang.le6.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-07-07",
+      "daysWithMomo": 1962,
+      "teammates": 867
     },
     {
       "code": "hoang.le7",
@@ -655,7 +826,10 @@
       "photo": "/portraits/m16-web/hoang.le7.webp",
       "thumb": "/portraits/m16-web/thumbs/hoang.le7.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-11-01",
+      "daysWithMomo": 1845,
+      "teammates": 106
     },
     {
       "code": "hoang.nguyen6",
@@ -666,7 +840,10 @@
       "photo": "/portraits/m16-web/hoang.nguyen6.webp",
       "thumb": "/portraits/m16-web/thumbs/hoang.nguyen6.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-10-20",
+      "daysWithMomo": 1857,
+      "teammates": 738
     },
     {
       "code": "hoang.tran8",
@@ -678,7 +855,10 @@
       "thumb": "/portraits/m16-web/thumbs/hoang.tran8.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.96
+      "photoScale": 0.96,
+      "joinedDate": "2021-09-30",
+      "daysWithMomo": 1877,
+      "teammates": 738
     },
     {
       "code": "hoang.tran9",
@@ -689,7 +869,10 @@
       "photo": "/portraits/m16-web/hoang.tran9.webp",
       "thumb": "/portraits/m16-web/thumbs/hoang.tran9.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-12-01",
+      "daysWithMomo": 1815,
+      "teammates": 61
     },
     {
       "code": "hung.pham4",
@@ -700,7 +883,10 @@
       "photo": "/portraits/m16-web/hung.pham4.webp",
       "thumb": "/portraits/m16-web/thumbs/hung.pham4.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-09-13",
+      "daysWithMomo": 1894,
+      "teammates": 738
     },
     {
       "code": "hung.pham5",
@@ -711,7 +897,10 @@
       "photo": "/portraits/m16-web/hung.pham5.webp",
       "thumb": "/portraits/m16-web/thumbs/hung.pham5.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-10-27",
+      "daysWithMomo": 1850,
+      "teammates": 738
     },
     {
       "code": "hung.vo2",
@@ -723,7 +912,10 @@
       "thumb": "/portraits/m16-web/thumbs/hung.vo2.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.95
+      "photoScale": 0.95,
+      "joinedDate": "2021-06-16",
+      "daysWithMomo": 1983,
+      "teammates": 738
     },
     {
       "code": "huy.nguyen13",
@@ -734,7 +926,10 @@
       "photo": "/portraits/m16-web/huy.nguyen13.webp",
       "thumb": "/portraits/m16-web/thumbs/huy.nguyen13.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-06-21",
+      "daysWithMomo": 1978,
+      "teammates": 738
     },
     {
       "code": "huyen.nguyen8",
@@ -745,7 +940,10 @@
       "photo": "/portraits/m16-web/huyen.nguyen8.webp",
       "thumb": "/portraits/m16-web/thumbs/huyen.nguyen8.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-09-06",
+      "daysWithMomo": 1901,
+      "teammates": 111
     },
     {
       "code": "khanh.pham2",
@@ -757,7 +955,10 @@
       "thumb": "/portraits/m16-web/thumbs/khanh.pham2.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.97
+      "photoScale": 0.97,
+      "joinedDate": "2021-04-19",
+      "daysWithMomo": 2041,
+      "teammates": 738
     },
     {
       "code": "khoi.doan",
@@ -769,7 +970,10 @@
       "thumb": "/portraits/m16-web/thumbs/khoi.doan.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.94
+      "photoScale": 0.94,
+      "joinedDate": "2021-05-10",
+      "daysWithMomo": 2020,
+      "teammates": 738
     },
     {
       "code": "kiet.tran2",
@@ -781,7 +985,10 @@
       "thumb": "/portraits/m16-web/thumbs/kiet.tran2.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.91
+      "photoScale": 0.91,
+      "joinedDate": "2021-09-15",
+      "daysWithMomo": 1892,
+      "teammates": 867
     },
     {
       "code": "ky.le",
@@ -792,7 +999,10 @@
       "photo": "/portraits/m16-web/ky.le.webp",
       "thumb": "/portraits/m16-web/thumbs/ky.le.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-12-13",
+      "daysWithMomo": 1803,
+      "teammates": 738
     },
     {
       "code": "lam.doan",
@@ -804,7 +1014,10 @@
       "thumb": "/portraits/m16-web/thumbs/lam.doan.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.99
+      "photoScale": 0.99,
+      "joinedDate": "2021-06-14",
+      "daysWithMomo": 1985,
+      "teammates": 738
     },
     {
       "code": "lam.nguyen7",
@@ -815,7 +1028,10 @@
       "photo": "/portraits/m16-web/lam.nguyen7.webp",
       "thumb": "/portraits/m16-web/thumbs/lam.nguyen7.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-07-12",
+      "daysWithMomo": 1957,
+      "teammates": 738
     },
     {
       "code": "lan.do",
@@ -827,7 +1043,10 @@
       "thumb": "/portraits/m16-web/thumbs/lan.do.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.95
+      "photoScale": 0.95,
+      "joinedDate": "2021-04-22",
+      "daysWithMomo": 2038,
+      "teammates": 12
     },
     {
       "code": "le.vu",
@@ -838,7 +1057,10 @@
       "photo": "/portraits/m16-web/le.vu.webp",
       "thumb": "/portraits/m16-web/thumbs/le.vu.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-10-18",
+      "daysWithMomo": 1859,
+      "teammates": 738
     },
     {
       "code": "linh.dang1",
@@ -849,7 +1071,10 @@
       "photo": "/portraits/m16-web/linh.dang1.webp",
       "thumb": "/portraits/m16-web/thumbs/linh.dang1.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-03-08",
+      "daysWithMomo": 2083,
+      "teammates": 106
     },
     {
       "code": "linh.nguyen14",
@@ -861,7 +1086,10 @@
       "thumb": "/portraits/m16-web/thumbs/linh.nguyen14.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.96
+      "photoScale": 0.96,
+      "joinedDate": "2021-07-07",
+      "daysWithMomo": 1962,
+      "teammates": 29
     },
     {
       "code": "linh.nguyen16",
@@ -873,7 +1101,10 @@
       "thumb": "/portraits/m16-web/thumbs/linh.nguyen16.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.99
+      "photoScale": 0.99,
+      "joinedDate": "2021-08-11",
+      "daysWithMomo": 1927,
+      "teammates": 738
     },
     {
       "code": "linh.nguyen17",
@@ -884,7 +1115,10 @@
       "photo": "/portraits/m16-web/linh.nguyen17.webp",
       "thumb": "/portraits/m16-web/thumbs/linh.nguyen17.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-10-13",
+      "daysWithMomo": 1864,
+      "teammates": 122
     },
     {
       "code": "linh.pham5",
@@ -895,7 +1129,10 @@
       "photo": "/portraits/m16-web/linh.pham5.webp",
       "thumb": "/portraits/m16-web/thumbs/linh.pham5.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-11-01",
+      "daysWithMomo": 1845,
+      "teammates": 867
     },
     {
       "code": "linh.tran8",
@@ -906,7 +1143,10 @@
       "photo": "/portraits/m16-web/linh.tran8.webp",
       "thumb": "/portraits/m16-web/thumbs/linh.tran8.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-12-06",
+      "daysWithMomo": 1810,
+      "teammates": 738
     },
     {
       "code": "linh.vu1",
@@ -917,7 +1157,10 @@
       "photo": "/portraits/m16-web/linh.vu1.webp",
       "thumb": "/portraits/m16-web/thumbs/linh.vu1.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-06-23",
+      "daysWithMomo": 1976,
+      "teammates": 122
     },
     {
       "code": "linh.vu2",
@@ -929,7 +1172,10 @@
       "thumb": "/portraits/m16-web/thumbs/linh.vu2.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.88
+      "photoScale": 0.88,
+      "joinedDate": "2021-12-01",
+      "daysWithMomo": 1815,
+      "teammates": 738
     },
     {
       "code": "long.pham4",
@@ -940,7 +1186,10 @@
       "photo": "/portraits/m16-web/long.pham4.webp",
       "thumb": "/portraits/m16-web/thumbs/long.pham4.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-10-13",
+      "daysWithMomo": 1864,
+      "teammates": 738
     },
     {
       "code": "mai.truong",
@@ -951,7 +1200,10 @@
       "photo": "/portraits/m16-web/mai.truong.webp",
       "thumb": "/portraits/m16-web/thumbs/mai.truong.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-05-31",
+      "daysWithMomo": 1999,
+      "teammates": 17
     },
     {
       "code": "mien.pham",
@@ -962,7 +1214,10 @@
       "photo": "/portraits/m16-web/mien.pham.webp",
       "thumb": "/portraits/m16-web/thumbs/mien.pham.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-04-19",
+      "daysWithMomo": 2041,
+      "teammates": 738
     },
     {
       "code": "minh.pham1",
@@ -973,7 +1228,10 @@
       "photo": "/portraits/m16-web/minh.pham1.webp",
       "thumb": "/portraits/m16-web/thumbs/minh.pham1.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-05-04",
+      "daysWithMomo": 2026,
+      "teammates": 738
     },
     {
       "code": "minh.phung1",
@@ -985,7 +1243,10 @@
       "thumb": "/portraits/m16-web/thumbs/minh.phung1.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.97
+      "photoScale": 0.97,
+      "joinedDate": "2021-08-02",
+      "daysWithMomo": 1936,
+      "teammates": 738
     },
     {
       "code": "my.doan1",
@@ -996,7 +1257,10 @@
       "photo": "/portraits/m16-web/my.doan1.webp",
       "thumb": "/portraits/m16-web/thumbs/my.doan1.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-07-05",
+      "daysWithMomo": 1964,
+      "teammates": 122
     },
     {
       "code": "my.nguyen7",
@@ -1007,7 +1271,10 @@
       "photo": "/portraits/m16-web/my.nguyen7.webp",
       "thumb": "/portraits/m16-web/thumbs/my.nguyen7.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-07-05",
+      "daysWithMomo": 1964,
+      "teammates": 61
     },
     {
       "code": "nam.pham1",
@@ -1019,7 +1286,10 @@
       "thumb": "/portraits/m16-web/thumbs/nam.pham1.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.95
+      "photoScale": 0.95,
+      "joinedDate": "2021-11-10",
+      "daysWithMomo": 1836,
+      "teammates": 738
     },
     {
       "code": "nga.tran",
@@ -1031,7 +1301,10 @@
       "thumb": "/portraits/m16-web/thumbs/nga.tran.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.95
+      "photoScale": 0.95,
+      "joinedDate": "2021-04-05",
+      "daysWithMomo": 2055,
+      "teammates": 122
     },
     {
       "code": "ngoc.nguyen18",
@@ -1054,7 +1327,10 @@
       "thumb": "/portraits/m16-web/thumbs/ngoc.phan2.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.99
+      "photoScale": 0.99,
+      "joinedDate": "2021-03-24",
+      "daysWithMomo": 2067,
+      "teammates": 61
     },
     {
       "code": "nguyen.nguyen13",
@@ -1066,7 +1342,24 @@
       "thumb": "/portraits/m16-web/thumbs/nguyen.nguyen13.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.87
+      "photoScale": 0.87,
+      "joinedDate": "2021-12-06",
+      "daysWithMomo": 1810,
+      "teammates": 738
+    },
+    {
+      "code": "nguyen.phan3",
+      "boothId": "5-10",
+      "name": "Phan Thị Đào Nguyên",
+      "department": "Financial Services Business Group",
+      "years": 5,
+      "photo": "/portraits/m16-web/nguyen.phan3.webp",
+      "thumb": "/portraits/m16-web/thumbs/nguyen.phan3.webp",
+      "badge": "Cao thủ làng MoMo",
+      "joinedYear": 2021,
+      "joinedDate": "2021-12-20",
+      "daysWithMomo": 1796,
+      "teammates": 106
     },
     {
       "code": "nhan.nguyen6",
@@ -1077,7 +1370,10 @@
       "photo": "/portraits/m16-web/nhan.nguyen6.webp",
       "thumb": "/portraits/m16-web/thumbs/nhan.nguyen6.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-11-24",
+      "daysWithMomo": 1822,
+      "teammates": 106
     },
     {
       "code": "nhan.vo3",
@@ -1088,7 +1384,10 @@
       "photo": "/portraits/m16-web/nhan.vo3.webp",
       "thumb": "/portraits/m16-web/thumbs/nhan.vo3.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-03-08",
+      "daysWithMomo": 2083,
+      "teammates": 738
     },
     {
       "code": "nhi.bui1",
@@ -1100,7 +1399,10 @@
       "thumb": "/portraits/m16-web/thumbs/nhi.bui1.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.96
+      "photoScale": 0.96,
+      "joinedDate": "2021-09-08",
+      "daysWithMomo": 1899,
+      "teammates": 867
     },
     {
       "code": "nhi.dang2",
@@ -1111,7 +1413,10 @@
       "photo": "/portraits/m16-web/nhi.dang2.webp",
       "thumb": "/portraits/m16-web/thumbs/nhi.dang2.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-11-22",
+      "daysWithMomo": 1824,
+      "teammates": 738
     },
     {
       "code": "nhi.nguyen6",
@@ -1122,7 +1427,10 @@
       "photo": "/portraits/m16-web/nhi.nguyen6.webp",
       "thumb": "/portraits/m16-web/thumbs/nhi.nguyen6.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-08-16",
+      "daysWithMomo": 1922,
+      "teammates": 867
     },
     {
       "code": "nhien.nguyen",
@@ -1133,7 +1441,10 @@
       "photo": "/portraits/m16-web/nhien.nguyen.webp",
       "thumb": "/portraits/m16-web/thumbs/nhien.nguyen.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-10-11",
+      "daysWithMomo": 1866,
+      "teammates": 867
     },
     {
       "code": "nhon.nguyen",
@@ -1145,7 +1456,10 @@
       "thumb": "/portraits/m16-web/thumbs/nhon.nguyen.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.94
+      "photoScale": 0.94,
+      "joinedDate": "2021-07-14",
+      "daysWithMomo": 1955,
+      "teammates": 61
     },
     {
       "code": "nhu.truong",
@@ -1156,7 +1470,10 @@
       "photo": "/portraits/m16-web/nhu.truong.webp",
       "thumb": "/portraits/m16-web/thumbs/nhu.truong.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-06-21",
+      "daysWithMomo": 1978,
+      "teammates": 867
     },
     {
       "code": "nhung.ngo1",
@@ -1167,7 +1484,10 @@
       "photo": "/portraits/m16-web/nhung.ngo1.webp",
       "thumb": "/portraits/m16-web/thumbs/nhung.ngo1.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-04-13",
+      "daysWithMomo": 2047,
+      "teammates": 106
     },
     {
       "code": "oanh.nguyen2",
@@ -1178,7 +1498,10 @@
       "photo": "/portraits/m16-web/oanh.nguyen2.webp",
       "thumb": "/portraits/m16-web/thumbs/oanh.nguyen2.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-09-29",
+      "daysWithMomo": 1878,
+      "teammates": 738
     },
     {
       "code": "pha.nguyen",
@@ -1190,7 +1513,10 @@
       "thumb": "/portraits/m16-web/thumbs/pha.nguyen.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.97
+      "photoScale": 0.97,
+      "joinedDate": "2021-05-04",
+      "daysWithMomo": 2026,
+      "teammates": 738
     },
     {
       "code": "phat.bui",
@@ -1201,7 +1527,10 @@
       "photo": "/portraits/m16-web/phat.bui.webp",
       "thumb": "/portraits/m16-web/thumbs/phat.bui.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-01-11",
+      "daysWithMomo": 2139,
+      "teammates": 738
     },
     {
       "code": "phi.nguyen",
@@ -1212,7 +1541,10 @@
       "photo": "/portraits/m16-web/phi.nguyen.webp",
       "thumb": "/portraits/m16-web/thumbs/phi.nguyen.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-04-05",
+      "daysWithMomo": 2055,
+      "teammates": 738
     },
     {
       "code": "phong.manh",
@@ -1224,7 +1556,10 @@
       "thumb": "/portraits/m16-web/thumbs/phong.manh.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.96
+      "photoScale": 0.96,
+      "joinedDate": "2021-08-04",
+      "daysWithMomo": 1934,
+      "teammates": 738
     },
     {
       "code": "phu.nguyen3",
@@ -1236,7 +1571,10 @@
       "thumb": "/portraits/m16-web/thumbs/phu.nguyen3.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.93
+      "photoScale": 0.93,
+      "joinedDate": "2021-10-27",
+      "daysWithMomo": 1850,
+      "teammates": 867
     },
     {
       "code": "phung.huynh",
@@ -1247,7 +1585,10 @@
       "photo": "/portraits/m16-web/phung.huynh.webp",
       "thumb": "/portraits/m16-web/thumbs/phung.huynh.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-03-15",
+      "daysWithMomo": 2076,
+      "teammates": 738
     },
     {
       "code": "phuoc.ngo",
@@ -1258,7 +1599,10 @@
       "photo": "/portraits/m16-web/phuoc.ngo.webp",
       "thumb": "/portraits/m16-web/thumbs/phuoc.ngo.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-08-02",
+      "daysWithMomo": 1936,
+      "teammates": 738
     },
     {
       "code": "phuong.dang1",
@@ -1270,7 +1614,10 @@
       "thumb": "/portraits/m16-web/thumbs/phuong.dang1.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.98
+      "photoScale": 0.98,
+      "joinedDate": "2021-04-22",
+      "daysWithMomo": 2038,
+      "teammates": 738
     },
     {
       "code": "phuong.nguyen22",
@@ -1281,7 +1628,10 @@
       "photo": "/portraits/m16-web/phuong.nguyen22.webp",
       "thumb": "/portraits/m16-web/thumbs/phuong.nguyen22.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-09-27",
+      "daysWithMomo": 1880,
+      "teammates": 738
     },
     {
       "code": "phuong.tran8",
@@ -1293,7 +1643,10 @@
       "thumb": "/portraits/m16-web/thumbs/phuong.tran8.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.9
+      "photoScale": 0.9,
+      "joinedDate": "2021-03-29",
+      "daysWithMomo": 2062,
+      "teammates": 49
     },
     {
       "code": "quang.duong",
@@ -1304,7 +1657,10 @@
       "photo": "/portraits/m16-web/quang.duong.webp",
       "thumb": "/portraits/m16-web/thumbs/quang.duong.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-05-27",
+      "daysWithMomo": 2003,
+      "teammates": 738
     },
     {
       "code": "quyen.ngo",
@@ -1315,7 +1671,10 @@
       "photo": "/portraits/m16-web/quyen.ngo.webp",
       "thumb": "/portraits/m16-web/thumbs/quyen.ngo.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-08-09",
+      "daysWithMomo": 1929,
+      "teammates": 46
     },
     {
       "code": "quyen.thai",
@@ -1326,7 +1685,10 @@
       "photo": "/portraits/m16-web/quyen.thai.webp",
       "thumb": "/portraits/m16-web/thumbs/quyen.thai.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-05-05",
+      "daysWithMomo": 2025,
+      "teammates": 867
     },
     {
       "code": "quynh.do",
@@ -1337,7 +1699,10 @@
       "photo": "/portraits/m16-web/quynh.do.webp",
       "thumb": "/portraits/m16-web/thumbs/quynh.do.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-12-01",
+      "daysWithMomo": 1815,
+      "teammates": 738
     },
     {
       "code": "sinh.dang",
@@ -1349,7 +1714,10 @@
       "thumb": "/portraits/m16-web/thumbs/sinh.dang.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.97
+      "photoScale": 0.97,
+      "joinedDate": "2021-09-01",
+      "daysWithMomo": 1906,
+      "teammates": 738
     },
     {
       "code": "son.hua",
@@ -1360,7 +1728,10 @@
       "photo": "/portraits/m16-web/son.hua.webp",
       "thumb": "/portraits/m16-web/thumbs/son.hua.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-11-22",
+      "daysWithMomo": 1824,
+      "teammates": 738
     },
     {
       "code": "son.nguyen12",
@@ -1372,7 +1743,10 @@
       "thumb": "/portraits/m16-web/thumbs/son.nguyen12.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.93
+      "photoScale": 0.93,
+      "joinedDate": "2021-12-06",
+      "daysWithMomo": 1810,
+      "teammates": 738
     },
     {
       "code": "tai.vo",
@@ -1384,7 +1758,10 @@
       "thumb": "/portraits/m16-web/thumbs/tai.vo.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.96
+      "photoScale": 0.96,
+      "joinedDate": "2021-03-01",
+      "daysWithMomo": 2090,
+      "teammates": 49
     },
     {
       "code": "tan.nguyen4",
@@ -1395,7 +1772,10 @@
       "photo": "/portraits/m16-web/tan.nguyen4.webp",
       "thumb": "/portraits/m16-web/thumbs/tan.nguyen4.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-04-12",
+      "daysWithMomo": 2048,
+      "teammates": 867
     },
     {
       "code": "tan.nguyen5",
@@ -1418,7 +1798,10 @@
       "thumb": "/portraits/m16-web/thumbs/tan.nguyen6.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.96
+      "photoScale": 0.96,
+      "joinedDate": "2021-07-26",
+      "daysWithMomo": 1943,
+      "teammates": 738
     },
     {
       "code": "thai.nguyen3",
@@ -1429,7 +1812,10 @@
       "photo": "/portraits/m16-web/thai.nguyen3.webp",
       "thumb": "/portraits/m16-web/thumbs/thai.nguyen3.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-12-06",
+      "daysWithMomo": 1810,
+      "teammates": 738
     },
     {
       "code": "tham.la",
@@ -1440,7 +1826,10 @@
       "photo": "/portraits/m16-web/tham.la.webp",
       "thumb": "/portraits/m16-web/thumbs/tham.la.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-06-09",
+      "daysWithMomo": 1990,
+      "teammates": 20
     },
     {
       "code": "thang.doan",
@@ -1451,7 +1840,10 @@
       "photo": "/portraits/m16-web/thang.doan.webp",
       "thumb": "/portraits/m16-web/thumbs/thang.doan.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-11-08",
+      "daysWithMomo": 1838,
+      "teammates": 106
     },
     {
       "code": "thanh.nguyen17",
@@ -1462,7 +1854,10 @@
       "photo": "/portraits/m16-web/thanh.nguyen17.webp",
       "thumb": "/portraits/m16-web/thumbs/thanh.nguyen17.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-03-08",
+      "daysWithMomo": 2083,
+      "teammates": 13
     },
     {
       "code": "thanh.tran3",
@@ -1474,7 +1869,10 @@
       "thumb": "/portraits/m16-web/thumbs/thanh.tran3.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.94
+      "photoScale": 0.94,
+      "joinedDate": "2021-01-04",
+      "daysWithMomo": 2146,
+      "teammates": 738
     },
     {
       "code": "thanh.vo3",
@@ -1485,7 +1883,10 @@
       "photo": "/portraits/m16-web/thanh.vo3.webp",
       "thumb": "/portraits/m16-web/thumbs/thanh.vo3.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-02-23",
+      "daysWithMomo": 2096,
+      "teammates": 738
     },
     {
       "code": "thao.luu",
@@ -1497,7 +1898,10 @@
       "thumb": "/portraits/m16-web/thumbs/thao.luu.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.94
+      "photoScale": 0.94,
+      "joinedDate": "2021-12-22",
+      "daysWithMomo": 1794,
+      "teammates": 20
     },
     {
       "code": "thao.nguyen20",
@@ -1509,7 +1913,10 @@
       "thumb": "/portraits/m16-web/thumbs/thao.nguyen20.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.95
+      "photoScale": 0.95,
+      "joinedDate": "2021-06-01",
+      "daysWithMomo": 1998,
+      "teammates": 111
     },
     {
       "code": "thi.huynh1",
@@ -1520,7 +1927,10 @@
       "photo": "/portraits/m16-web/thi.huynh1.webp",
       "thumb": "/portraits/m16-web/thumbs/thi.huynh1.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-12-01",
+      "daysWithMomo": 1815,
+      "teammates": 111
     },
     {
       "code": "thien.nguyen4",
@@ -1531,7 +1941,10 @@
       "photo": "/portraits/m16-web/thien.nguyen4.webp",
       "thumb": "/portraits/m16-web/thumbs/thien.nguyen4.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-08-02",
+      "daysWithMomo": 1936,
+      "teammates": 738
     },
     {
       "code": "thien.tran7",
@@ -1543,7 +1956,10 @@
       "thumb": "/portraits/m16-web/thumbs/thien.tran7.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.97
+      "photoScale": 0.97,
+      "joinedDate": "2021-08-02",
+      "daysWithMomo": 1936,
+      "teammates": 738
     },
     {
       "code": "thinh.nguyen6",
@@ -1554,7 +1970,10 @@
       "photo": "/portraits/m16-web/thinh.nguyen6.webp",
       "thumb": "/portraits/m16-web/thumbs/thinh.nguyen6.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-10-06",
+      "daysWithMomo": 1871,
+      "teammates": 738
     },
     {
       "code": "thinh.phan",
@@ -1565,7 +1984,10 @@
       "photo": "/portraits/m16-web/thinh.phan.webp",
       "thumb": "/portraits/m16-web/thumbs/thinh.phan.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-11-15",
+      "daysWithMomo": 1831,
+      "teammates": 738
     },
     {
       "code": "thu.nguyen12",
@@ -1576,7 +1998,10 @@
       "photo": "/portraits/m16-web/thu.nguyen12.webp",
       "thumb": "/portraits/m16-web/thumbs/thu.nguyen12.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-11-22",
+      "daysWithMomo": 1824,
+      "teammates": 122
     },
     {
       "code": "thu.vo",
@@ -1587,7 +2012,10 @@
       "photo": "/portraits/m16-web/thu.vo.webp",
       "thumb": "/portraits/m16-web/thumbs/thu.vo.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-05-04",
+      "daysWithMomo": 2026,
+      "teammates": 867
     },
     {
       "code": "thuc.truong",
@@ -1599,7 +2027,10 @@
       "thumb": "/portraits/m16-web/thumbs/thuc.truong.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.98
+      "photoScale": 0.98,
+      "joinedDate": "2021-10-20",
+      "daysWithMomo": 1857,
+      "teammates": 867
     },
     {
       "code": "thuy.vo2",
@@ -1610,7 +2041,10 @@
       "photo": "/portraits/m16-web/thuy.vo2.webp",
       "thumb": "/portraits/m16-web/thumbs/thuy.vo2.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-03-25",
+      "daysWithMomo": 2066,
+      "teammates": 46
     },
     {
       "code": "ti.nguyen",
@@ -1621,7 +2055,10 @@
       "photo": "/portraits/m16-web/ti.nguyen.webp",
       "thumb": "/portraits/m16-web/thumbs/ti.nguyen.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-06-23",
+      "daysWithMomo": 1976,
+      "teammates": 867
     },
     {
       "code": "tien.nguyen13",
@@ -1633,7 +2070,10 @@
       "thumb": "/portraits/m16-web/thumbs/tien.nguyen13.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.96
+      "photoScale": 0.96,
+      "joinedDate": "2021-01-11",
+      "daysWithMomo": 2139,
+      "teammates": 738
     },
     {
       "code": "tien.nguyen16",
@@ -1644,7 +2084,10 @@
       "photo": "/portraits/m16-web/tien.nguyen16.webp",
       "thumb": "/portraits/m16-web/thumbs/tien.nguyen16.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-08-02",
+      "daysWithMomo": 1936,
+      "teammates": 738
     },
     {
       "code": "toa.vo",
@@ -1655,7 +2098,10 @@
       "photo": "/portraits/m16-web/toa.vo.webp",
       "thumb": "/portraits/m16-web/thumbs/toa.vo.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-05-20",
+      "daysWithMomo": 2010,
+      "teammates": 867
     },
     {
       "code": "ton.lu",
@@ -1667,7 +2113,10 @@
       "thumb": "/portraits/m16-web/thumbs/ton.lu.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.98
+      "photoScale": 0.98,
+      "joinedDate": "2021-08-23",
+      "daysWithMomo": 1915,
+      "teammates": 867
     },
     {
       "code": "tra.nguyen",
@@ -1678,7 +2127,10 @@
       "photo": "/portraits/m16-web/tra.nguyen.webp",
       "thumb": "/portraits/m16-web/thumbs/tra.nguyen.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-01-04",
+      "daysWithMomo": 2146,
+      "teammates": 867
     },
     {
       "code": "trai.le",
@@ -1689,7 +2141,10 @@
       "photo": "/portraits/m16-web/trai.le.webp",
       "thumb": "/portraits/m16-web/thumbs/trai.le.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-12-01",
+      "daysWithMomo": 1815,
+      "teammates": 738
     },
     {
       "code": "tram.nguyen8",
@@ -1701,7 +2156,10 @@
       "thumb": "/portraits/m16-web/thumbs/tram.nguyen8.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.95
+      "photoScale": 0.95,
+      "joinedDate": "2021-07-05",
+      "daysWithMomo": 1964,
+      "teammates": 867
     },
     {
       "code": "tran.bui",
@@ -1713,7 +2171,10 @@
       "thumb": "/portraits/m16-web/thumbs/tran.bui.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.98
+      "photoScale": 0.98,
+      "joinedDate": "2021-09-06",
+      "daysWithMomo": 1901,
+      "teammates": 738
     },
     {
       "code": "tran.nguyen9",
@@ -1737,7 +2198,10 @@
       "thumb": "/portraits/m16-web/thumbs/trang.le9.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.99
+      "photoScale": 0.99,
+      "joinedDate": "2021-09-29",
+      "daysWithMomo": 1878,
+      "teammates": 738
     },
     {
       "code": "trang.nguyen12",
@@ -1749,7 +2213,10 @@
       "thumb": "/portraits/m16-web/thumbs/trang.nguyen12.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.94
+      "photoScale": 0.94,
+      "joinedDate": "2021-03-01",
+      "daysWithMomo": 2090,
+      "teammates": 867
     },
     {
       "code": "tri.tran5",
@@ -1760,7 +2227,10 @@
       "photo": "/portraits/m16-web/tri.tran5.webp",
       "thumb": "/portraits/m16-web/thumbs/tri.tran5.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-04-28",
+      "daysWithMomo": 2032,
+      "teammates": 58
     },
     {
       "code": "trinh.nguyen4",
@@ -1771,7 +2241,10 @@
       "photo": "/portraits/m16-web/trinh.nguyen4.webp",
       "thumb": "/portraits/m16-web/thumbs/trinh.nguyen4.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-02-22",
+      "daysWithMomo": 2097,
+      "teammates": 867
     },
     {
       "code": "truc.nguyen5",
@@ -1782,7 +2255,10 @@
       "photo": "/portraits/m16-web/truc.nguyen5.webp",
       "thumb": "/portraits/m16-web/thumbs/truc.nguyen5.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-10-20",
+      "daysWithMomo": 1857,
+      "teammates": 122
     },
     {
       "code": "trung.le6",
@@ -1794,7 +2270,10 @@
       "thumb": "/portraits/m16-web/thumbs/trung.le6.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.85
+      "photoScale": 0.85,
+      "joinedDate": "2021-06-14",
+      "daysWithMomo": 1985,
+      "teammates": 738
     },
     {
       "code": "truong.huynh1",
@@ -1806,7 +2285,10 @@
       "thumb": "/portraits/m16-web/thumbs/truong.huynh1.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.99
+      "photoScale": 0.99,
+      "joinedDate": "2021-12-01",
+      "daysWithMomo": 1815,
+      "teammates": 738
     },
     {
       "code": "truong.nguyen",
@@ -1817,7 +2299,10 @@
       "photo": "/portraits/m16-web/truong.nguyen.webp",
       "thumb": "/portraits/m16-web/thumbs/truong.nguyen.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-10-20",
+      "daysWithMomo": 1857,
+      "teammates": 738
     },
     {
       "code": "truong.phan",
@@ -1829,7 +2314,10 @@
       "thumb": "/portraits/m16-web/thumbs/truong.phan.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.94
+      "photoScale": 0.94,
+      "joinedDate": "2021-12-29",
+      "daysWithMomo": 1787,
+      "teammates": 29
     },
     {
       "code": "tuan.le5",
@@ -1840,7 +2328,10 @@
       "photo": "/portraits/m16-web/tuan.le5.webp",
       "thumb": "/portraits/m16-web/thumbs/tuan.le5.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-12-29",
+      "daysWithMomo": 1787,
+      "teammates": 738
     },
     {
       "code": "tuan.nguyen14",
@@ -1851,7 +2342,10 @@
       "photo": "/portraits/m16-web/tuan.nguyen14.webp",
       "thumb": "/portraits/m16-web/thumbs/tuan.nguyen14.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-02-08",
+      "daysWithMomo": 2111,
+      "teammates": 738
     },
     {
       "code": "tuan.pham1",
@@ -1862,7 +2356,10 @@
       "photo": "/portraits/m16-web/tuan.pham1.webp",
       "thumb": "/portraits/m16-web/thumbs/tuan.pham1.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-07-26",
+      "daysWithMomo": 1943,
+      "teammates": 738
     },
     {
       "code": "tuan.trinh",
@@ -1874,7 +2371,10 @@
       "thumb": "/portraits/m16-web/thumbs/tuan.trinh.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.95
+      "photoScale": 0.95,
+      "joinedDate": "2021-06-01",
+      "daysWithMomo": 1998,
+      "teammates": 738
     },
     {
       "code": "tuan.truong4",
@@ -1886,7 +2386,10 @@
       "thumb": "/portraits/m16-web/thumbs/tuan.truong4.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.96
+      "photoScale": 0.96,
+      "joinedDate": "2021-07-19",
+      "daysWithMomo": 1950,
+      "teammates": 738
     },
     {
       "code": "tue.tran",
@@ -1897,7 +2400,10 @@
       "photo": "/portraits/m16-web/tue.tran.webp",
       "thumb": "/portraits/m16-web/thumbs/tue.tran.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-09-20",
+      "daysWithMomo": 1887,
+      "teammates": 738
     },
     {
       "code": "tung.tran4",
@@ -1908,7 +2414,10 @@
       "photo": "/portraits/m16-web/tung.tran4.webp",
       "thumb": "/portraits/m16-web/thumbs/tung.tran4.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-09-08",
+      "daysWithMomo": 1899,
+      "teammates": 738
     },
     {
       "code": "tuyet.pham",
@@ -1919,7 +2428,10 @@
       "photo": "/portraits/m16-web/tuyet.pham.webp",
       "thumb": "/portraits/m16-web/thumbs/tuyet.pham.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-06-16",
+      "daysWithMomo": 1983,
+      "teammates": 20
     },
     {
       "code": "uyen.bui",
@@ -1931,7 +2443,10 @@
       "thumb": "/portraits/m16-web/thumbs/uyen.bui.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.97
+      "photoScale": 0.97,
+      "joinedDate": "2021-09-20",
+      "daysWithMomo": 1887,
+      "teammates": 738
     },
     {
       "code": "uyen.ly",
@@ -1942,7 +2457,10 @@
       "photo": "/portraits/m16-web/uyen.ly.webp",
       "thumb": "/portraits/m16-web/thumbs/uyen.ly.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-08-30",
+      "daysWithMomo": 1908,
+      "teammates": 738
     },
     {
       "code": "van.nguyen12",
@@ -1953,7 +2471,10 @@
       "photo": "/portraits/m16-web/van.nguyen12.webp",
       "thumb": "/portraits/m16-web/thumbs/van.nguyen12.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-11-01",
+      "daysWithMomo": 1845,
+      "teammates": 106
     },
     {
       "code": "viet.dinh",
@@ -1964,7 +2485,10 @@
       "photo": "/portraits/m16-web/viet.dinh.webp",
       "thumb": "/portraits/m16-web/thumbs/viet.dinh.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-05-04",
+      "daysWithMomo": 2026,
+      "teammates": 738
     },
     {
       "code": "vinh.le2",
@@ -1976,7 +2500,10 @@
       "thumb": "/portraits/m16-web/thumbs/vinh.le2.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.98
+      "photoScale": 0.98,
+      "joinedDate": "2021-08-18",
+      "daysWithMomo": 1920,
+      "teammates": 738
     },
     {
       "code": "xuan.nguyen2",
@@ -1987,7 +2514,10 @@
       "photo": "/portraits/m16-web/xuan.nguyen2.webp",
       "thumb": "/portraits/m16-web/thumbs/xuan.nguyen2.webp",
       "badge": "Cao thủ làng MoMo",
-      "joinedYear": 2021
+      "joinedYear": 2021,
+      "joinedDate": "2021-09-22",
+      "daysWithMomo": 1885,
+      "teammates": 738
     },
     {
       "code": "y.ton",
@@ -1999,7 +2529,10 @@
       "thumb": "/portraits/m16-web/thumbs/y.ton.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.95
+      "photoScale": 0.95,
+      "joinedDate": "2021-04-12",
+      "daysWithMomo": 2048,
+      "teammates": 738
     }
   ]
 }

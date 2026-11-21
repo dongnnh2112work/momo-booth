@@ -402,6 +402,9 @@ function cards(roster: RosterIndex, boothId: BoothId): RosterCard[] {
     thumb: person.thumb,
     badge: person.badge,
     joinedYear: person.joinedYear,
+    joinedDate: person.joinedDate,
+    daysWithMomo: person.daysWithMomo,
+    teammates: person.teammates,
     photoScale: person.photoScale,
   }));
 }
