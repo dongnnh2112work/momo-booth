@@ -192,6 +192,8 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.03em; }
   aspect-ratio: 2126 / 3780;
   container-type: size;
   overflow: hidden;
+  /* The phone panels center their text; the card keeps the TV's left-aligned lines. */
+  text-align: left;
   border-radius: 4.6% / 2.59%;
   background: #fde3ee url("/card/m16/bg.webp") center / 100% 100% no-repeat;
   color: #f95396;
