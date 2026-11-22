@@ -69,6 +69,49 @@ function FitLine({ className, text }: { className: string; text: string }) {
   );
 }
 
+// Name and department sit as one left-aligned block centered on the pink
+// panel, so long names no longer run off to the right. Both lines first shrink
+// to fit the widest the block may be (82% of the card); then the block takes
+// the width of its longest line, never less than the PSD rule (52.73%), and is
+// centered on the panel. Widths are in % of the card, so one measurement holds
+// at every card size.
+const PLATE_CENTER = 50.16;
+const PLATE_MIN = 52.73;
+
+function fitPlate(card: HTMLElement) {
+  card.style.removeProperty("--plate-left");
+  card.style.removeProperty("--plate-width");
+  const cardWidth = card.offsetWidth;
+  if (cardWidth <= 0) return;
+  let widest = PLATE_MIN;
+  for (const line of card.querySelectorAll<HTMLElement>(".pc__name, .pc__dept")) {
+    line.style.setProperty("--fit", "1");
+    const ratio = line.scrollWidth > 0 ? line.clientWidth / line.scrollWidth : 1;
+    if (ratio < 1) line.style.setProperty("--fit", String(Math.max(0.55, Math.floor(ratio * 1000) / 1000)));
+    const text = line.firstElementChild as HTMLElement | null;
+    if (text) widest = Math.max(widest, (text.offsetWidth / cardWidth) * 100);
+  }
+  const width = Math.min(widest + 0.5, 82);
+  card.style.setProperty("--plate-left", `${(PLATE_CENTER - width / 2).toFixed(3)}%`);
+  card.style.setProperty("--plate-width", `${width.toFixed(3)}%`);
+}
+
+function usePlate(text: string) {
+  const ref = useRef<HTMLElement>(null);
+  useLayoutEffect(() => {
+    let cancelled = false;
+    const run = () => {
+      if (!cancelled && ref.current) fitPlate(ref.current);
+    };
+    run();
+    void document.fonts?.ready.then(run);
+    return () => {
+      cancelled = true;
+    };
+  }, [text]);
+  return ref;
+}
+
 // Some portraits are framed wider than the PSD sample and would cover the copy
 // on the left; data/roster.json gives those a photoScale below 1.
 function photoScale(person: RosterCard): CSSProperties | undefined {
@@ -86,8 +129,9 @@ export function PersonCard({ person, hires = false }: { person: RosterCard; hire
   const teammates = positive(person.teammates);
   const joinedDate = formatDate(person.joinedDate);
   const joined = joinedDate || (person.joinedYear ? String(person.joinedYear) : "");
+  const plate = usePlate(`${person.name}\n${person.department}`);
   return (
-    <article className="pc">
+    <article className="pc" ref={plate}>
       <img
         className="pc__photo"
         src={hires ? person.photo : person.thumb || person.photo}
@@ -120,9 +164,13 @@ export function PersonCard({ person, hires = false }: { person: RosterCard; hire
       <img className="pc__podium" src="/card/m16/podium.webp" alt="" />
       <img className={`pc__years is-${art}`} src={YEAR_ART[art]} alt={String(person.years)} />
       <img className="pc__panel" src="/card/m16/panel.webp" alt="" />
-      <FitLine className="pc__name" text={person.name} />
+      <p className="pc__name">
+        <span>{person.name}</span>
+      </p>
       <span className="pc__rule" />
-      <FitLine className="pc__dept" text={person.department} />
+      <p className="pc__dept">
+        <span>{person.department}</span>
+      </p>
     </article>
   );
 }

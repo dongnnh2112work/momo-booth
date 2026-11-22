@@ -334,10 +334,13 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.03em; }
   z-index: 5;
 }
 
+/* Name, rule and department share one left edge; LoopCardMosaic's fitPlate
+   centers that block on the panel (--plate-left / --plate-width). Lines shrink
+   against the widest the block may be, 82%. */
 .pc__name,
 .pc__dept {
-  left: 15.07%;
-  width: 77%;
+  left: var(--plate-left, 9.16%);
+  width: var(--plate-width, 82%);
   overflow: hidden;
   z-index: 6;
   color: #fff;
@@ -358,9 +361,9 @@ h1, h2, h3 { font-weight: 700; letter-spacing: -0.03em; }
 }
 
 .pc__rule {
-  left: 15.52%;
+  left: calc(var(--plate-left, 9.16%) + 0.45%);
   top: 91.06%;
-  width: 52.73%;
+  width: calc(var(--plate-width, 82%) - 0.5%);
   height: 0.13%;
   z-index: 6;
   background: rgba(255, 255, 255, 0.85);
@@ -867,22 +870,13 @@ input {
   height: auto;
 }
 
-.ck__eyebrow {
-  margin: 22px 0 0;
-  color: var(--ck-pink);
-  font-family: "MoMo Trust Display", var(--font-be), sans-serif;
-  font-weight: 700;
-  font-size: 15px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
+/* One line like the TV caption ("5 năm cùng MoMo"); a longer title balances over two. */
 .ck__title {
-  margin: 6px 0 0;
-  padding-right: 13%;
+  margin: 22px 0 0;
   font-family: "MoMo Trust Display", var(--font-be), sans-serif;
   font-weight: 700;
-  font-size: clamp(30px, 9.6vw, 42px);
+  font-size: clamp(26px, 8.4vw, 38px);
+  text-wrap: balance;
   line-height: 1.12;
   letter-spacing: 0.02em;
 }

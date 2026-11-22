@@ -242,7 +242,6 @@ export function CheckinApp({
 
       <header className="ck__head">
         <img className="ck__logo" src="/card/m16/logo.webp" alt="MoMo M16 · The Power of Small" />
-        <p className="ck__eyebrow">{snapshot?.label ?? (shared ? "Check-in" : label)}</p>
         <h1 className="ck__title">
           <span>{snapshot?.title ?? (shared ? "Vinh danh MoMoer" : title)}</span>
         </h1>
@@ -328,9 +327,9 @@ export function CheckinApp({
 
         {showForm ? (
           <form className="ck__panel ck__form" onSubmit={(event) => void onSubmit(event)}>
-            <p className="ck__lede">Nhập mã nhân viên để ảnh của bạn lên đúng màn nhóm năm.</p>
+            <p className="ck__lede">Nhập domain để ảnh của bạn lên đúng màn nhóm năm.</p>
             <label className="ck__label" htmlFor="employee-code">
-              Mã nhân viên
+              Domain
             </label>
             <input
               id="employee-code"
@@ -344,7 +343,7 @@ export function CheckinApp({
               onChange={(event) => setCode(event.target.value)}
             />
             <button type="submit" className="ck__btn" disabled={busy || code.trim().length === 0}>
-              {busy ? "Đang gửi…" : "Check in"}
+              {busy ? "Đang gửi…" : "Tìm dấu ấn của bạn"}
             </button>
           </form>
         ) : null}

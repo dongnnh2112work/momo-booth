@@ -1358,9 +1358,25 @@
       "thumb": "/portraits/m16-web/thumbs/nguyen.phan3.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
+      "photoScale": 0.87,
       "joinedDate": "2021-12-20",
       "daysWithMomo": 1796,
       "teammates": 106
+    },
+    {
+      "code": "suong.nguyen1",
+      "boothId": "5-10",
+      "name": "Nguyễn Thị Tuyết Sương",
+      "department": "Marketing & Distribution Services",
+      "years": 5,
+      "photo": "/portraits/m16-web/suong.nguyen1.webp",
+      "thumb": "/portraits/m16-web/thumbs/suong.nguyen1.webp",
+      "badge": "Cao thủ làng MoMo",
+      "joinedYear": 2021,
+      "photoScale": 0.85,
+      "joinedDate": "2021-05-31",
+      "daysWithMomo": 1999,
+      "teammates": 122
     },
     {
       "code": "nhan.nguyen6",
