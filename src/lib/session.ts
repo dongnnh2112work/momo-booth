@@ -130,7 +130,7 @@ function describe(roster: RosterIndex, booth: BoothLive, slot: Slot, canControl:
       ? "Ảnh của bạn đang ở trên màn hình."
       : "Mã này đang được chiếu. Màn hình không đổi.";
     if (canControl && waitingBehind > 0) {
-      message = `Ảnh của bạn đang ở trên màn hình. Có ${waitingBehind} người đang chờ — bấm Chụp xong để nhường.`;
+      message = `Ảnh của bạn đang ở trên màn hình. Có ${waitingBehind} người đang chờ — bấm Hoàn thành để nhường.`;
     }
     return {
       status: "spotlight",
@@ -151,7 +151,7 @@ function describe(roster: RosterIndex, booth: BoothLive, slot: Slot, canControl:
   return {
     status: "queued",
     message: canControl
-      ? `Bạn là số ${position}. Màn hình giữ nguyên cho tới khi người trước bấm Chụp xong.`
+      ? `Bạn là số ${position}. Màn hình giữ nguyên cho tới khi người trước bấm Hoàn thành.`
       : `Mã này đang trong hàng chờ, vị trí ${position}.`,
     canControl,
     code: slot.code,

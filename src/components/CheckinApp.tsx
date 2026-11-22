@@ -261,15 +261,15 @@ export function CheckinApp({
               </div>
             ) : null}
             <p className="ck__meta">
-              Giữ màn tối đa <b>{formatRemain(live.person.endsAt - now)}</b>
+              Giữ màn hình trong <b>{formatRemain(live.person.endsAt - now)}</b>
             </p>
             {live.person.waitingBehind > 0 ? (
               <p className="ck__note">
-                Có {live.person.waitingBehind} người đang chờ. Chụp xong bấm nút để nhường màn nhé.
+                Có {live.person.waitingBehind} người đang chờ. Bấm Hoàn thành để nhường màn nhé.
               </p>
             ) : null}
             <button type="button" className="ck__btn" onClick={() => void finish()} disabled={!ready || busy}>
-              {ready ? "Chụp xong" : `Chụp xong sau ${formatRemain(live.person.minHoldUntil - now)}`}
+              {ready ? "Hoàn thành" : `Hoàn thành sau ${formatRemain(live.person.minHoldUntil - now)}`}
             </button>
           </section>
         ) : null}
