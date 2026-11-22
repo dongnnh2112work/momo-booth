@@ -239,10 +239,6 @@ export function CheckinApp({
   // with the snapshot clock, instead of staying frozen from the last check-in.
   const displayBanner = useMemo(() => {
     if (session?.canControl && live?.kind === "spotlight") {
-      const waiting = live.person.waitingBehind;
-      if (waiting > 0) {
-        return `Ảnh của bạn đang lên màn hình! ${waiting} người đang chờ, xong thì bấm Hoàn thành nhé.`;
-      }
       return "Ảnh của bạn đang lên màn hình!";
     }
     if (session?.canControl && live?.kind === "queued") {
@@ -279,11 +275,6 @@ export function CheckinApp({
             <p className="ck__meta">
               Giữ màn hình trong <b>{formatRemain(live.person.endsAt - now)}</b>
             </p>
-            {live.person.waitingBehind > 0 ? (
-              <p className="ck__note">
-                Có {live.person.waitingBehind} người đang chờ. Xong thì bấm Hoàn thành nhé.
-              </p>
-            ) : null}
             <button type="button" className="ck__btn" onClick={() => void finish()} disabled={!ready || busy}>
               {ready ? "Hoàn thành" : `Hoàn thành (${formatRemain(live.person.minHoldUntil - now)})`}
             </button>

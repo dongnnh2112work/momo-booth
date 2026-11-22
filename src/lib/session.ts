@@ -127,12 +127,9 @@ function describe(roster: RosterIndex, booth: BoothLive, slot: Slot, canControl:
   const name = personName(roster, slot.code);
   if (slot.kind === "spotlight" && booth.spotlight) {
     const waitingBehind = booth.queue.length;
-    let message = canControl
+    const message = canControl
       ? "Ảnh của bạn đang lên màn hình!"
       : "Mã này đang được chiếu. Màn hình không đổi.";
-    if (canControl && waitingBehind > 0) {
-      message = `Ảnh của bạn đang lên màn hình! ${waitingBehind} người đang chờ, xong thì bấm Hoàn thành nhé.`;
-    }
     return {
       status: "spotlight",
       message,
