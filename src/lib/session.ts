@@ -2,6 +2,7 @@ import { randomUUID } from "node:crypto";
 
 import { BOOTHS, BOOTH_IDS, type BoothId } from "./booths";
 import { normalizeCode } from "./codes";
+import { formatRemain } from "./format";
 import type { RosterIndex } from "./roster";
 import { COOLDOWN_MS, MAX_HOLD_MS, MIN_HOLD_MS, QUEUE_PREVIEW } from "./timing";
 import type {
@@ -126,12 +127,9 @@ function describe(roster: RosterIndex, booth: BoothLive, slot: Slot, canControl:
   const name = personName(roster, slot.code);
   if (slot.kind === "spotlight" && booth.spotlight) {
     const waitingBehind = booth.queue.length;
-    let message = canControl
-      ? "Ảnh của bạn đang ở trên màn hình."
+    const message = canControl
+      ? "Ảnh của bạn đang lên màn hình!"
       : "Mã này đang được chiếu. Màn hình không đổi.";
-    if (canControl && waitingBehind > 0) {
-      message = `Ảnh của bạn đang ở trên màn hình. Có ${waitingBehind} người đang chờ — bấm Chụp xong để nhường.`;
-    }
     return {
       status: "spotlight",
       message,
@@ -151,7 +149,7 @@ function describe(roster: RosterIndex, booth: BoothLive, slot: Slot, canControl:
   return {
     status: "queued",
     message: canControl
-      ? `Bạn là số ${position}. Màn hình giữ nguyên cho tới khi người trước bấm Chụp xong.`
+      ? `Bạn đang xếp thứ ${position}. Tới lượt bạn trong ${formatRemain(worstCaseEndsAt - now)}`
       : `Mã này đang trong hàng chờ, vị trí ${position}.`,
     canControl,
     code: slot.code,
