@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 
 import type { BoothId } from "@/lib/booths-shared";
-import { formatClock, formatRemain } from "@/lib/format";
+import { formatRemain } from "@/lib/format";
 import type { CheckinResponse, CheckinResult, PublicSnapshot, RosterCard } from "@/lib/types";
 import { PersonCard } from "./LoopCardMosaic";
 import { useBoothChannel } from "./useBoothChannel";
@@ -235,6 +235,22 @@ export function CheckinApp({
 
   const showForm = !controlling && !(session?.canControl && live?.kind === "away");
 
+  // Spotlight and queue banners are computed here so remaining wait can tick
+  // with the snapshot clock, instead of staying frozen from the last check-in.
+  const displayBanner = useMemo(() => {
+    if (session?.canControl && live?.kind === "spotlight") {
+      const waiting = live.person.waitingBehind;
+      if (waiting > 0) {
+        return `Ảnh của bạn đang lên màn hình! ${waiting} người đang chờ, xong thì bấm Hoàn thành nhé.`;
+      }
+      return "Ảnh của bạn đang lên màn hình!";
+    }
+    if (session?.canControl && live?.kind === "queued") {
+      return `Bạn đang xếp thứ ${live.item.position}. Tới lượt bạn trong ${formatRemain(live.item.worstCaseEndsAt - now)}`;
+    }
+    return banner;
+  }, [banner, live, now, session?.canControl]);
+
   return (
     <main className="ck">
       <img className="ck__band" src="/card/m16/band.webp" alt="" aria-hidden="true" />
@@ -249,7 +265,7 @@ export function CheckinApp({
 
       <div className="ck__body">
         <div role="status" aria-live="polite">
-          {banner ? <p className="ck__banner">{banner}</p> : null}
+          {displayBanner ? <p className="ck__banner">{displayBanner}</p> : null}
         </div>
 
         {live?.kind === "spotlight" && session?.canControl ? (
@@ -265,11 +281,11 @@ export function CheckinApp({
             </p>
             {live.person.waitingBehind > 0 ? (
               <p className="ck__note">
-                Có {live.person.waitingBehind} người đang chờ. Bấm Hoàn thành để nhường màn nhé.
+                Có {live.person.waitingBehind} người đang chờ. Xong thì bấm Hoàn thành nhé.
               </p>
             ) : null}
             <button type="button" className="ck__btn" onClick={() => void finish()} disabled={!ready || busy}>
-              {ready ? "Hoàn thành" : `Hoàn thành sau ${formatRemain(live.person.minHoldUntil - now)}`}
+              {ready ? "Hoàn thành" : `Hoàn thành (${formatRemain(live.person.minHoldUntil - now)})`}
             </button>
           </section>
         ) : null}
@@ -293,8 +309,7 @@ export function CheckinApp({
               <p className="ck__hello">Xin chào, {live.item.name}</p>
             )}
             <p className="ck__meta">
-              Màn hình đang giữ người phía trước. Trễ nhất <b>{formatClock(live.item.worstCaseEndsAt)}</b> (còn{" "}
-              {formatRemain(live.item.worstCaseEndsAt - now)}).
+              Tới lượt bạn trong <b>{formatRemain(live.item.worstCaseEndsAt - now)}</b>
             </p>
           </section>
         ) : null}
