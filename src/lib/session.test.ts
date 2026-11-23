@@ -113,13 +113,13 @@ assert.equal(tooSoon.ok, false);
 assert.equal(tooSoon.error, "too_soon");
 assert.equal(state.booths["5-10"].spotlight?.code, "A01");
 
-const wrongTicket = applyDone(state, "5-10", "not-the-ticket", T0 + MIN_HOLD_MS);
+const wrongTicket = applyDone(state, "5-10", "not-the-ticket", T0 + MIN_HOLD_MS - 1);
 assert.equal(wrongTicket.ok, false);
 assert.equal(wrongTicket.error, "forbidden");
 assert.equal(state.booths["5-10"].spotlight?.code, "A01");
 
-const done = applyDone(state, "5-10", ticketA, T0 + MIN_HOLD_MS);
-assert.equal(done.ok, true);
+// Turns are a fixed length now: the spotlight advances on its own at MAX_HOLD_MS.
+assert.equal(sweep(state, T0 + MAX_HOLD_MS), true);
 assert.equal(state.booths["5-10"].spotlight?.code, "A02");
 assert.equal(state.booths["5-10"].spotlight?.ticket, ticketB);
 assert.equal(state.booths["5-10"].queue.length, 0);
@@ -166,7 +166,8 @@ assert.equal(queued.booths["5-10"].queue.length, 0);
 
 const cooledState = emptyState();
 const held = join(cooledState, "5-10", "A01", CLIENT_A, T0);
-applyDone(cooledState, "5-10", held.result.ticket ?? "", T0 + MIN_HOLD_MS);
+assert.ok(held.result.ticket);
+sweep(cooledState, T0 + MAX_HOLD_MS);
 const rejoined = join(cooledState, "5-10", "A01", CLIENT_A, T0 + MIN_HOLD_MS + 20);
 assert.equal(rejoined.result.status, "spotlight");
 assert.equal(cooledState.booths["5-10"].spotlight?.code, "A01");
