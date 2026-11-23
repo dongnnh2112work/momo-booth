@@ -872,7 +872,8 @@
       "joinedYear": 2021,
       "joinedDate": "2021-12-01",
       "daysWithMomo": 1815,
-      "teammates": 61
+      "teammates": 61,
+      "hidden": true
     },
     {
       "code": "hung.pham4",
