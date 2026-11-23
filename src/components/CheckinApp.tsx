@@ -181,36 +181,7 @@ export function CheckinApp({
     }
   }
 
-  async function finish() {
-    if (!session?.ticket || busy) return;
-    setBusy(true);
-    try {
-      if (!boothId) return;
-      const response = await fetch(`/api/booths/${boothId}/done`, {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ ticket: session.ticket }),
-      });
-      const data = (await response.json()) as { ok?: boolean; message?: string; snapshot?: PublicSnapshot };
-      if (data.snapshot) setExtra(data.snapshot);
-      if (!response.ok || !data.ok) {
-        setBanner(data.message || "Chưa thể đóng lượt.");
-        return;
-      }
-      removeStore(passKey);
-      sessionRef.current = null;
-      setSession(null);
-      setFinished(true);
-      setBanner(data.message || "Đã xong. Cảm ơn bạn.");
-    } catch {
-      setBanner("Không gửi được. Thử lại giúp mình.");
-    } finally {
-      setBusy(false);
-    }
-  }
-
   const controlling = Boolean(session?.canControl && (live?.kind === "spotlight" || live?.kind === "queued"));
-  const ready = live?.kind === "spotlight" ? now >= live.person.minHoldUntil : false;
   const screenLabel = snapshot?.label ?? label;
 
   // The guest's own honor card, as it shows on the TV. Roster cards carry the
@@ -275,9 +246,6 @@ export function CheckinApp({
             <p className="ck__meta">
               Giữ màn hình trong <b>{formatRemain(live.person.endsAt - now)}</b>
             </p>
-            <button type="button" className="ck__btn" onClick={() => void finish()} disabled={!ready || busy}>
-              {ready ? "Hoàn thành" : `Hoàn thành (${formatRemain(live.person.minHoldUntil - now)})`}
-            </button>
           </section>
         ) : null}
 
