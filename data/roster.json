@@ -113,6 +113,7 @@
       "thumb": "/portraits/m16-web/thumbs/khoa.ngo.webp",
       "badge": "Nhân chứng lịch sử",
       "joinedYear": 2016,
+      "photoScale": 0.86,
       "joinedDate": "2016-09-30",
       "daysWithMomo": 3703,
       "teammates": 738
@@ -127,6 +128,7 @@
       "thumb": "/portraits/m16-web/thumbs/ngoc.doan.webp",
       "badge": "Nhân chứng lịch sử",
       "joinedYear": 2016,
+      "photoScale": 0.82,
       "joinedDate": "2016-02-15",
       "daysWithMomo": 3931,
       "teammates": 867
@@ -170,6 +172,7 @@
       "thumb": "/portraits/m16-web/thumbs/quan.le.webp",
       "badge": "Nhân chứng lịch sử",
       "joinedYear": 2016,
+      "photoScale": 0.8,
       "joinedDate": "2016-11-17",
       "daysWithMomo": 3655,
       "teammates": 738
@@ -1365,6 +1368,21 @@
       "teammates": 106
     },
     {
+      "code": "quang.vo1",
+      "boothId": "5-10",
+      "name": "Võ Thanh Trường Quang",
+      "department": "ITC",
+      "years": 5,
+      "photo": "/portraits/m16-web/quang.vo1.webp",
+      "thumb": "/portraits/m16-web/thumbs/quang.vo1.webp",
+      "badge": "Cao thủ làng MoMo",
+      "joinedYear": 2021,
+      "photoScale": 0.87,
+      "joinedDate": "2021-06-14",
+      "daysWithMomo": 1988,
+      "teammates": 738
+    },
+    {
       "code": "suong.nguyen1",
       "boothId": "5-10",
       "name": "Nguyễn Thị Tuyết Sương",
@@ -1474,7 +1492,7 @@
       "thumb": "/portraits/m16-web/thumbs/nhon.nguyen.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.94,
+      "photoScale": 0.82,
       "joinedDate": "2021-07-14",
       "daysWithMomo": 1955,
       "teammates": 61
@@ -2147,6 +2165,7 @@
       "thumb": "/portraits/m16-web/thumbs/tra.nguyen.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
+      "photoScale": 0.86,
       "joinedDate": "2021-01-04",
       "daysWithMomo": 2146,
       "teammates": 867
@@ -2276,6 +2295,7 @@
       "thumb": "/portraits/m16-web/thumbs/truc.nguyen5.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
+      "photoScale": 0.83,
       "joinedDate": "2021-10-20",
       "daysWithMomo": 1857,
       "teammates": 122
