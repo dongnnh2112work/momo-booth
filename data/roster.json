@@ -300,6 +300,7 @@
       "thumb": "/portraits/m16-web/thumbs/anh.nguyen37.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
+      "photoScale": 0.92,
       "joinedDate": "2021-10-11",
       "daysWithMomo": 1866,
       "teammates": 738
@@ -1522,6 +1523,7 @@
       "thumb": "/portraits/m16-web/thumbs/nhu.truong.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
+      "photoScale": 0.88,
       "joinedDate": "2021-06-21",
       "daysWithMomo": 1978,
       "teammates": 867
@@ -2556,7 +2558,7 @@
       "thumb": "/portraits/m16-web/thumbs/vinh.le2.webp",
       "badge": "Cao thủ làng MoMo",
       "joinedYear": 2021,
-      "photoScale": 0.98,
+      "photoScale": 0.89,
       "joinedDate": "2021-08-18",
       "daysWithMomo": 1920,
       "teammates": 738
